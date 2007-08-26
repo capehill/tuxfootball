@@ -1,0 +1,22 @@
+2007-08-26  Christoph Brill  <egore911@egore911.de>
+	* configure.ac: Autogenerate the file from Anjuta
+	* all: Import into SVN repository
+	* po: Add gettext support
+
+2005-11-03  Christoph Brill  <egore911@egore911.de>
+	* add "--with-data-dir" to configure
+	* manage that the binary can be in a different dir then the data
+	* manage to install data
+	* switch back to use README for AC_INIT
+
+2005-10-26  Christoph Brill  <egore911@egore911.de>
+	* change commandline parsing to print help on wrong parameters
+	* import new config.sub and config.guess
+	* change configure.in to correct version
+	* use src/main.cpp instead of README for AC_INIT
+
+2003-04-19  Unkown Author <unkown@mail.adress>
+
+	* Placed licensing headers on source code
+
+	* Initial commit to sourceforge.
