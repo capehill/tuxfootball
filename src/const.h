@@ -18,10 +18,7 @@
   $Id: const.h,v 1.1 2005/11/03 12:21:56 egore Exp $
 */
 
-#ifndef DATA_DIR
-# if defined( WIN32 )
-#  define DATA_DIR "./data"
-# else
-#  define DATA_DIR "/usr/local/share/tuxfootball"
-# endif /* defined( WIN32 ) */
-#endif
+#include <vector>
+#include <string>
+
+const std::string data_dir[] = { "./data", "/usr/local/share/tuxfootball" };

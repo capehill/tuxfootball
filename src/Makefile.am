@@ -59,7 +59,53 @@ tuxfootball_SOURCES = \
 	tilemap.cpp     \
 	videomenustate.cpp     \
 	videosettingsmenu.cpp     \
-	SFont.c
+	SFont.c     \
+	ball.h     \
+	body.h     \
+	camera.h     \
+	const.h     \
+	controller.h     \
+	extratimefirsthalfstate.h     \
+	extratimehalftimestate.h     \
+	extratimesecondhalfstate.h     \
+	extratimestate.h     \
+	firsthalfstate.h     \
+	fulltimestate.h     \
+	gameengine.h     \
+	graphics.h     \
+	halftimestate.h     \
+	mainmenu.h     \
+	mainmenustate.h     \
+	matchabortedstate.h     \
+	matchfinishedstate.h     \
+	matchstartstate.h     \
+	matrix.h     \
+	menu.h     \
+	menubutton.h     \
+	menuitem.h     \
+	menukeyselect.h     \
+	menulabel.h     \
+	menuoptionlist.h     \
+	nationalanthemstate.h     \
+	penaltyshootoutstate.h     \
+	pitch.h     \
+	player.h     \
+	point3d.h     \
+	rect.h     \
+	redefinekeysmenu.h     \
+	redefinekeysstate.h     \
+	secondhalfstate.h     \
+	segment.h     \
+	SFont.h     \
+	soundmanager.h     \
+	spriteobject.h     \
+	spritesequence.h     \
+	statebase.h     \
+	surfacemanager.h     \
+	team.h     \
+	tilemap.h     \
+	videomenustate.h     \
+	videosettingsmenu.h
 
 tuxfootball_LDFLAGS = \
 	$(SDL_LIBS)

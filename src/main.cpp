@@ -37,7 +37,7 @@ void die(const char *fmt, ...)
 
 int main(int argc, char *argv[])
 {
-	bool fullscreen = true;
+	bool fullscreen = false;
 	if(argc > 1) // first arg is path - we don't need it for now
 	for(int i = argc-1; i > 0; i--) {
 		if(argv[i][0] == '-') {

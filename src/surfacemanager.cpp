@@ -28,15 +28,11 @@ std::map<std::string, ManagedSurface> SurfaceManager::m_surfaces;
 
 SDL_Surface *SurfaceManager::loadImage(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha)
 {
-	std::string imagefile(DATA_DIR);
-	imagefile.append("/");
-	imagefile.append(filename);
-	
-	if(m_surfaces[imagefile].refCount == 0) {
-		return addImage(format, imagefile, colorKey, alpha);
+	if(m_surfaces[filename].refCount == 0) {
+		return addImage(format, filename, colorKey, alpha);
 	} else {
-		m_surfaces[imagefile].refCount++;
-		return m_surfaces[imagefile].surface;
+		m_surfaces[filename].refCount++;
+		return m_surfaces[filename].surface;
 	}
 }
 
@@ -67,9 +63,17 @@ SDL_Surface *SurfaceManager::addImage(SDL_PixelFormat *format, std::string filen
 	// Try and load any image format first. If that fails, try and force loading as TGA. If that fails,
 	// Crash 'n burn :-)
 
-	SDL_Surface *surf = IMG_Load(filename.c_str());
+	SDL_Surface *surf = 0;
+	int data_dirs = sizeof(data_dir)/sizeof(std::string);
+	for (int i = 0; i < data_dirs; i++) {
+		std::string imgfile = std::string(data_dir[i]);
+		imgfile.append("/");
+		imgfile.append(filename.c_str());
+		surf = IMG_Load(imgfile.c_str());
+		if (surf) break;
+	}
 
-	if(surf==NULL) {	
+	if (!surf) {	
 		SDL_RWops *rw = SDL_RWFromFile(filename.c_str(), "r");	
 		
 		if(rw==NULL) {
