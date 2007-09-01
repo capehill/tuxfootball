@@ -22,18 +22,18 @@
 #include <iostream>
 
 std::map<std::string, ManagedSound> SoundManager::m_sounds;
-	
-Mix_Chunk *SoundManager::loadSound(std::string filename)
+
+Mix_Chunk *SoundManager::load(std::string filename)
 {
 	if(m_sounds[filename].refCount == 0) {
-		return addSound(filename);
+		return add(filename);
 	} else {
 		m_sounds[filename].refCount++;
 		return m_sounds[filename].sound;
 	}
 }
 
-void SoundManager::releaseSound(Mix_Chunk *sound)
+void SoundManager::release(Mix_Chunk *sound)
 {
 	std::map<std::string, ManagedSound>::iterator itt;
 
@@ -55,7 +55,7 @@ void SoundManager::releaseSound(Mix_Chunk *sound)
 	std::cerr << "Tried to free a sound, could not be found." << std::endl;
 }
 
-Mix_Chunk *SoundManager::addSound(std::string filename)
+Mix_Chunk *SoundManager::add(std::string filename)
 {
 	Mix_Chunk *sound = 0;
 	int data_dirs = sizeof(data_dir)/sizeof(std::string);
@@ -63,7 +63,6 @@ Mix_Chunk *SoundManager::addSound(std::string filename)
 		std::string soundfile = std::string(data_dir[i]);
 		soundfile.append("/");
 		soundfile.append(filename.c_str());
-		std::cout << soundfile.c_str() << std::endl;
 		sound = Mix_LoadWAV(soundfile.c_str());
 		if (sound) break;
 	}

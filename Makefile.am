@@ -10,7 +10,8 @@ tuxfootballdoc_DATA = \
 	AUTHORS\
 	ChangeLog\
 	INSTALL\
-	NEWS
+	NEWS \
+	src/SFont-README
 
 EXTRA_DIST = $(tuxfootballdoc_DATA) \
 	$(data_DATA)

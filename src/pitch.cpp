@@ -54,10 +54,10 @@ Pitch::Pitch(Graphics *renderer)
 	if(m_renderer && (m_renderer->screen())) {
 		m_pitchLines = new TileMap(m_renderer->screen(), "graphics/pitchlines");
 
-		m_surface = SurfaceManager::loadImage(m_renderer->screen()->format, "graphics/pitchtile.png", false, false);
-		m_goalPostTop = SurfaceManager::loadImage(m_renderer->screen()->format, "graphics/goalposttop.tga", true, false);
-		m_goalPostBottom = SurfaceManager::loadImage(m_renderer->screen()->format, "graphics/goalpostbottom.tga", true, false);
-		m_scratch = SurfaceManager::loadImage(m_renderer->screen()->format, "graphics/scratch.png", true, false);
+		m_surface = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/pitchtile.png", false, false);
+		m_goalPostTop = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/goalposttop.tga", true, false);
+		m_goalPostBottom = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/goalpostbottom.tga", true, false);
+		m_scratch = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/scratch.png", true, false);
 
 		SDL_Rect sr = {-256, -150, 0, 0};
 		SDL_Rect sh = {0,0,0,0};
@@ -91,7 +91,7 @@ Pitch::Pitch(Graphics *renderer)
 
 Pitch::~Pitch()
 {
-	SurfaceManager::releaseImage(m_surface);
+	SurfaceManager::instance()->release(m_surface);
 
 	m_renderer->removeSprite(m_goalPostSpriteTop);
 	m_renderer->removeSprite(m_goalPostSpriteBottom);
@@ -99,9 +99,9 @@ Pitch::~Pitch()
 	delete m_goalPostSpriteTop;
 	delete m_goalPostSpriteBottom;
 	
-	SurfaceManager::releaseImage(m_goalPostTop);
-	SurfaceManager::releaseImage(m_goalPostBottom);
-	SurfaceManager::releaseImage(m_scratch);
+	SurfaceManager::instance()->release(m_goalPostTop);
+	SurfaceManager::instance()->release(m_goalPostBottom);
+	SurfaceManager::instance()->release(m_scratch);
 }
 
 bool Pitch::inBounds(int x, int y)

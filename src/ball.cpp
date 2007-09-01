@@ -39,8 +39,8 @@ Ball::Ball(Graphics *renderer, Pitch *pitch) :
 	m_pitch = pitch;
 	
 	if(m_renderer && m_renderer->screen()) {
-		m_football = SurfaceManager::loadImage(m_renderer->screen()->format, "graphics/football.tga", true, false);
-		m_shadow = SurfaceManager::loadImage(m_renderer->screen()->format, "graphics/footballshadow.tga", true, false);
+		m_football = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/football.tga", true, false);
+		m_shadow = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/footballshadow.tga", true, false);
 	} else {
 		std::cerr << "Error : Screen not defined - cannot initialise ball graphics" << std::endl;
 		m_football = NULL;
@@ -57,19 +57,19 @@ Ball::Ball(Graphics *renderer, Pitch *pitch) :
 	m_kickPriority = -1;
 	m_kickBy = 0;
 
-	m_bounce = SoundManager::loadSound("sound/bounce.wav");
-	m_kick = SoundManager::loadSound("sound/kick.wav");
-	m_rebound = SoundManager::loadSound("sound/bounce.wav");
+	m_bounce = SoundManager::instance()->load("sound/bounce.wav");
+	m_kick = SoundManager::instance()->load("sound/kick.wav");
+	m_rebound = SoundManager::instance()->load("sound/bounce.wav");
 }
 
 Ball::~Ball()
 {
-	if(m_football) SurfaceManager::releaseImage(m_football);
-	if(m_shadow) SurfaceManager::releaseImage(m_shadow);
+	if(m_football) SurfaceManager::instance()->release(m_football);
+	if(m_shadow) SurfaceManager::instance()->release(m_shadow);
 	if(m_object) delete m_object;
-	if(m_bounce) SoundManager::releaseSound(m_bounce);
-	if(m_kick) SoundManager::releaseSound(m_kick);
-	if(m_rebound) SoundManager::releaseSound(m_rebound);
+	if(m_bounce) SoundManager::instance()->release(m_bounce);
+	if(m_kick) SoundManager::instance()->release(m_kick);
+	if(m_rebound) SoundManager::instance()->release(m_rebound);
 }
 
 void Ball::move()

@@ -96,8 +96,8 @@ Player::~Player()
 	delete m_header;
 	delete m_tackle;
 	delete m_object;
-	SurfaceManager::releaseImage(m_shadow);
-	SurfaceManager::releaseImage(m_active);
+	SurfaceManager::instance()->release(m_shadow);
+	SurfaceManager::instance()->release(m_active);
 }
 
 void Player::update()
@@ -205,9 +205,9 @@ void Player::loadSpriteSurfaces(std::string skin, std::string playerMarker)
 								"graphics/"+skin+"/tackling", 12, false);
 		m_header = new SpriteSequence(m_renderer->screen()->format, 
 								"graphics/"+skin+"/header", 12, false);
-		m_shadow = SurfaceManager::loadImage(m_renderer->screen()->format, 
+		m_shadow = SurfaceManager::instance()->load(m_renderer->screen()->format, 
 								"graphics/shadow.tga", true, false);
-		m_active = SurfaceManager::loadImage(m_renderer->screen()->format, playerMarker, true, false);
+		m_active = SurfaceManager::instance()->load(m_renderer->screen()->format, playerMarker, true, false);
 	} else {
 		std::cerr << "Error - cannot load Player Sprite surfaces, problem with renderer" << std::endl;
 		m_walk = m_stand = m_run = m_tackle = NULL;

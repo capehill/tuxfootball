@@ -44,33 +44,33 @@ Menu::Menu(SDL_Surface *screen, std::string name)
 	// FIXME: GCC 4 issue m_active = 0;
 	
 	std::string str = "graphics/24P_Arial_NeonYellow.png";
-	m_activeFont = SurfaceManager::loadImage(m_screen->format, str, false, true);
+	m_activeFont = SurfaceManager::instance()->load(m_screen->format, str, false, true);
 	str = "graphics/24P_Copperplate_Blue.png";
-	m_inactiveFont  = SurfaceManager::loadImage(m_screen->format, str, false, true);
+	m_inactiveFont  = SurfaceManager::instance()->load(m_screen->format, str, false, true);
 
 	InitFont(m_inactiveFont);
 
-	m_logo = SurfaceManager::loadImage(screen->format, "graphics/tuxfootball.png", false, true);
-	m_background = SurfaceManager::loadImage(screen->format, "graphics/menu_background.png", false, true);
+	m_logo = SurfaceManager::instance()->load(screen->format, "graphics/tuxfootball.png", false, true);
+	m_background = SurfaceManager::instance()->load(screen->format, "graphics/menu_background.png", false, true);
 	
-	m_beep = SoundManager::loadSound("sound/beep.wav");
-	m_incrementBeep = SoundManager::loadSound("sound/increment_beep.wav");
-	m_decrementBeep = SoundManager::loadSound("sound/decrement_beep.wav");
-	m_selectBeep = SoundManager::loadSound("sound/select_beep.wav");
+	m_beep = SoundManager::instance()->load("sound/beep.wav");
+	m_incrementBeep = SoundManager::instance()->load("sound/increment_beep.wav");
+	m_decrementBeep = SoundManager::instance()->load("sound/decrement_beep.wav");
+	m_selectBeep = SoundManager::instance()->load("sound/select_beep.wav");
 
 	m_grabFocus = 0;
 }
 
 Menu::~Menu()
 {
-	if(m_logo) SurfaceManager::releaseImage(m_logo);
-	if(m_background) SurfaceManager::releaseImage(m_background);
-	if(m_activeFont) SurfaceManager::releaseImage(m_activeFont);
-	if(m_inactiveFont) SurfaceManager::releaseImage(m_inactiveFont);
-	if(m_beep) SoundManager::releaseSound(m_beep);
-	if(m_incrementBeep) SoundManager::releaseSound(m_incrementBeep);
-	if(m_decrementBeep) SoundManager::releaseSound(m_decrementBeep);
-	if(m_selectBeep) SoundManager::releaseSound(m_selectBeep);
+	if(m_logo) SurfaceManager::instance()->release(m_logo);
+	if(m_background) SurfaceManager::instance()->release(m_background);
+	if(m_activeFont) SurfaceManager::instance()->release(m_activeFont);
+	if(m_inactiveFont) SurfaceManager::instance()->release(m_inactiveFont);
+	if(m_beep) SoundManager::instance()->release(m_beep);
+	if(m_incrementBeep) SoundManager::instance()->release(m_incrementBeep);
+	if(m_decrementBeep) SoundManager::instance()->release(m_decrementBeep);
+	if(m_selectBeep) SoundManager::instance()->release(m_selectBeep);
 }
 
 void Menu::setPosition(Position pos, int x, int y)

@@ -37,6 +37,14 @@ class Menu;
 class Controller;
 class StateBase;
 
+/**
+ * \brief Central class holding together everything that is in the game
+ *
+ * This class is used to handle everything in the game. This includes the
+ * gamestate (where you are in menu, playing, watching a replay, etc.), the
+ * inpute, the objects, etc. Whatever is used in the game, this class ties
+ * it together.
+ */
 class GameEngine {
 public:
 	enum CameraFollows { CameraPattern, CameraBall };

@@ -105,14 +105,16 @@ tuxfootball_SOURCES = \
 	team.h     \
 	tilemap.h     \
 	videomenustate.h     \
-	videosettingsmenu.h
+	videosettingsmenu.h     \
+	resourcemanager.cpp     \
+	resourcemanager.h
 
 tuxfootball_LDFLAGS = \
 	$(SDL_LIBS)
 
-tuxfootball_CFLAGS = \
+tuxfootball_CFLAGS =            \
 	$(SDL_CFLAGS)
 
-tuxfootball_CXXFLAGS = \
+tuxfootball_CXXFLAGS =              \
 	$(SDL_CFLAGS)
 

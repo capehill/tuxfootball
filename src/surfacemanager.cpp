@@ -26,17 +26,21 @@
 
 std::map<std::string, ManagedSurface> SurfaceManager::m_surfaces;
 
-SDL_Surface *SurfaceManager::loadImage(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha)
+SDL_Surface *SurfaceManager::load(std::string filename) {
+	// FIXME: Dummy
+}
+
+SDL_Surface *SurfaceManager::load(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha)
 {
 	if(m_surfaces[filename].refCount == 0) {
-		return addImage(format, filename, colorKey, alpha);
+		return add(format, filename, colorKey, alpha);
 	} else {
 		m_surfaces[filename].refCount++;
 		return m_surfaces[filename].surface;
 	}
 }
 
-void SurfaceManager::releaseImage(SDL_Surface *surface)
+void SurfaceManager::release(SDL_Surface *surface)
 {
 	std::map<std::string, ManagedSurface>::iterator itt;
 
@@ -58,7 +62,11 @@ void SurfaceManager::releaseImage(SDL_Surface *surface)
 	std::cerr << "Tried to free a surface, could not be found." << std::endl;
 }
 
-SDL_Surface *SurfaceManager::addImage(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha)
+SDL_Surface *SurfaceManager::add(std::string filename) {
+	// FIXME: Dummy
+}
+
+SDL_Surface *SurfaceManager::add(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha)
 {
 	// Try and load any image format first. If that fails, try and force loading as TGA. If that fails,
 	// Crash 'n burn :-)

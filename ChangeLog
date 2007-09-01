@@ -1,3 +1,8 @@
+2007-09-01  Christoph Brill  <egore911@egore911.de>
+	* resourcemanager.cpp, resourcemanager.h, soundmanager.cpp,
+	soundmanager.h, surfacemanager.cpp, sourcefacemanager.h: Use singleton
+	and an abstract class for a common interface
+
 2007-08-26  Christoph Brill  <egore911@egore911.de>
 	* configure.ac: Autogenerate the file from Anjuta
 	* all: Import into SVN repository

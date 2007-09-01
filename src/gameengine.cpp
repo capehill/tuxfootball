@@ -48,7 +48,12 @@
 #include "matchabortedstate.h"
 #include "matchfinishedstate.h"
 #include "videomenustate.h"
-	
+#include "const.h"
+
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 Player *GameEngine::s_lastTouch=0;
 
 void GameEngine::setLastTouch(Player *player)
@@ -77,7 +82,8 @@ Team *GameEngine::otherTeam(Team *team)
 GameEngine::GameEngine(bool fullscreen) :
 	m_frameSpeed(10),
 	m_fullscreen(fullscreen)
-{	
+{
+
 	// Start audio.
 	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024)==-1) {
 		std::cout << "Warning - audio failed to start : " << Mix_GetError() << std::endl;
@@ -86,29 +92,30 @@ GameEngine::GameEngine(bool fullscreen) :
 		m_audioOpen = true;
 	}
 
-	m_sounds.push_back(SoundManager::loadSound("sound/refwhistlelong.wav"));
-
-	m_sounds.push_back(SoundManager::loadSound("sound/refwhistleshort.wav"));
-	m_sounds.push_back(SoundManager::loadSound("sound/refwhistletwice.wav"));
-	m_sounds.push_back(SoundManager::loadSound("sound/refwhistleend.wav"));
-	m_sounds.push_back(SoundManager::loadSound("sound/crowdcheer.wav"));
-	m_sounds.push_back(SoundManager::loadSound("sound/crowdboo.wav"));
-	m_sounds.push_back(SoundManager::loadSound("sound/crowdooh.wav"));
+	m_sounds.push_back(SoundManager::instance()->load("sound/refwhistlelong.wav"));
+	m_sounds.push_back(SoundManager::instance()->load("sound/refwhistleshort.wav"));
+	m_sounds.push_back(SoundManager::instance()->load("sound/refwhistletwice.wav"));
+	m_sounds.push_back(SoundManager::instance()->load("sound/refwhistleend.wav"));
+	m_sounds.push_back(SoundManager::instance()->load("sound/crowdcheer.wav"));
+	m_sounds.push_back(SoundManager::instance()->load("sound/crowdboo.wav"));
+	m_sounds.push_back(SoundManager::instance()->load("sound/crowdooh.wav"));
 
 	m_quitKey = SDLK_ESCAPE;
 	
 	m_resX = 800;
 	m_resY = 600;
-//	m_resX = 640;
-//	m_resY = 480;
 
 	uint sdl_flags = SDL_SWSURFACE;
 	if (m_fullscreen) sdl_flags |= SDL_FULLSCREEN;
 	m_screen = SDL_SetVideoMode(m_resX, m_resY, 16, sdl_flags);
-//	m_screen = SDL_SetVideoMode(m_resX, m_resY, 16, SDL_SWSURFACE);
+	#ifdef HAVE_CONFIG_H
+	SDL_WM_SetCaption(PACKAGE_STRING, NULL);
+	#else
+	SDL_WM_SetCaption("tuxfootball", NULL);
+	#endif
 	if ( m_screen == NULL ) {
 		m_finished = true;
-		std::cerr << "Unable to set 640x480 video: " << SDL_GetError() << std::endl;
+		std::cerr << "Unable to set " << m_resX << "x" << m_resY << " video: " << SDL_GetError() << std::endl;
 		m_pitch = NULL;
 		m_ball = NULL;
 		m_homeTeam = NULL;
@@ -117,31 +124,32 @@ GameEngine::GameEngine(bool fullscreen) :
 		m_nameFont = NULL;
 		m_scoreFont = NULL;
 	} else {
-		//
 		// Load Fonts
-		//
 		std::string str = "graphics/24P_Copperplate_Blue.png";
-		m_nameFont = SurfaceManager::loadImage(m_screen->format, str, false, true);
+		m_nameFont = SurfaceManager::instance()->load(m_screen->format, str, false, true);
 		str = "graphics/24P_Arial_NeonYellow.png";
-		m_scoreFont = SurfaceManager::loadImage(m_screen->format, str, false, true);
+		m_scoreFont = SurfaceManager::instance()->load(m_screen->format, str, false, true);
+
+		// Use the score font
 		InitFont(m_scoreFont);
-		
+
+		// Write out text to show our starting progress
 		PutString(m_screen, 10, 10, "Starting Renderer");
 		SDL_Flip(m_screen);
 		m_renderer = new Graphics(m_screen);
-		
+
 		PutString(m_screen, 10, 40, "Loading Pitch");
 		SDL_Flip(m_screen);
 		m_pitch = new Pitch(m_renderer);
-		
+
 		PutString(m_screen, 10, 70, "Loading Ball");
 		SDL_Flip(m_screen);
 		m_ball = new Ball(m_renderer, m_pitch);
-		
+
 		PutString(m_screen, 10, 100, "Loading Team 1");
 		SDL_Flip(m_screen);
 		m_homeTeam = new Team(this, "Blue Utd.", "team1", "graphics/homeplayermarker.tga", m_pitch, m_ball, true);
-		
+
 		PutString(m_screen, 10, 130, "Loading Team 2");
 		SDL_Flip(m_screen);
 		m_awayTeam = new Team(this, "Red City", "team2", "graphics/awayplayermarker.tga", m_pitch, m_ball, false);
@@ -157,7 +165,7 @@ GameEngine::GameEngine(bool fullscreen) :
 
 	m_homeController = new Controller(m_homeTeam, m_awayTeam, SDLK_UP, SDLK_DOWN, SDLK_LEFT, SDLK_RIGHT, SDLK_LSHIFT, SDLK_LCTRL, false, m_ball, m_pitch);
 	m_awayController = new Controller(m_awayTeam, m_homeTeam, SDLK_k, SDLK_j, SDLK_h, SDLK_l, SDLK_f, SDLK_g, true, m_ball, m_pitch);
-		
+
 	m_menu = 0;
 	m_logo = 0;
 	m_halfLength = 6000;
@@ -193,13 +201,13 @@ GameEngine::~GameEngine()
 	if(m_awayController) delete m_awayController;
 	if(m_renderer) delete m_renderer;
 
-	if(m_nameFont) SurfaceManager::releaseImage(m_nameFont);
-	if(m_scoreFont) SurfaceManager::releaseImage(m_scoreFont);
+	if(m_nameFont) SurfaceManager::instance()->release(m_nameFont);
+	if(m_scoreFont) SurfaceManager::instance()->release(m_scoreFont);
 
 	std::vector<Mix_Chunk *>::iterator it = m_sounds.begin();
 	while(it != m_sounds.end())
 	{
-		if(*it) SoundManager::releaseSound((*it));
+		if(*it) SoundManager::instance()->release((*it));
 		++it;
 	}
 	
@@ -216,6 +224,7 @@ GameEngine::~GameEngine()
 void GameEngine::gameLoop()
 {
 	static double totalFPSTime = 0;
+	m_music = 0;
 	
 	int nextTime = SDL_GetTicks();
 	m_camera.setPosition(Point3D(m_pitch->width()/2, m_pitch->height()-m_screen->h));
@@ -224,8 +233,6 @@ void GameEngine::gameLoop()
 	setState(TitleScreen);
 	initialiseMatch();
 	
-	m_music = 0;
-
 	do {
 		int startTime = SDL_GetTicks();
 		int currentTime;
@@ -593,22 +600,33 @@ void GameEngine::setMenu(Menu *menu)
 void GameEngine::setLogo(std::string logoImage)
 {
 	clearLogo();
-	m_logo = SurfaceManager::loadImage(m_screen->format, logoImage, false, true);
+	m_logo = SurfaceManager::instance()->load(m_screen->format, logoImage, false, true);
 }
 
 void GameEngine::clearLogo()
 {
 	if(m_logo) {
-		SurfaceManager::releaseImage(m_logo);
+		SurfaceManager::instance()->release(m_logo);
 		m_logo = 0;
 	}
 }
 
 void GameEngine::setMusic(std::string musicFile)
 {
-	if(m_music) Mix_FreeMusic(m_music);
+	if(m_music) {
+		Mix_FreeMusic(m_music);
+		m_music = 0;
+	}
 	if(m_audioOpen) {
-		m_music = Mix_LoadMUS(musicFile.c_str());
+		int data_dirs = sizeof(data_dir)/sizeof(std::string);
+		for (int i = 0; i < data_dirs; i++) {
+			std::string filename = std::string(data_dir[i]);
+			filename.append("/");
+			filename.append(musicFile.c_str());
+			m_music = Mix_LoadMUS(filename.c_str());
+			if (m_music) break;
+		}
+
 		if(m_music == 0) {
 			std::cout << "Warning - could not load Title music : " << Mix_GetError() << std::endl;
 		} else {

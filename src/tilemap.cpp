@@ -33,22 +33,19 @@ TileMap::TileMap(SDL_Surface *screen, std::string path)
 {
 	m_screen = screen;
 
-	std::ifstream *pTilemap = 0;
+	std::ifstream tilemap;
 	SDL_Surface *surf = 0;
 	int data_dirs = sizeof(data_dir)/sizeof(std::string);
 	for (int i = 0; i < data_dirs; i++) {
 		std::string datadir = std::string(data_dir[i]);
 		datadir.append("/");
-		std::ifstream tilemap((datadir+path+"/tile.map").c_str());
-		if (tilemap) {
-			pTilemap = &tilemap;
+		tilemap.open((datadir+path+"/tile.map").c_str(), std::ios::in);
+		if (tilemap.good()) {
 			break;
 		}
 	}
 
-	
-
-	if(!pTilemap) {
+	if(!tilemap.good()) {
 		std::cout << "Error - tile.map not found in " << path << std::endl;
 		return;
 	}
@@ -71,16 +68,16 @@ TileMap::TileMap(SDL_Surface *screen, std::string path)
 			char next;
 			std::ostringstream word;
 
-			next = pTilemap->get();
+			next = tilemap.get();
 			while(!isWhiteSpace(next)) {
 				word << next;
-				next = pTilemap->get();
+				next = tilemap.get();
 			}
 
-			next = pTilemap->peek();
+			next = tilemap.peek();
 			while(isWhiteSpace(next)) {
-				pTilemap->ignore();
-				next = pTilemap->peek();
+				tilemap.ignore();
+				next = tilemap.peek();
 			}
 			
 			if(word.str().compare(".") == 0) {
@@ -88,12 +85,12 @@ TileMap::TileMap(SDL_Surface *screen, std::string path)
 			} else {
 				std::ostringstream file;
 				file << path << "/tile" << word.str() << ".png";
-				setTileSurface(x, y,  SurfaceManager::loadImage(screen->format, file.str(), false, true));
+				setTileSurface(x, y,  SurfaceManager::instance()->load(screen->format, file.str(), false, true));
 			}
 		}
 	}
 
-	pTilemap->close();
+	tilemap.close();
 }
 
 TileMap::~TileMap()
@@ -101,7 +98,7 @@ TileMap::~TileMap()
 	std::vector<SDL_Surface *>::iterator itt = m_tileSurfaces.begin();
 
 	while(itt != m_tileSurfaces.end()) {
-		if(*itt) SurfaceManager::releaseImage(*itt);
+		if(*itt) SurfaceManager::instance()->release(*itt);
 		
 		++itt;
 	}

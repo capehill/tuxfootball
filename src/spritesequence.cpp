@@ -42,7 +42,7 @@ SpriteSequence::SpriteSequence(SDL_PixelFormat *format, std::string basename, in
 
 			filename = basename + filename + ".png";
 
-			sprite.surface[direction] = SurfaceManager::loadImage(m_format, filename, true, false);
+			sprite.surface[direction] = SurfaceManager::instance()->load(m_format, filename, true, false);
 		}
 		sprite.duration = 1;
 		m_seq.push_back(sprite);
@@ -58,7 +58,7 @@ SpriteSequence::~SpriteSequence()
 
 	for(itt = m_seq.begin(); itt!=m_seq.end(); ++itt) {
 		for(int count = 0; count<8; count++) {
-			SurfaceManager::releaseImage((*itt).surface[count]);
+			SurfaceManager::instance()->release((*itt).surface[count]);
 		}
 	}
 }

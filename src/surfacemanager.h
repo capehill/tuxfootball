@@ -21,24 +21,29 @@
 #ifndef TUXFOOTBALL_SURFACEMANAGER
 #define TUXFOOTBALL_SURFACEMANAGER
 
+#include "resourcemanager.h"
+
+#include <SDL.h>
 #include <string>
 #include <map>
 
-#include "SDL.h"
 
 struct ManagedSurface {
 	SDL_Surface *surface;
 	int refCount;
 };
 
-class SurfaceManager {
+class SurfaceManager : public ResourceManager<SDL_Surface, SurfaceManager> {
 public:
+	virtual SDL_Surface *load(std::string filename);
+
 	/** If colorKey is true, then the image will use the top-leftmost pixel as the color key. */
-	static SDL_Surface *loadImage(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha);
-	static void releaseImage(SDL_Surface *surface);
+	virtual SDL_Surface *load(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha);
+	virtual void release(SDL_Surface *surface);
+protected:
+	virtual SDL_Surface *add(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha);
+	virtual SDL_Surface *add(std::string filename);
 private:
-	static SDL_Surface *addImage(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha);
-	
 	static std::map<std::string, ManagedSurface> m_surfaces;
 	static Uint32 getPixel(SDL_Surface *surface, int x, int y);	
 };

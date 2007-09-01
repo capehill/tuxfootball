@@ -2,6 +2,7 @@
 .tm_project*
 .libs
 .deps
+.libs
 .*swp
 .nautilus-metafile.xml
 *.autosave
