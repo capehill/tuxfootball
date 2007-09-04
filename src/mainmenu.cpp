@@ -23,6 +23,7 @@
 #include "gameengine.h"
 
 #include <iostream>
+#include <libintl.h>
 
 MainMenu::MainMenu(GameEngine *gameEngine, Controller *home, Controller *away, SDL_Surface *screen, std::string name) :
 				Menu(screen, name),
@@ -31,22 +32,22 @@ MainMenu::MainMenu(GameEngine *gameEngine, Controller *home, Controller *away, S
 				m_away(away)
 {
 	addItem(new MenuButton(this, "Play Game!", "start"));
-	MenuOptionList *length = new MenuOptionList(this, "Half Length :", "halflength");
-	length->addOption("1 minute", 6000);
-	length->addOption("2 minutes", 12000);
-	length->addOption("5 minutes", 30000);
-	length->addOption("10 minutes", 60000);
-	length->addOption("20 minutes", 120000);
-	length->addOption("45 minutes", 270000);
+	MenuOptionList *length = new MenuOptionList(this, gettext("Half Length :"), "halflength");
+	length->addOption(gettext("1 minute"), 6000);
+	length->addOption(gettext("2 minutes"), 12000);
+	length->addOption(gettext("5 minutes"), 30000);
+	length->addOption(gettext("10 minutes"), 60000);
+	length->addOption(gettext("20 minutes"), 120000);
+	length->addOption(gettext("45 minutes"), 270000);
 	addItem(length);
-	MenuOptionList *who = new MenuOptionList(this, "Players :", "players");
-	who->addOption("Player V Computer", 1);
-	who->addOption("Player V Player", 3);
-	who->addOption("Computer V Computer", 0);	
+	MenuOptionList *who = new MenuOptionList(this, gettext("Players :"), "players");
+	who->addOption(gettext("Player V Computer"), 1);
+	who->addOption(gettext("Player V Player"), 3);
+	who->addOption(gettext("Computer V Computer"), 0);	
 	addItem(who);
-	addItem(new MenuButton(this, "Video Settings", "video"));
-	addItem(new MenuButton(this, "Redefine Keys", "redefine"));
-	addItem(new MenuButton(this, "Exit", "exit"));
+	addItem(new MenuButton(this, gettext("Video Settings"), "video"));
+	addItem(new MenuButton(this, gettext("Redefine Keys"), "redefine"));
+	addItem(new MenuButton(this, gettext("Exit"), "exit"));
 }
 
 MainMenu::~MainMenu()

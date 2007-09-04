@@ -15,6 +15,10 @@
  *                                                                         *
  ***************************************************************************/
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <iostream>
 	
 #include "gameengine.h"
@@ -49,10 +53,6 @@
 #include "matchfinishedstate.h"
 #include "videomenustate.h"
 #include "const.h"
-
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
 
 Player *GameEngine::s_lastTouch=0;
 
@@ -134,23 +134,23 @@ GameEngine::GameEngine(bool fullscreen) :
 		InitFont(m_scoreFont);
 
 		// Write out text to show our starting progress
-		PutString(m_screen, 10, 10, "Starting Renderer");
+		PutString(m_screen, 10, 10, gettext("Starting Renderer"));
 		SDL_Flip(m_screen);
 		m_renderer = new Graphics(m_screen);
 
-		PutString(m_screen, 10, 40, "Loading Pitch");
+		PutString(m_screen, 10, 40, gettext("Loading Pitch"));
 		SDL_Flip(m_screen);
 		m_pitch = new Pitch(m_renderer);
 
-		PutString(m_screen, 10, 70, "Loading Ball");
+		PutString(m_screen, 10, 70, gettext("Loading Ball"));
 		SDL_Flip(m_screen);
 		m_ball = new Ball(m_renderer, m_pitch);
 
-		PutString(m_screen, 10, 100, "Loading Team 1");
+		PutString(m_screen, 10, 100, gettext("Loading Team 1"));
 		SDL_Flip(m_screen);
 		m_homeTeam = new Team(this, "Blue Utd.", "team1", "graphics/homeplayermarker.tga", m_pitch, m_ball, true);
 
-		PutString(m_screen, 10, 130, "Loading Team 2");
+		PutString(m_screen, 10, 130, gettext("Loading Team 2"));
 		SDL_Flip(m_screen);
 		m_awayTeam = new Team(this, "Red City", "team2", "graphics/awayplayermarker.tga", m_pitch, m_ball, false);
 	}

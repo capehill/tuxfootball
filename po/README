@@ -1,0 +1,5 @@
+Update the string from the sources:
+intltool-update --pot --gettext-package=tuxfootball
+
+Update your language file
+intltool-update XX

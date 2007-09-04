@@ -18,10 +18,18 @@
   $Id: main.cpp,v 1.3 2005/10/26 19:00:54 egore Exp $
 */
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
+#include <libintl.h>
+#include <locale.h>
+
+#include <iostream>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "SDL.h"
+#include <SDL.h>
 
 #include "gameengine.h"
 
@@ -37,6 +45,13 @@ void die(const char *fmt, ...)
 
 int main(int argc, char *argv[])
 {
+#ifdef HAVE_CONFIG_H
+	bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
+	textdomain (GETTEXT_PACKAGE);
+#else
+	std::cout << "Gettext support not available due to missing config.h support" << std::endl;
+#endif
+
 	bool fullscreen = false;
 	if(argc > 1) // first arg is path - we don't need it for now
 	for(int i = argc-1; i > 0; i--) {
@@ -54,13 +69,13 @@ int main(int argc, char *argv[])
 		}
 	}
 
-  if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) == -1)
-    die("Couldn't initialize SDL: %s\n", SDL_GetError());
-  atexit(SDL_Quit);
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) == -1)
+		die("Couldn't initialize SDL: %s\n", SDL_GetError());
+	atexit(SDL_Quit);
 
-  GameEngine engine(fullscreen);		
+	GameEngine engine(fullscreen);		
 
-  engine.gameLoop();
+	engine.gameLoop();
 
-  return 0;
+	return 0;
 }
