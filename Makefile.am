@@ -1,7 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 ## Created by Anjuta
 
-SUBDIRS = src po
+SUBDIRS = src po \
+	data
 
 tuxfootballdocdir = ${prefix}/doc/tuxfootball
 tuxfootballdoc_DATA = \

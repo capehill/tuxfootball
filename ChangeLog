@@ -1,3 +1,7 @@
+2007-09-05  Christoph Brill  <egore911@egore911.de>
+	* configure.ac, Makefile.am, +data/Makefile.am: Hopefully handle data
+	correctly to be used in make install
+
 2007-09-01  Christoph Brill  <egore911@egore911.de>
 	* resourcemanager.cpp, resourcemanager.h, soundmanager.cpp,
 	soundmanager.h, surfacemanager.cpp, sourcefacemanager.h: Use singleton

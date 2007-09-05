@@ -13,6 +13,7 @@
 *.gladep
 *.la
 *.lo
+*.log
 *.o
 *.class
 *.pyc

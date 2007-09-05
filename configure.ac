@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
-AC_INIT(tuxfootball, 0.1.1)
+AC_INIT(tuxfootball, 0.1.1, http://tuxfootball.sourceforge.net/)
 
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AM_CONFIG_HEADER(config.h)
@@ -46,4 +46,6 @@ AC_OUTPUT([
 Makefile
 src/Makefile
 po/Makefile.in
+data/Makefile
+data/graphics/Makefile
 ])
