@@ -2540,13 +2540,13 @@ team2_DATA = \
 	team2/walking0384.png
 
 team2dir = \
-	$(graphicsdir)/team2
+	$(pkgdatadir)/graphics/team2
 
 pitchlinesdir = \
-	$(graphicsdir)/pitchlines
+	$(pkgdatadir)/graphics/pitchlines
 
 team1dir = \
-	$(graphicsdir)/team1
+	$(pkgdatadir)/graphics/team1
 
 ## File created by the gnome-build tools
 
