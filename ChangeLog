@@ -1,3 +1,6 @@
+2007-11-18  Christoph Brill  <egore911@egore911.de>
+	* configure.ac: add some missing things gathered from running autoscan
+
 2007-09-07  Christoph Brill  <egore911@egore911.de>
 	* data/graphics/Makefile.am: fix install paths so that make distcheck
 	passes and the data is actually installed
