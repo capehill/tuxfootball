@@ -1,5 +1,7 @@
+[encoding: UTF-8]
 # List of source files containing translatable strings.
-
+# Please keep this file sorted alphabetically.
+src/gameengine.cpp
 src/main.cpp
 src/mainmenu.cpp
-src/gameengine.cpp
+src/mainmenustate.cpp

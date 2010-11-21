@@ -16,6 +16,12 @@
  ***************************************************************************/
 
 #include <iostream>
+#ifdef HAVE_GETTEXT
+#include <libintl.h>
+#define _(String) gettext (String)
+#else
+#define _(String) (String)
+#endif
 	
 #include "mainmenustate.h"
 #include "gameengine.h"
@@ -54,7 +60,7 @@ void MainMenuState::updateLoop()
 			if(menu->cancelled()) {
 				std::cout << "menu cancelled" << std::endl;
 				m_engine.setFinished(true);
-			} else if(menu->selected()->text() == "Play Game!") {
+			} else if(menu->selected()->text() == _("Play Game!")) {
 				m_engine.setState(GameEngine::MatchStart);
 			} else if(menu->selected()->text() == "Redefine Keys") {
 				m_engine.setState(GameEngine::RedefineKeysScreen);

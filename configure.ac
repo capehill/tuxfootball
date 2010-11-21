@@ -19,6 +19,7 @@ AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_RANLIB
+IT_PROG_INTLTOOL([0.35.0])
 
 # Checks for libraries.
 PKG_CHECK_MODULES(SDL, [sdl >= 1.2.0])
@@ -51,17 +52,18 @@ dnl ***************************************************************************
 dnl Internatinalization
 dnl ***************************************************************************
 AC_CHECK_HEADERS([libintl.h])
-GETTEXT_PACKAGE=tuxfootball
+GETTEXT_PACKAGE=AC_PACKAGE_NAME
 AC_SUBST(GETTEXT_PACKAGE)
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
+AC_DEFINE(GETTEXT_PACKAGE, "AC_PACKAGE_NAME", [foo])
+
 AM_GLIB_GNU_GETTEXT
-IT_PROG_INTLTOOL([0.35.0])
 
 AM_PROG_LIBTOOL
 
 AC_CONFIG_FILES([Makefile
                  data/Makefile
                  data/graphics/Makefile
+                 po/Makefile.in
                  src/Makefile])
 AC_OUTPUT
 

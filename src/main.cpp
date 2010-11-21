@@ -45,8 +45,9 @@ void die(const char *fmt, ...)
 
 int main(int argc, char *argv[])
 {
-#ifdef HAVE_CONFIG_H
+#ifdef HAVE_GETTEXT
 	bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
+	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 #else
 	std::cout << "Gettext support not available due to missing config.h support" << std::endl;

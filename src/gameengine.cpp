@@ -20,7 +20,12 @@
 #endif
 
 #include <iostream>
+#ifdef HAVE_GETTEXT
 #include <libintl.h>
+#define _(String) gettext (String)
+#else
+#define _(String) (String)
+#endif
 	
 #include "gameengine.h"
 #include "surfacemanager.h"
@@ -135,23 +140,23 @@ GameEngine::GameEngine(bool fullscreen) :
 		InitFont(m_scoreFont);
 
 		// Write out text to show our starting progress
-		PutString(m_screen, 10, 10, gettext("Starting Renderer"));
+		PutString(m_screen, 10, 10, _("Starting Renderer"));
 		SDL_Flip(m_screen);
 		m_renderer = new Graphics(m_screen);
 
-		PutString(m_screen, 10, 40, gettext("Loading Pitch"));
+		PutString(m_screen, 10, 40, _("Loading Pitch"));
 		SDL_Flip(m_screen);
 		m_pitch = new Pitch(m_renderer);
 
-		PutString(m_screen, 10, 70, gettext("Loading Ball"));
+		PutString(m_screen, 10, 70, _("Loading Ball"));
 		SDL_Flip(m_screen);
 		m_ball = new Ball(m_renderer, m_pitch);
 
-		PutString(m_screen, 10, 100, gettext("Loading Team 1"));
+		PutString(m_screen, 10, 100, _("Loading Team 1"));
 		SDL_Flip(m_screen);
 		m_homeTeam = new Team(this, "Blue Utd.", "team1", "graphics/homeplayermarker.tga", m_pitch, m_ball, true);
 
-		PutString(m_screen, 10, 130, gettext("Loading Team 2"));
+		PutString(m_screen, 10, 130, _("Loading Team 2"));
 		SDL_Flip(m_screen);
 		m_awayTeam = new Team(this, "Red City", "team2", "graphics/awayplayermarker.tga", m_pitch, m_ball, false);
 	}
