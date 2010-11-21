@@ -20,6 +20,7 @@
 #endif
 
 #include <iostream>
+#include <libintl.h>
 	
 #include "gameengine.h"
 #include "surfacemanager.h"
