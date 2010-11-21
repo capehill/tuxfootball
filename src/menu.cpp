@@ -46,7 +46,7 @@ Menu::Menu(SDL_Surface *screen, std::string name)
 	
 	std::string str = "graphics/24P_Arial_NeonYellow.png";
 	m_activeFont = FontManager::instance()->load(m_screen->format, str, false, true);
-	str = "graphics/24P_Copperplate_Blue.png";
+	str = "graphics/24P_Arial_NeonBlue.png";
 	m_inactiveFont = FontManager::instance()->load(m_screen->format, str, false, true);
 
 	m_logo = SurfaceManager::instance()->load(screen->format, "graphics/tuxfootball.png", false, true);

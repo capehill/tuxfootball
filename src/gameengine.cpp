@@ -132,7 +132,7 @@ GameEngine::GameEngine(bool fullscreen) :
 		m_scoreFont = NULL;
 	} else {
 		// Load Fonts
-		std::string str = "graphics/24P_Copperplate_Blue.png";
+		std::string str = "graphics/24P_Arial_NeonBlue.png";
 		m_nameFont = FontManager::instance()->load(m_screen->format, str, false, true);
 		str = "graphics/24P_Arial_NeonYellow.png";
 		m_scoreFont = FontManager::instance()->load(m_screen->format, str, false, true);
