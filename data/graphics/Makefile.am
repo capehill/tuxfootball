@@ -594,11 +594,6 @@ pitchlines_DATA = \
 	pitchlines/tile590.png \
 	pitchlines/tile591.png
 
-EXTRA_DIST = \
-	$(pitchlines_DATA)\
-	$(team1_DATA) \
-	$(team2_DATA)
-
 team1_DATA = \
 	team1/header0001.png\
 	team1/header0002.png \
@@ -2538,6 +2533,13 @@ team2_DATA = \
 	team2/walking0382.png \
 	team2/walking0383.png \
 	team2/walking0384.png
+
+EXTRA_DIST = \
+	homeplayermarker.png \
+	homeplayermarker.png \
+	$(pitchlines_DATA)\
+	$(team1_DATA) \
+	$(team2_DATA)
 
 team2dir = \
 	$(pkgdatadir)/graphics/team2

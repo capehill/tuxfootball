@@ -154,11 +154,11 @@ GameEngine::GameEngine(bool fullscreen) :
 
 		PutString(m_screen, 10, 100, _("Loading Team 1"));
 		SDL_Flip(m_screen);
-		m_homeTeam = new Team(this, "Blue Utd.", "team1", "graphics/homeplayermarker.tga", m_pitch, m_ball, true);
+		m_homeTeam = new Team(this, "Blue Utd.", "team1", "graphics/homeplayermarker.png", m_pitch, m_ball, true);
 
 		PutString(m_screen, 10, 130, _("Loading Team 2"));
 		SDL_Flip(m_screen);
-		m_awayTeam = new Team(this, "Red City", "team2", "graphics/awayplayermarker.tga", m_pitch, m_ball, false);
+		m_awayTeam = new Team(this, "Red City", "team2", "graphics/awayplayermarker.png", m_pitch, m_ball, false);
 	}
 
 	SDL_Rect r = {m_resX/2, m_resY/2, m_pitch->width()-(m_resX), m_pitch->height()-(m_resY)};

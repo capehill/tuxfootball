@@ -62,9 +62,9 @@ void MainMenuState::updateLoop()
 				m_engine.setFinished(true);
 			} else if(menu->selected()->text() == _("Play Game!")) {
 				m_engine.setState(GameEngine::MatchStart);
-			} else if(menu->selected()->text() == "Redefine Keys") {
+			} else if(menu->selected()->text() == _("Redefine Keys")) {
 				m_engine.setState(GameEngine::RedefineKeysScreen);
-			} else if(menu->selected()->text() == "Video Settings") {
+			} else if(menu->selected()->text() == _("Video Settings")) {
 				m_engine.setState(GameEngine::VideoSettingsMenu);
 			} else {
 				std::cout << "unknown menu selection" << std::endl;

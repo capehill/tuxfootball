@@ -16,6 +16,12 @@
  ***************************************************************************/
 
 #include <iostream>
+#ifdef HAVE_GETTEXT
+#include <libintl.h>
+#define _(String) gettext (String)
+#else
+#define _(String) (String)
+#endif
 	
 #include "redefinekeysstate.h"
 #include "gameengine.h"
@@ -58,7 +64,7 @@ void RedefineKeysState::initialiseRedefineMenu()
 	
 	Menu *menu = new RedefineKeysMenu(m_engine.controller(GameEngine::HomeController),
 					 m_engine.controller(GameEngine::AwayController),
-					 m_engine.screen(), "Redefine Keys");
+					 m_engine.screen(), _("Redefine Keys"));
 	menu->show();
 	m_engine.setMenu(menu);
 	m_engine.setLogo("graphics/tuxfootball.png");
