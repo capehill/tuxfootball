@@ -67,7 +67,7 @@ void MainMenuState::updateLoop()
 			} else if(menu->selected()->text() == _("Video Settings")) {
 				m_engine.setState(GameEngine::VideoSettingsMenu);
 			} else {
-				std::cout << "unknown menu selection" << std::endl;
+				std::cout << "unknown menu selection " << menu->selected()->text() << std::endl;
 				m_engine.setFinished(true);
 			}
 		}

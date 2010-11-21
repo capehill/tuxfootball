@@ -80,21 +80,21 @@ int MenuOptionList::currentOptionValue() const
 	}
 }
 
-int MenuOptionList::width()
+int MenuOptionList::width(SFont* font)
 {
-	return TextWidth(text().c_str());
+	return font->getTextWidth(text().c_str());
 }
 
-int MenuOptionList::maximumWidth()
+int MenuOptionList::maximumWidth(SFont* font)
 {
-	if(!isOption()) return width();
+	if(!isOption()) return width(font);
 	
 	int maxWidth = 0;
 
 	std::list<MenuOption>::iterator itt;
 
 	for(itt=m_optionList.begin(); itt!=m_optionList.end(); ++itt) {
-		int testWidth =  TextWidth(calculateTextString((*itt).text).c_str());
+		int testWidth = font->getTextWidth(calculateTextString((*itt).text).c_str());
 
 		if(testWidth > maxWidth) {
 			maxWidth = testWidth;

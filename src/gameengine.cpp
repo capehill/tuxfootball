@@ -29,8 +29,9 @@
 	
 #include "gameengine.h"
 #include "surfacemanager.h"
+#include "fontmanager.h"
 #include "soundmanager.h"
-#include "SFont.h"
+#include "Font.hpp"
 #include "controller.h"
 
 #include "menu.h"
@@ -132,31 +133,28 @@ GameEngine::GameEngine(bool fullscreen) :
 	} else {
 		// Load Fonts
 		std::string str = "graphics/24P_Copperplate_Blue.png";
-		m_nameFont = SurfaceManager::instance()->load(m_screen->format, str, false, true);
+		m_nameFont = FontManager::instance()->load(m_screen->format, str, false, true);
 		str = "graphics/24P_Arial_NeonYellow.png";
-		m_scoreFont = SurfaceManager::instance()->load(m_screen->format, str, false, true);
-
-		// Use the score font
-		InitFont(m_scoreFont);
+		m_scoreFont = FontManager::instance()->load(m_screen->format, str, false, true);
 
 		// Write out text to show our starting progress
-		PutString(m_screen, 10, 10, _("Starting Renderer"));
+		m_scoreFont->write(m_screen, _("Starting Renderer"), 10, 10);
 		SDL_Flip(m_screen);
 		m_renderer = new Graphics(m_screen);
 
-		PutString(m_screen, 10, 40, _("Loading Pitch"));
+		m_scoreFont->write(m_screen, _("Loading Pitch"), 10, 40);
 		SDL_Flip(m_screen);
 		m_pitch = new Pitch(m_renderer);
 
-		PutString(m_screen, 10, 70, _("Loading Ball"));
+		m_scoreFont->write(m_screen, _("Loading Ball"), 10, 70);
 		SDL_Flip(m_screen);
 		m_ball = new Ball(m_renderer, m_pitch);
 
-		PutString(m_screen, 10, 100, _("Loading Team 1"));
+		m_scoreFont->write(m_screen, _("Loading Team 1"), 10, 100);
 		SDL_Flip(m_screen);
 		m_homeTeam = new Team(this, "Blue Utd.", "team1", "graphics/homeplayermarker.png", m_pitch, m_ball, true);
 
-		PutString(m_screen, 10, 130, _("Loading Team 2"));
+		m_scoreFont->write(m_screen, _("Loading Team 2"), 10, 130);
 		SDL_Flip(m_screen);
 		m_awayTeam = new Team(this, "Red City", "team2", "graphics/awayplayermarker.png", m_pitch, m_ball, false);
 	}
@@ -207,8 +205,8 @@ GameEngine::~GameEngine()
 	if(m_awayController) delete m_awayController;
 	if(m_renderer) delete m_renderer;
 
-	if(m_nameFont) SurfaceManager::instance()->release(m_nameFont);
-	if(m_scoreFont) SurfaceManager::instance()->release(m_scoreFont);
+	if(m_nameFont) FontManager::instance()->release(m_nameFont);
+	if(m_scoreFont) FontManager::instance()->release(m_scoreFont);
 
 	std::vector<Mix_Chunk *>::iterator it = m_sounds.begin();
 	while(it != m_sounds.end())
@@ -388,35 +386,29 @@ void GameEngine::drawFrame()
 		// Draw Score
 		//
 	
-		InitFont(m_scoreFont);
-	
 		std::ostringstream str1;
 		std::ostringstream str2;
 	
 		str1 << m_homeScore;
 		str2 << m_awayScore;	
 	
-		int scoreWidth = TextWidth(str1.str().c_str());
-		scoreWidth = (scoreWidth < TextWidth(str2.str().c_str())) ? scoreWidth : TextWidth(str2.str().c_str());
+		int scoreWidth = m_scoreFont->getTextWidth(str1.str().c_str());
+		scoreWidth = (scoreWidth < m_scoreFont->getTextWidth(str2.str().c_str())) ? scoreWidth : m_scoreFont->getTextWidth(str2.str().c_str());
 		scoreWidth += 20;
 
 		int sm = m_screen->w/2;
 
-		PutString(m_screen, sm - scoreWidth, m_screen->h-34, str1.str().c_str());
-		PutString(m_screen, sm + 20, m_screen->h-34, str2.str().c_str());
+		m_scoreFont->write(m_screen, str1.str().c_str(), sm - scoreWidth, m_screen->h-34);
+		m_scoreFont->write(m_screen, str2.str().c_str(), sm + 20, m_screen->h-34);
 	
-		InitFont(m_nameFont);
-		
-		PutString(m_screen, 
-			  sm - scoreWidth - TextWidth(m_homeTeam->name().c_str())-20, m_screen->h-34,
-			  m_homeTeam->name().c_str());
-		PutString(m_screen, 
-			  sm+scoreWidth+20, m_screen->h-34, m_awayTeam->name().c_str());
+		m_nameFont->write(m_screen, m_homeTeam->name().c_str(), 
+			  sm - scoreWidth - m_nameFont->getTextWidth(m_homeTeam->name().c_str())-20, m_screen->h-34);
+		m_nameFont->write(m_screen, m_awayTeam->name().c_str(), 
+			  sm+scoreWidth+20, m_screen->h-34);
 
 		//
 		// Draw Time
 		//
-		InitFont(m_scoreFont);
 		std::ostringstream str3;
 		int minutes = ((2700 * m_timer)/m_halfLength)%60;
 	
@@ -425,18 +417,17 @@ void GameEngine::drawFrame()
 		} else {
 			str3 << ((2700 * m_timer)/m_halfLength)/60 << ":" << ((2700 * m_timer)/m_halfLength)%60;
 		}
-		PutString(m_screen, 10, 10, str3.str().c_str());
+		m_scoreFont->write(m_screen, str3.str().c_str(), 10, 10);
 	}
 
 	//
 	// Draw frames per second
 	// 
 	if(m_displayFPS) {
-		InitFont(m_scoreFont);
 
 		std::ostringstream str4;
 		str4 << "FPS : " << m_framesPerSecond;
-		PutString(m_screen, m_screen->w - 10 - TextWidth(str4.str().c_str()), 10, str4.str().c_str());
+		m_scoreFont->write(m_screen, str4.str().c_str(), m_screen->w - 10 - m_scoreFont->getTextWidth(str4.str().c_str()), 10);
 	}
 	
 

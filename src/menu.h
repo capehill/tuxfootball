@@ -25,6 +25,7 @@
 
 #include "SDL.h"
 #include "SDL_mixer.h"
+#include "Font.hpp"
 
 class MenuItem;
 
@@ -101,8 +102,8 @@ private:
 	int m_menuPadding_w;
 	int m_menuPadding_h;
 
-	SDL_Surface *m_activeFont;
-	SDL_Surface *m_inactiveFont;
+	SFont *m_activeFont;
+	SFont *m_inactiveFont;
 	
 	SDL_Surface *m_screen;
 	SDL_Surface *m_logo;

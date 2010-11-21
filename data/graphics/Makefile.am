@@ -2535,10 +2535,6 @@ team2_DATA = \
 	team2/walking0384.png
 
 EXTRA_DIST = \
-	football.png \
-	footballshadow.png \
-	homeplayermarker.png \
-	homeplayermarker.png \
 	$(pitchlines_DATA)\
 	$(team1_DATA) \
 	$(team2_DATA)

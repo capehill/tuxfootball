@@ -15,10 +15,11 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <iostream>
+
 #include "menu.h"
 #include "menubutton.h"
-#include "SFont.h"
-#include <iostream>
+#include "Font.hpp"
 
 MenuButton::MenuButton(Menu *menu, std::string name, std::string identifier) :
 				MenuItem(menu, name, identifier)
@@ -58,14 +59,14 @@ int MenuButton::currentOptionValue() const
 	return -1;
 }
 
-int MenuButton::width()
+int MenuButton::width(SFont* font)
 {
-	return TextWidth(text().c_str());
+	return font->getTextWidth(text().c_str());
 }
 
-int MenuButton::maximumWidth()
+int MenuButton::maximumWidth(SFont* font)
 {
-	return width();
+	return width(font);
 }
 
 std::string MenuButton::text() const

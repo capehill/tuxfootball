@@ -18,9 +18,10 @@
 #include <iostream>
 
 #include "menu.h"
+#include "fontmanager.h"
 #include "surfacemanager.h"
 #include "soundmanager.h"
-#include "SFont.h"
+#include "Font.hpp"
 
 Menu::Menu(SDL_Surface *screen, std::string name)
 {
@@ -44,11 +45,9 @@ Menu::Menu(SDL_Surface *screen, std::string name)
 	// FIXME: GCC 4 issue m_active = 0;
 	
 	std::string str = "graphics/24P_Arial_NeonYellow.png";
-	m_activeFont = SurfaceManager::instance()->load(m_screen->format, str, false, true);
+	m_activeFont = FontManager::instance()->load(m_screen->format, str, false, true);
 	str = "graphics/24P_Copperplate_Blue.png";
-	m_inactiveFont  = SurfaceManager::instance()->load(m_screen->format, str, false, true);
-
-	InitFont(m_inactiveFont);
+	m_inactiveFont = FontManager::instance()->load(m_screen->format, str, false, true);
 
 	m_logo = SurfaceManager::instance()->load(screen->format, "graphics/tuxfootball.png", false, true);
 	m_background = SurfaceManager::instance()->load(screen->format, "graphics/menu_background.png", false, true);
@@ -65,8 +64,8 @@ Menu::~Menu()
 {
 	if(m_logo) SurfaceManager::instance()->release(m_logo);
 	if(m_background) SurfaceManager::instance()->release(m_background);
-	if(m_activeFont) SurfaceManager::instance()->release(m_activeFont);
-	if(m_inactiveFont) SurfaceManager::instance()->release(m_inactiveFont);
+	if(m_activeFont) FontManager::instance()->release(m_activeFont);
+	if(m_inactiveFont) FontManager::instance()->release(m_inactiveFont);
 	if(m_beep) SoundManager::instance()->release(m_beep);
 	if(m_incrementBeep) SoundManager::instance()->release(m_incrementBeep);
 	if(m_decrementBeep) SoundManager::instance()->release(m_decrementBeep);
@@ -212,15 +211,11 @@ void Menu::draw()
 	int curY = m_menuBounds.y + m_menuPadding_h;
 	int midX = m_menuBounds.x + (m_menuBounds.w/2);
 	
-	InitFont(m_inactiveFont);
-	
 	for(itt = m_itemList.begin(); itt!=m_itemList.end(); ++itt) {
 		if(itt == m_active) {
-			InitFont(m_activeFont);
-			(*(*itt))->draw(m_menuBounds.x, curY, m_menuBounds.w, m_screen);
-			InitFont(m_inactiveFont);
+			(*(*itt))->draw(m_activeFont, m_menuBounds.x, curY, m_menuBounds.w, m_screen);
 		} else {
-			(*(*itt))->draw(m_menuBounds.x, curY, m_menuBounds.w, m_screen);
+			(*(*itt))->draw(m_inactiveFont, m_menuBounds.x, curY, m_menuBounds.w, m_screen);
 		}
 		curY += (*(*itt))->height();
 	}
@@ -234,8 +229,8 @@ void Menu::calculateMenuBounds()
 	m_menuBounds.h = m_menuPadding_h*2;
 
 	for(itt = m_itemList.begin(); itt!=m_itemList.end(); ++itt) {
-		if(m_menuBounds.w < (*(*itt))->maximumWidth()) {
-			m_menuBounds.w = (*(*itt))->maximumWidth();
+		if(m_menuBounds.w < (*(*itt))->maximumWidth(m_activeFont)) {
+			m_menuBounds.w = (*(*itt))->maximumWidth(m_activeFont);
 		}
 		m_menuBounds.h += (*(*itt))->height();
 	}

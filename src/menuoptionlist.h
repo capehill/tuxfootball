@@ -41,8 +41,8 @@ public:
 	void addOption(std::string option, int value);
 	std::string currentOptionText() const;
 	int currentOptionValue() const;
-	int width();
-	int maximumWidth();
+	int width(SFont* font);
+	int maximumWidth(SFont* font);
 	std::string text() const;
 	void selectOption(std::string option);
 	void selectOption(int value);	

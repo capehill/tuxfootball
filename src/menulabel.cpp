@@ -16,10 +16,10 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <iostream>
+
 #include "menu.h"
 #include "menulabel.h"
-#include "SFont.h"
-#include <iostream>
 
 MenuLabel::MenuLabel(Menu *menu, std::string name, std::string identifier) :
 				MenuItem(menu, name, identifier)
@@ -59,14 +59,14 @@ int MenuLabel::currentOptionValue() const
 	return -1;
 }
 
-int MenuLabel::width()
+int MenuLabel::width(SFont* font)
 {
-	return TextWidth(text().c_str());
+	return font->getTextWidth(text().c_str());
 }
 
-int MenuLabel::maximumWidth()
+int MenuLabel::maximumWidth(SFont* font)
 {
-	return width();
+	return width(font);
 }
 
 std::string MenuLabel::text() const
@@ -105,9 +105,9 @@ int MenuLabel::height()
 	return 40;
 }
 
-void MenuLabel::draw(int x, int y, int wid, SDL_Surface *screen) 
+void MenuLabel::draw(SFont* font, int x, int y, int wid, SDL_Surface *screen) 
 {
 	int midX = x + (wid/2);
 	
-	PutString(screen, midX - (width()/2), y+10, text().c_str());	
+	font->write(screen, text().c_str(), midX - (width(font)/2), y+10);	
 }

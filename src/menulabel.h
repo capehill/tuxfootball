@@ -35,9 +35,9 @@ public:
 	std::string name() const;
 	int currentOptionValue() const;
 	std::string currentOptionText() const;
-	int width();
+	int width(SFont* font);
 	int height();
-	int maximumWidth();
+	int maximumWidth(SFont* font);
 	std::string text() const;
 	bool isOption() const;
 	std::string identifier() const;
@@ -45,7 +45,7 @@ public:
 	void rightPressed();
 	void selectPressed();
 	void update(Uint8 *keys);
-	void draw(int x, int y, int wid, SDL_Surface *screen);
+	void draw(SFont* font, int x, int y, int wid, SDL_Surface *screen);
 private:
 	std::string m_name;
 	std::string m_identifier;

@@ -20,6 +20,7 @@
 
 #include "SDL.h"
 #include "SDL_mixer.h"
+#include "Font.hpp"
 
 #include "ball.h"
 #include "pitch.h"
@@ -168,8 +169,8 @@ private: // attributes
 	int m_awayScore;
 	uint m_halfLength;
 
-	SDL_Surface *m_nameFont;
-	SDL_Surface *m_scoreFont;
+	SFont* m_nameFont;
+	SFont* m_scoreFont;
 	
 	Camera m_camera;
 

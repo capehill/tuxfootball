@@ -23,6 +23,7 @@ tuxfootball_SOURCES = \
 	extratimesecondhalfstate.cpp     \
 	extratimestate.cpp     \
 	firsthalfstate.cpp     \
+	fontmanager.cpp \
 	fulltimestate.cpp     \
 	gameengine.cpp     \
 	graphics.cpp     \
@@ -70,6 +71,8 @@ tuxfootball_SOURCES = \
 	extratimesecondhalfstate.h     \
 	extratimestate.h     \
 	firsthalfstate.h     \
+	Font.hpp \
+	fontmanager.h \
 	fulltimestate.h     \
 	gameengine.h     \
 	graphics.h     \

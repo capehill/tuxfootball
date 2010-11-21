@@ -34,8 +34,8 @@ public:
 	std::string name() const;
 	int currentOptionValue() const;
 	std::string currentOptionText() const;
-	int width();
-	int maximumWidth();
+	int width(SFont* font);
+	int maximumWidth(SFont* font);
 	std::string text() const;
 	bool isOption() const;
 	std::string identifier() const;

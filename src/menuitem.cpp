@@ -74,9 +74,9 @@ int MenuItem::height()
 	return 30;
 }
 
-void MenuItem::draw(int x, int y, int wid, SDL_Surface *screen) 
+void MenuItem::draw(SFont* font, int x, int y, int wid, SDL_Surface *screen) 
 {
 	int midX = x + (wid/2);
 	
-	PutString(screen, midX - (width()/2), y, text().c_str());
+	font->write(screen, text().c_str(), midX - (width(font)/2), y);
 }

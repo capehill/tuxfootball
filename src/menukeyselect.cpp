@@ -60,14 +60,14 @@ int MenuKeySelect::currentOptionValue() const
 	return -1;
 }
 
-int MenuKeySelect::width()
+int MenuKeySelect::width(SFont* font)
 {
-	return TextWidth(text().c_str());
+	return font->getTextWidth(text().c_str());
 }
 
-int MenuKeySelect::maximumWidth()
+int MenuKeySelect::maximumWidth(SFont* font)
 {
-	return width();
+	return width(font);
 }
 
 std::string MenuKeySelect::text() const

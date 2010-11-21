@@ -2,16 +2,16 @@
 graphics_DATA = \
 	graphics/24P_Arial_NeonYellow.png\
 	graphics/24P_Copperplate_Blue.png \
-	graphics/awayplayermarker.tga \
-	graphics/football.tga \
-	graphics/footballshadow.tga \
+	graphics/awayplayermarker.png \
+	graphics/football.png \
+	graphics/footballshadow.png \
 	graphics/foul.png \
 	graphics/fulltime.png \
 	graphics/goal.png \
 	graphics/goalpostbottom.tga \
 	graphics/goalposttop.tga \
 	graphics/halftime.png \
-	graphics/homeplayermarker.tga \
+	graphics/homeplayermarker.png \
 	graphics/menu_background.png \
 	graphics/penalty.png \
 	graphics/pitchtile.png \
