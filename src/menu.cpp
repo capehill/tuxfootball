@@ -44,9 +44,9 @@ Menu::Menu(SDL_Surface *screen, std::string name)
 
 	// FIXME: GCC 4 issue m_active = 0;
 	
-	std::string str = "graphics/24P_Arial_NeonYellow.png";
+	std::string str = "graphics/font_white.png";
 	m_activeFont = FontManager::instance()->load(m_screen->format, str, false, true);
-	str = "graphics/24P_Arial_NeonBlue.png";
+	str = "graphics/font_yellow.png";
 	m_inactiveFont = FontManager::instance()->load(m_screen->format, str, false, true);
 
 	m_logo = SurfaceManager::instance()->load(screen->format, "graphics/tuxfootball.png", false, true);
