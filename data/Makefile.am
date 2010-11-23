@@ -1,8 +1,8 @@
 
 graphics_DATA = \
-	graphics/24P_Arial_NeonYellow.png\
-	graphics/24P_Copperplate_Blue.png \
 	graphics/awayplayermarker.png \
+	graphics/font_white.png\
+	graphics/font_yellow.png \
 	graphics/football.png \
 	graphics/footballshadow.png \
 	graphics/foul.png \
