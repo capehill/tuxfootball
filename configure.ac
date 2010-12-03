@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
 AC_PREREQ([2.67])
-AC_INIT([tuxfootball], [0.1.1], http://tuxfootball.sourceforge.net/)
+AC_INIT([tuxfootball], [0.3.0], http://tuxfootball.sourceforge.net/)
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION, [dist-bzip2])
