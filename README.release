@@ -1,0 +1,16 @@
+This document describes how to perform a Tux Football release.
+
+Linux
+-----
+
+Build the game by
+# make distclean; ./autogen.sh && make distcheck
+
+Ubuntu / Debian
+---------------
+
+initial layout using
+# dh_make -s -n -p tuxfootball_0.3.0 -e egore911@egore911.de -f tuxfootball-0.3.0.tar.gz
+
+debchange to note changes
+

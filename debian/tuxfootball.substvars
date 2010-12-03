@@ -1,0 +1,2 @@
+shlibs:Depends=libc6 (>= 2.4), libgcc1 (>= 1:4.1.1), libsdl-image1.2 (>= 1.2.10), libsdl-mixer1.2 (>= 1.2.6), libsdl1.2debian (>= 1.2.10-1), libstdc++6 (>= 4.4.0)
+misc:Depends=

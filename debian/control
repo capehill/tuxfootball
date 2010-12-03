@@ -1,0 +1,16 @@
+Source: tuxfootball
+Section: games
+Priority: extra
+Maintainer: Christoph Brill <egore911@egore911.de>
+Build-Depends: debhelper (>= 7.0.50~), autotools-dev, libsdl1.2-dev, libsdl-mixer1.2-dev, libsdl-image1.2-dev
+Standards-Version: 3.9.1
+Homepage: http://tuxfootball.sourceforge.net
+Vcs-Git: git://tuxfootball.git.sourceforge.net/gitroot/tuxfootball/tuxfootball
+Vcs-Browser: http://tuxfootball.git.sourceforge.net/git/gitweb.cgi?p=tuxfootball/tuxfootball;a=summary
+
+Package: tuxfootball
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: a 2D football/soccer game
+ Tux Football is a 2D soccer (sometimes called football) game using old school
+ gameplay with up to date graphics.
