@@ -5,4 +5,4 @@ src/gameengine.cpp
 src/main.cpp
 src/mainmenu.cpp
 src/mainmenustate.cpp
-src/redefinekeystate.cpp
+src/redefinekeysstate.cpp
