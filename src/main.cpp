@@ -22,14 +22,20 @@
 #include "config.h"
 #endif
 
+#ifdef HAVE_GETTEXT
 #include <libintl.h>
 #include <locale.h>
+#endif
 
 #include <iostream>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL.h>
+
+#ifdef _WIN32
+#include "windows.h"
+#endif
 
 #include "gameengine.h"
 
@@ -74,9 +80,92 @@ int main(int argc, char *argv[])
 		die("Couldn't initialize SDL: %s\n", SDL_GetError());
 	atexit(SDL_Quit);
 
-	GameEngine engine(fullscreen);		
+	GameEngine engine(fullscreen);
 
 	engine.gameLoop();
 
 	return 0;
 }
+
+#ifdef _WIN32
+/* Taken from http://www.flipcode.com/archives/WinMain_Command_Line_Parser.shtml */
+int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, char* command_line, int show_command)
+{
+
+    int    argc;
+    char** argv;
+
+    char*  arg;
+    int    index;
+    int    result;
+
+    // count the arguments
+
+    argc = 1;
+    arg  = command_line;
+
+    while (arg[0] != 0) {
+
+        while (arg[0] != 0 && arg[0] == ' ') {
+            arg++;
+        }
+
+        if (arg[0] != 0) {
+
+            argc++;
+
+            while (arg[0] != 0 && arg[0] != ' ') {
+                arg++;
+            }
+
+        }
+
+    }
+
+    // tokenize the arguments
+
+    argv = (char**)malloc(argc * sizeof(char*));
+
+    arg = command_line;
+    index = 1;
+
+    while (arg[0] != 0) {
+
+        while (arg[0] != 0 && arg[0] == ' ') {
+            arg++;
+        }
+
+        if (arg[0] != 0) {
+
+            argv[index] = arg;
+            index++;
+
+            while (arg[0] != 0 && arg[0] != ' ') {
+                arg++;
+            }
+
+            if (arg[0] != 0) {
+                arg[0] = 0;
+                arg++;
+            }
+
+        }
+
+    }
+
+    // put the program name into argv[0]
+
+    char filename[_MAX_PATH];
+
+    GetModuleFileName(NULL, filename, _MAX_PATH);
+    argv[0] = filename;
+
+    // call the user specified main function
+
+    result = main(argc, argv);
+
+    free(argv);
+    return result;
+
+}
+#endif
