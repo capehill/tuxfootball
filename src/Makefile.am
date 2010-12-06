@@ -11,6 +11,10 @@ AM_CFLAGS =\
 	 -Wall\
 	 -g
 
+AM_CPPFLAGS = \
+	 -Wall\
+	 -g
+
 bin_PROGRAMS = tuxfootball
 
 tuxfootball_SOURCES = \
