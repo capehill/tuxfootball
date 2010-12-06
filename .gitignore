@@ -35,3 +35,7 @@ tuxfootball
 .anjuta_sym_db.db
 *.tar.gz
 *.tar.bz2
+lib
+bin
+tuxfootball.layout
+tuxfootball.depend

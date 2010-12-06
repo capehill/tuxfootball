@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="tuxfootball" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin\Debug\tuxfootball" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="lib\SDL" />
+					<Add directory="Z:\usr\include\SDL" />
+				</Compiler>
+				<Linker>
+					<Add library="SDL" />
+					<Add library="SDL_mixer" />
+					<Add library="SDL_image" />
+					<Add directory="lib" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\tuxfootball" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="src\SFont.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src\SFont.h" />
+		<Unit filename="src\ball.cpp" />
+		<Unit filename="src\ball.h" />
+		<Unit filename="src\body.cpp" />
+		<Unit filename="src\body.h" />
+		<Unit filename="src\camera.cpp" />
+		<Unit filename="src\camera.h" />
+		<Unit filename="src\const.h" />
+		<Unit filename="src\controller.cpp" />
+		<Unit filename="src\controller.h" />
+		<Unit filename="src\extratimefirsthalfstate.cpp" />
+		<Unit filename="src\extratimefirsthalfstate.h" />
+		<Unit filename="src\extratimehalftimestate.cpp" />
+		<Unit filename="src\extratimehalftimestate.h" />
+		<Unit filename="src\extratimesecondhalfstate.cpp" />
+		<Unit filename="src\extratimesecondhalfstate.h" />
+		<Unit filename="src\extratimestate.cpp" />
+		<Unit filename="src\extratimestate.h" />
+		<Unit filename="src\firsthalfstate.cpp" />
+		<Unit filename="src\firsthalfstate.h" />
+		<Unit filename="src\fontmanager.cpp" />
+		<Unit filename="src\fontmanager.h" />
+		<Unit filename="src\fulltimestate.cpp" />
+		<Unit filename="src\fulltimestate.h" />
+		<Unit filename="src\gameengine.cpp" />
+		<Unit filename="src\gameengine.h" />
+		<Unit filename="src\graphics.cpp" />
+		<Unit filename="src\graphics.h" />
+		<Unit filename="src\halftimestate.cpp" />
+		<Unit filename="src\halftimestate.h" />
+		<Unit filename="src\main.cpp" />
+		<Unit filename="src\mainmenu.cpp" />
+		<Unit filename="src\mainmenu.h" />
+		<Unit filename="src\mainmenustate.cpp" />
+		<Unit filename="src\mainmenustate.h" />
+		<Unit filename="src\matchabortedstate.cpp" />
+		<Unit filename="src\matchabortedstate.h" />
+		<Unit filename="src\matchfinishedstate.cpp" />
+		<Unit filename="src\matchfinishedstate.h" />
+		<Unit filename="src\matchstartstate.cpp" />
+		<Unit filename="src\matchstartstate.h" />
+		<Unit filename="src\matrix.cpp" />
+		<Unit filename="src\matrix.h" />
+		<Unit filename="src\menu.cpp" />
+		<Unit filename="src\menu.h" />
+		<Unit filename="src\menubutton.cpp" />
+		<Unit filename="src\menubutton.h" />
+		<Unit filename="src\menuitem.cpp" />
+		<Unit filename="src\menuitem.h" />
+		<Unit filename="src\menukeyselect.cpp" />
+		<Unit filename="src\menukeyselect.h" />
+		<Unit filename="src\menulabel.cpp" />
+		<Unit filename="src\menulabel.h" />
+		<Unit filename="src\menuoptionlist.cpp" />
+		<Unit filename="src\menuoptionlist.h" />
+		<Unit filename="src\nationalanthemstate.cpp" />
+		<Unit filename="src\nationalanthemstate.h" />
+		<Unit filename="src\penaltyshootoutstate.cpp" />
+		<Unit filename="src\penaltyshootoutstate.h" />
+		<Unit filename="src\pitch.cpp" />
+		<Unit filename="src\pitch.h" />
+		<Unit filename="src\player.cpp" />
+		<Unit filename="src\player.h" />
+		<Unit filename="src\point3d.cpp" />
+		<Unit filename="src\point3d.h" />
+		<Unit filename="src\rect.cpp" />
+		<Unit filename="src\rect.h" />
+		<Unit filename="src\redefinekeysmenu.cpp" />
+		<Unit filename="src\redefinekeysmenu.h" />
+		<Unit filename="src\redefinekeysstate.cpp" />
+		<Unit filename="src\redefinekeysstate.h" />
+		<Unit filename="src\resourcemanager.cpp" />
+		<Unit filename="src\resourcemanager.h" />
+		<Unit filename="src\secondhalfstate.cpp" />
+		<Unit filename="src\secondhalfstate.h" />
+		<Unit filename="src\segment.cpp" />
+		<Unit filename="src\segment.h" />
+		<Unit filename="src\soundmanager.cpp" />
+		<Unit filename="src\soundmanager.h" />
+		<Unit filename="src\spriteobject.cpp" />
+		<Unit filename="src\spriteobject.h" />
+		<Unit filename="src\spritesequence.cpp" />
+		<Unit filename="src\spritesequence.h" />
+		<Unit filename="src\statebase.cpp" />
+		<Unit filename="src\statebase.h" />
+		<Unit filename="src\surfacemanager.cpp" />
+		<Unit filename="src\surfacemanager.h" />
+		<Unit filename="src\team.cpp" />
+		<Unit filename="src\team.h" />
+		<Unit filename="src\tilemap.cpp" />
+		<Unit filename="src\tilemap.h" />
+		<Unit filename="src\videomenustate.cpp" />
+		<Unit filename="src\videomenustate.h" />
+		<Unit filename="src\videosettingsmenu.cpp" />
+		<Unit filename="src\videosettingsmenu.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -28,17 +28,17 @@ Team::Team(GameEngine *gameEngine, std::string name, std::string skin, std::stri
 	m_firstPlayer = NULL;
 	m_secondPlayer = NULL;
 
-	m_ball = ball;	
-	
+	m_ball = ball;
+
 	for(int count=0; count<11; count++) {
 		Player *p = gameEngine->addPlayer(skin, playerMarker, this, (count==0));
-		
+
 		p->setPosition( Point3D(1024 + (count*48), 1024, 0));
 		p->setDestination( Point3D(278 + (count*48), 1024, 0));
-		
+
 		m_players.push_back(PlayerContainer(p));
 	}
-	
+
 	m_pitch = pitch;
 	m_topHalf = topHalf;
 	m_activePlayer = NULL;
@@ -50,9 +50,9 @@ Team::Team(GameEngine *gameEngine, std::string name, std::string skin, std::stri
 Team::~Team()
 {
 }
-	
+
 void Team::update(void)
-{		
+{
 	list<PlayerContainer>::iterator itt, closest;
 
 	itt = m_players.begin();
@@ -74,7 +74,7 @@ void Team::update(void)
 				}
 			}
 		}
-		
+
 		++itt;
 	}
 
@@ -113,30 +113,30 @@ void Team::setFormation(int defense, int midfield, int attack)
 }
 
 void Team::setupCorner(bool left, bool attack)
-{	
+{
 	int count;
 	double spacing, y;
 	Point3D playerPos, inc;
-	
+
 	double top = (!attack == m_topHalf) ?   m_pitch->topBound() : m_pitch->bottomBound();
         double goal = m_topHalf ? m_pitch->topBound()+32 : m_pitch->bottomBound()-32;
 	Point3D corner = m_pitch->cornerSpot(left, attack ? !m_topHalf : m_topHalf);
 
 	list<PlayerContainer>::iterator itt;
 	itt = m_players.begin();
-	
+
 	setControlState(Player::None);
-		
+
 	// goalkeeper
 	if(itt==m_players.end()) return;
 	(*(*itt))->setDestination(Point3D( m_pitch->centerX(), goal));
 	++itt;
 
-	// defenders - inside 6 yard area.	
+	// defenders - inside 6 yard area.
 	if(attack) {
 		spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_defenders);
 		y = m_pitch->centerY();
-		
+
 	} else {
 		spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_defenders);
 		y = m_pitch->centerY() + (top - m_pitch->centerY()) * 0.95;
@@ -144,7 +144,7 @@ void Team::setupCorner(bool left, bool attack)
 
 	playerPos = Point3D( m_pitch->centerX() - ((m_defenders-1)/2.0)*spacing, y);
 	inc = Point3D( spacing, 0);
-	
+
 	for(count = 0; count<m_defenders; count++) {
 		if(itt==m_players.end()) return;
 		(*(*itt))->setDestination(playerPos);
@@ -153,7 +153,7 @@ void Team::setupCorner(bool left, bool attack)
 	}
 
 	// midfielders
-	
+
 	if(attack) {
 		spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_midfielders);
 		y = m_pitch->centerY() +  (top - m_pitch->centerY()) * 0.75;
@@ -161,10 +161,10 @@ void Team::setupCorner(bool left, bool attack)
 		spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_midfielders);
 		y = m_pitch->centerY() +  (top - m_pitch->centerY()) * 0.85;
 	}
-		
+
 	playerPos = Point3D( m_pitch->centerX() - ((m_midfielders-1)/2.0)*spacing, y);
 	inc = Point3D( spacing, 0);
-	
+
 	for(count = 0; count<m_midfielders; count++) {
 		if(itt==m_players.end()) return;
 		(*(*itt))->setDestination(playerPos);
@@ -172,7 +172,7 @@ void Team::setupCorner(bool left, bool attack)
 		++itt;
 	}
 
-	
+
 	// attackers
 	if(attack) {
 		spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_attackers);
@@ -184,7 +184,7 @@ void Team::setupCorner(bool left, bool attack)
 
 	playerPos = Point3D( m_pitch->centerX() - ((m_attackers-1)/2.0)*spacing, y);
 	inc = Point3D( spacing, 0);
-	
+
 	for(count = 0; count<m_attackers; count++) {
 		if(itt==m_players.end()) return;
 
@@ -192,16 +192,16 @@ void Team::setupCorner(bool left, bool attack)
 			(*(*itt))->setDestination(	Point3D(playerPos.x(),
 							m_topHalf ? m_pitch->centerSpot().y() - m_pitch->circleRadius() :
 									m_pitch->centerSpot().y() + m_pitch->circleRadius()));
-		} else {		
+		} else {
 			(*(*itt))->setDestination(playerPos);
 		}
-		
+
 		playerPos += inc;
 		++itt;
 	}
 
 	// if on the attack, move closest player to the corner spot.
-	
+
 	if(attack) {
 		calculateClosestPlayers(m_pitch->centerSpot());
 		m_firstPlayer->setDestination(corner);
@@ -214,11 +214,11 @@ void Team::setupKickoff(bool attack)
 	int count;
 	double top = m_topHalf ? m_pitch->topBound() : m_pitch->bottomBound();
 	double goal = m_topHalf ? m_pitch->topBound()+32 : m_pitch->bottomBound()-32;
-	
+
 	list<PlayerContainer>::iterator itt;
 
 	itt = m_players.begin();
-	
+
 	setControlState(Player::None);
 
 	// goalkeeper
@@ -227,16 +227,16 @@ void Team::setupKickoff(bool attack)
 	(*(*itt))->setDestination(Point3D( m_pitch->centerX(), goal));
 
 	++itt;
-	
-	
+
+
 	// defenders
 
 	double spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_defenders);
 	double y = m_pitch->centerY() + (top - m_pitch->centerY()) * 0.8;
-		
+
 	Point3D playerPos( m_pitch->centerX() - ((m_defenders-1)/2.0)*spacing, y);
 	Point3D inc( spacing, 0);
-	
+
 	for(count = 0; count<m_defenders; count++) {
 		if(itt==m_players.end()) return;
 		(*(*itt))->setDestination(playerPos);
@@ -248,10 +248,10 @@ void Team::setupKickoff(bool attack)
 	spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_midfielders);
 
 	y = m_pitch->centerY() +  (top - m_pitch->centerY()) * 0.4;
-		
+
 	playerPos = Point3D( m_pitch->centerX() - ((m_midfielders-1)/2.0)*spacing, y);
 	inc = Point3D( spacing, 0);
-	
+
 	for(count = 0; count<m_midfielders; count++) {
 		if(itt==m_players.end()) return;
 		(*(*itt))->setDestination(playerPos);
@@ -259,7 +259,7 @@ void Team::setupKickoff(bool attack)
 		++itt;
 	}
 
-	
+
 	// attackers
 	spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_attackers);
 
@@ -267,7 +267,7 @@ void Team::setupKickoff(bool attack)
 
 	playerPos = Point3D( m_pitch->centerX() - ((m_attackers-1)/2.0)*spacing, y);
 	inc = Point3D( spacing, 0);
-	
+
 	for(count = 0; count<m_attackers; count++) {
 		if(itt==m_players.end()) return;
 
@@ -275,10 +275,10 @@ void Team::setupKickoff(bool attack)
 			(*(*itt))->setDestination(	Point3D(playerPos.x(),
 							m_topHalf ? m_pitch->centerSpot().y() - m_pitch->circleRadius() :
 									m_pitch->centerSpot().y() + m_pitch->circleRadius()));
-		} else {		
+		} else {
 			(*(*itt))->setDestination(playerPos);
 		}
-		
+
 		playerPos += inc;
 		++itt;
 	}
@@ -335,7 +335,7 @@ void Team::setControlState(Player::ControlState state)
 	m_controlState = state;
 
 	for(list<PlayerContainer>::iterator itt = m_players.begin(); itt!=m_players.end(); ++itt) {
-		(*(*itt))->setControlState(state);		
+		(*(*itt))->setControlState(state);
 	}
 
 	if(state==Player::None) {
@@ -404,12 +404,12 @@ void Team::calculateDesirablePositions()
 	if(itt==m_players.end()) return;
 
 	(*(*itt))->setDesiredPosition(Point3D(m_pitch->centerX(), goal));
-		
+
 	// defenders
 	spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_defenders);
 	Point3D playerPos( m_pitch->centerX() - ((m_defenders-1)/2.0)*spacing, def);
 	Point3D inc( spacing, 0);
-	
+
 	for(count=0; count<m_defenders; count++) {
 		++itt;
 		if(itt==m_players.end()) return;
@@ -421,7 +421,7 @@ void Team::calculateDesirablePositions()
 	spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_midfielders);
 	playerPos = Point3D( m_pitch->centerX() - ((m_midfielders-1)/2.0)*spacing, mid);
 	inc = Point3D( spacing, 0);
-	
+
 	for(count=0; count<m_midfielders; count++) {
 		++itt;
 		if(itt==m_players.end()) return;
@@ -433,7 +433,7 @@ void Team::calculateDesirablePositions()
 	spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_attackers);
 	playerPos = Point3D( m_pitch->centerX() - ((m_attackers-1)/2.0)*spacing, att);
 	inc = Point3D( spacing, 0);
-	
+
 	for(count=0; count<m_attackers; count++) {
 		++itt;
 		if(itt==m_players.end()) return;
@@ -460,7 +460,7 @@ Player *Team::calculateClosestPlayers(Point3D point)
 
 	m_firstPlayer = NULL;
 	m_secondPlayer = NULL;
-	
+
 	std::list<PlayerContainer>::iterator itt;
 
 	for(itt = m_players.begin(); itt!=m_players.end(); ++itt) {
@@ -473,7 +473,7 @@ Player *Team::calculateClosestPlayers(Point3D point)
 			m_secondPlayer = m_firstPlayer;
 			slen = flen;
 			m_firstPlayer = (*(*itt));
-			flen = testlen;					
+			flen = testlen;
 		} else if(m_secondPlayer == NULL) {
 			m_secondPlayer = (*(*itt));
 			slen = testlen;
@@ -481,7 +481,7 @@ Player *Team::calculateClosestPlayers(Point3D point)
 			m_secondPlayer = (*(*itt));
 			slen = testlen;
 		}
-	}		
+	}
 
 	return m_firstPlayer;
 }
@@ -498,11 +498,10 @@ void Team::setupGoalKick(bool attack, bool left, bool onFloor)
 
 	double ourEnd = m_topHalf ? m_pitch->topBound() : m_pitch->bottomBound();
 	double theirEnd = m_topHalf ? m_pitch->bottomBound() : m_pitch->topBound();
-	
+
 	double attLine = ourEnd + (theirEnd - ourEnd)*0.7;
 	double midLine = ourEnd + (theirEnd - ourEnd)*0.45;
 	double defLine = ourEnd + (theirEnd - ourEnd)*0.2;
-	double goalLine = m_topHalf ? m_pitch->topBound()+32 : m_pitch->bottomBound()-32;
 
 	setControlState(Player::None);
 
@@ -511,19 +510,19 @@ void Team::setupGoalKick(bool attack, bool left, bool onFloor)
 
 	// goalkeeper
 	if(itt==m_players.end()) return;
-	if(onFloor) {		
+	if(onFloor) {
 		(*(*itt))->setDestination(m_pitch->goalKickSpot(left, m_topHalf));
 	} else {
 		(*(*itt))->setDestination((*(*itt))->position());
 	}
 	++itt;
 
-	
+
 	// defenders
-	spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_defenders);		
+	spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_defenders);
 	playerPos = Point3D(m_pitch->centerX() - ((m_defenders-1)/2.0)*spacing, defLine);
 	inc = Point3D( spacing, 0);
-	
+
 	for(count = 0; count<m_defenders; count++) {
 		if(itt==m_players.end()) return;
 		(*(*itt))->setDestination(playerPos);
@@ -535,19 +534,19 @@ void Team::setupGoalKick(bool attack, bool left, bool onFloor)
 	spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_midfielders);
 	playerPos = Point3D(m_pitch->centerX() - ((m_midfielders-1)/2.0)*spacing, midLine);
 	inc = Point3D( spacing, 0);
-	
+
 	for(count = 0; count<m_midfielders; count++) {
 		if(itt==m_players.end()) return;
 		(*(*itt))->setDestination(playerPos);
 		playerPos += inc;
 		++itt;
 	}
-	
+
 	// attackers
-	spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_attackers);		
+	spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_attackers);
 	playerPos = Point3D(m_pitch->centerX() - ((m_attackers-1)/2.0)*spacing, attLine);
 	inc = Point3D( spacing, 0);
-	
+
 	for(count = 0; count<m_attackers; count++) {
 		if(itt==m_players.end()) return;
 		(*(*itt))->setDestination(playerPos);
@@ -562,33 +561,31 @@ void Team::setupThrowIn(const Point3D &pos, bool attack)
 	int count;
 	double spacing;
 	Point3D playerPos, inc;
-	bool left = m_pitch->inLeftHalf(pos);
-	
+
 	double ourEnd = m_topHalf ? m_pitch->topBound() : m_pitch->bottomBound();
 	double theirEnd = m_topHalf ? m_pitch->bottomBound() : m_pitch->topBound();
 
-	double att = pos.y() + (theirEnd - pos.y())*0.1;
 	double mid = pos.y();
 	double def = pos.y() + (ourEnd - pos.y())*0.3;
-	
+
         double goal = m_topHalf ? m_pitch->topBound()+32 : m_pitch->bottomBound()-32;
-	
+
 	setControlState(Player::None);
 
 	list<PlayerContainer>::iterator itt;
 	itt = m_players.begin();
-		
+
 	// goalkeeper
 	if(itt==m_players.end()) return;
 	(*(*itt))->setDestination(Point3D( m_pitch->centerX(), goal));
 	++itt;
 
-	// defenders - inside 6 yard area.	
+	// defenders - inside 6 yard area.
 	spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_defenders);
 
 	playerPos = Point3D( m_pitch->centerX() - ((m_defenders-1)/2.0)*spacing, def);
 	inc = Point3D( spacing, 0);
-	
+
 	for(count = 0; count<m_defenders; count++) {
 		if(itt==m_players.end()) return;
 		(*(*itt))->setDestination(playerPos);
@@ -597,11 +594,11 @@ void Team::setupThrowIn(const Point3D &pos, bool attack)
 	}
 
 	// midfielders
-	
+
 	spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_midfielders);
 	playerPos = Point3D( m_pitch->centerX() - ((m_midfielders-1)/2.0)*spacing * (attack ? 0.9 : 1), mid);
 	inc = Point3D( spacing, 0);
-	
+
 	for(count = 0; count<m_midfielders; count++) {
 		if(itt==m_players.end()) return;
 		(*(*itt))->setDestination(playerPos);
@@ -609,12 +606,12 @@ void Team::setupThrowIn(const Point3D &pos, bool attack)
 		++itt;
 	}
 
-	
+
 	// attackers
 	spacing = (m_pitch->rightBound()-m_pitch->leftBound()) / (m_attackers);
 	playerPos = Point3D( m_pitch->centerX() - ((m_midfielders-1)/2.0)*spacing * (attack ? 0.9 : 1), mid);
 	inc = Point3D( spacing, 0);
-	
+
 	for(count = 0; count<m_attackers; count++) {
 		if(itt==m_players.end()) return;
 
@@ -622,16 +619,16 @@ void Team::setupThrowIn(const Point3D &pos, bool attack)
 			(*(*itt))->setDestination(	Point3D(playerPos.x(),
 							m_topHalf ? m_pitch->centerSpot().y() - m_pitch->circleRadius() :
 									m_pitch->centerSpot().y() + m_pitch->circleRadius()));
-		} else {		
+		} else {
 			(*(*itt))->setDestination(playerPos);
 		}
-		
+
 		playerPos += inc;
 		++itt;
 	}
 
 	// if on the attack, move closest player to the throwin spot.
-	
+
 	if(attack) {
 		calculateClosestPlayers(pos);
 		m_firstPlayer->setDestination(pos);
@@ -639,17 +636,17 @@ void Team::setupThrowIn(const Point3D &pos, bool attack)
 
 }
 
-Player *Team::findPlayerFromPosition(Point3D position, int direction) 
+Player *Team::findPlayerFromPosition(Point3D position, int direction)
 {
 	Player *player = 0;
 	double curLength = 0;
-	
+
 	std::list<PlayerContainer>::iterator itt;
 
 	// calculate the "projection cone" lines
 	Point3D projectLeft = (Matrix::rollTransform(-0.42) * Player::dirVal[direction]).normalise();
 	Point3D projectRight = (Matrix::rollTransform(0.42) * Player::dirVal[direction]).normalise();
-	
+
 	for(itt = m_players.begin(); itt!=m_players.end(); ++itt) {
 		Point3D vec = (*(*itt))->position() - position;
 
@@ -657,7 +654,7 @@ Player *Team::findPlayerFromPosition(Point3D position, int direction)
 			double len = vec.length();
 			// make sure we don't pick a player exactly at "position"
 			if(len < 1) continue;
-			
+
 			if((!player) || (len < curLength)) {
 				player = (*(*itt));
 				curLength = len;

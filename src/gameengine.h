@@ -18,6 +18,10 @@
 #ifndef TUXFOOTBALL_GAMEENGINE
 #define TUXFOOTBALL_GAMEENGINE
 
+#ifdef _WIN32
+#define uint unsigned int
+#endif
+
 #include "SDL.h"
 #include "SDL_mixer.h"
 #include "Font.hpp"
@@ -49,7 +53,7 @@ class StateBase;
 class GameEngine {
 public:
 	enum CameraFollows { CameraPattern, CameraBall };
-	
+
 	enum GameState {	TitleScreen=0,
 				RedefineKeysScreen,
 				VideoSettingsMenu,
@@ -66,7 +70,7 @@ public:
 				PenaltyShootout,
 				MatchAborted,
 				Finished};
-				
+
 	enum ControllerType {	HomeController,
 				AwayController };
 
@@ -76,7 +80,7 @@ public:
 
 	enum TeamTypes {	HomeTeam,
 				AwayTeam };
-				
+
 	enum SubMode {		InPlay,
 				Corner,
 				GoalKick,
@@ -92,41 +96,41 @@ public:
 				RefWhistleEnd,
 				CrowdCheer,
 				CrowdBoo,
-				CrowdOoh };	
-	
+				CrowdOoh };
+
 	GameEngine(bool fullscreen);
 	~GameEngine();
 	void gameLoop();
 	static void setLastTouch(Player *player);
 	Player *addPlayer(std::string skin, std::string playerMarker, Team *team, bool goalkeeper);
-	
+
 	static Player *lastPlayerTouch();
 	static Team *lastTeamTouch();
 	void setHalfLength(uint halfLength);
 	uint halfLength() const;
-	
+
 	void setCameraFollows(CameraFollows follows);
-	
+
 	void setMenu(Menu *menu);
 	Menu *menu();
 
 	void setFinished(bool finished);
 	bool finished() const;
-	
+
 	void setLogo(std::string logoImage);
 
 	SDL_Surface *screen();
 
 	/** clears the logo, if one exists. It is safe to call this when no logo exists. */
 	void clearLogo();
-	
+
 	void setMusic(std::string musicFile);
 	void setupHalfTime();
 
 	void setState(GameState state);
 
 	void setSubMode(SubMode mode, bool home, bool left=false, const Point3D &pos=Point3D());
-	
+
 	void setTimer(TimerState state);
 	TimerState timerState() const;
 	int timer() const;
@@ -136,17 +140,17 @@ public:
 
 	Mix_Chunk *gameSound(GameSounds sound);
 	void playSound(GameSounds sound);
-	
+
 	/** Returns the specified controller */
 	Controller *controller(ControllerType controller);
-	
+
 	void initialiseMatch();
 
 	void setFullScreen(bool fullscreen);
 	bool fullScreen() const;
 private: // attributes
 	static Player *s_lastTouch;
-	
+
 	std::vector<StateBase *> m_gameStates;
 
 	GameState m_currentState;
@@ -154,7 +158,7 @@ private: // attributes
 	bool m_subModeHome;
 	/** True if we are playing a match, rather than in half time, or penalty shootout.
 	 *  If this is true, we take account of corners and submodes. */
-	bool m_gameInProgress;	
+	bool m_gameInProgress;
 	/** Used for timings such as referee whistle, half length, etc.*/
 	int m_timer;
 	TimerState m_timerState;
@@ -171,7 +175,7 @@ private: // attributes
 
 	SFont* m_nameFont;
 	SFont* m_scoreFont;
-	
+
 	Camera m_camera;
 
 	int m_resX;
@@ -190,7 +194,7 @@ private: // attributes
 	Mix_Music *m_music;
 
 	std::list<PlayerContainer> m_playerList;
-	
+
 	Menu *m_menu;
 	SDL_Surface *m_logo;
 
@@ -209,7 +213,7 @@ private: // methods
 	void iterateEngine();
 	void drawFrame();
 	bool finished();
-	void updateKeyboard();	
+	void updateKeyboard();
 	void setBallPreparedPosition(Point3D pos);
 };
 

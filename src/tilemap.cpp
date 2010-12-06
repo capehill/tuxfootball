@@ -26,7 +26,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include <surfacemanager.h>
+#include "surfacemanager.h"
 #include "const.h"
 
 TileMap::TileMap(SDL_Surface *screen, std::string path)
@@ -34,7 +34,6 @@ TileMap::TileMap(SDL_Surface *screen, std::string path)
 	m_screen = screen;
 
 	std::ifstream tilemap;
-	SDL_Surface *surf = 0;
 	int data_dirs = sizeof(data_dir)/sizeof(std::string);
 	for (int i = 0; i < data_dirs; i++) {
 		std::string datadir = std::string(data_dir[i]);
@@ -79,7 +78,7 @@ TileMap::TileMap(SDL_Surface *screen, std::string path)
 				tilemap.ignore();
 				next = tilemap.peek();
 			}
-			
+
 			if(word.str().compare(".") == 0) {
 				setTileSurface(x, y, 0);
 			} else {
@@ -99,7 +98,7 @@ TileMap::~TileMap()
 
 	while(itt != m_tileSurfaces.end()) {
 		if(*itt) SurfaceManager::instance()->release(*itt);
-		
+
 		++itt;
 	}
 }
@@ -114,22 +113,22 @@ void TileMap::draw(int left, int top)
 	sr.w = tr.w = m_tileWidth;
 	sr.w = tr.h = m_tileHeight;
 
-	int tx, ty; 
-	
+	int tx, ty;
+
 	int ex = ((left+m_screen->w) / m_tileWidth) + 1;
 	int ey = ((top+m_screen->h) / m_tileHeight) + 1;
 	SDL_Surface *surf;
 
 	ty = top / m_tileHeight;
-	
+
 	for(;ty < ey; ty++) {
 		tx = left / m_tileWidth;
-		
+
 		for(; tx < ex; tx++) {
 			surf = tileSurface(tx, ty);
 
 			sr.x = (tx*m_tileWidth) - left;
-			sr.y = (ty*m_tileHeight) - top; 
+			sr.y = (ty*m_tileHeight) - top;
 
 			if(surf) {
 				if(SDL_BlitSurface(surf, &tr, m_screen, &sr) < 0) {
@@ -137,7 +136,7 @@ void TileMap::draw(int left, int top)
 				}
 			}
 		}
-	}	
+	}
 }
 
 SDL_Surface *TileMap::tileSurface(int x, int y)
@@ -156,7 +155,7 @@ void TileMap::setTileSurface(int x, int y, SDL_Surface *surface)
 	if(x>=m_numTilesWidth) return;
 	if(y<0) return;
 	if(y>=m_numTilesHeight) return;
-	
+
 	m_tileSurfaces[x + y*m_numTilesWidth] = surface;
 }
 
