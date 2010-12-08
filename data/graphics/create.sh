@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "" > create.log
+
 for COLOR in "1.0, 0.0, 0.0" "0.0, 0.0, 1.0"; do
 	TEAMDIR="failed"
 	if [ "1.0, 0.0, 0.0" = "${COLOR}" ]; then
@@ -11,10 +13,12 @@ for COLOR in "1.0, 0.0, 0.0" "0.0, 0.0, 1.0"; do
 		echo "Failed to find team dir"
 		exit 1
 	fi
+	echo "Team ${TEAMDIR}"
 	for DEGREE in 0 45 90 135 180 225 270 315; do
 		echo "Creating ${DEGREE}° perspective"
+		echo "Creating ${TEAMDIR} ${DEGREE}° perspective" >> export.log
 		sed -e "s:XX_DEGREE_XX:${DEGREE}:g" -e "s:XX_COLOR_XX:${COLOR}:g" rotate.py > rotate${DEGREE}.py
-		blender -P rotate${DEGREE}.py
+		blender -P rotate${DEGREE}.py >> export.log
 		TARGETDIR='failed'
 		if [ "${DEGREE}" = "0" ]; then
 			TARGETDIR="se"
@@ -37,8 +41,16 @@ for COLOR in "1.0, 0.0, 0.0" "0.0, 0.0, 1.0"; do
 			echo "Failed to find target dir"
 			exit 1
 		fi
-		blender -b player${DEGREE}.blend -o ${TEAMDIR}/standing/${TARGETDIR}/standing -f 1
-		blender -b player${DEGREE}.blend -o ${TEAMDIR}/walking/${TARGETDIR}/walking -s 10 -e 49 -a
+		blender -b player${DEGREE}.blend -o ${TEAMDIR}/standing/${TARGETDIR}/standing -f 1 >> export.log
+		blender -b player${DEGREE}.blend -o ${TEAMDIR}/walking/${TARGETDIR}/walking -s 10 -e 49 -a >> export.log
+		for X in `seq 10 49`; do
+			TARGET=`expr ${X} - 9`
+			if [ ${TARGET} -lt 10 ]; then
+				mv ${TEAMDIR}/walking/${TARGETDIR}/walking00${X}.png ${TEAMDIR}/walking/${TARGETDIR}/walking000${TARGET}.png
+			else
+				mv ${TEAMDIR}/walking/${TARGETDIR}/walking00${X}.png ${TEAMDIR}/walking/${TARGETDIR}/walking00${TARGET}.png
+			fi
+		done
 		rm -f player${DEGREE}.blend rotate${DEGREE}.py
 	done
 done

@@ -32,7 +32,7 @@ struct Sprite {
 
 class SpriteSequence {
 public:
-	SpriteSequence(SDL_PixelFormat *format, std::string basename, int animationFrames, bool repeats);
+	SpriteSequence(SDL_PixelFormat *format, std::string dirname, std::string animname, int animationFrames, bool repeats, bool newMode);
 	~SpriteSequence();
 	SDL_Surface *surface(int direction);
 	void updateSequence();
