@@ -200,7 +200,7 @@ void Player::loadSpriteSurfaces(std::string skin, std::string playerMarker)
 		m_stand = new SpriteSequence(m_renderer->screen()->format, 
 								"graphics/"+skin+"/standing", "standing", 1, true, true);
 		m_run = new SpriteSequence(m_renderer->screen()->format, 
-								"graphics/"+skin+"/running", "running", 48, true, false);
+								"graphics/"+skin+"/running", "running", 40, true, true);
 		m_tackle = new SpriteSequence(m_renderer->screen()->format, 
 								"graphics/"+skin+"/tackling", "tackling", 12, false, false);
 		m_header = new SpriteSequence(m_renderer->screen()->format, 
