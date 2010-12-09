@@ -82,7 +82,7 @@ Player::Player(Graphics *renderer, std::string skin, std::string playerMarker, P
 	SDL_Rect sr = {-32, -54, 0, 0};
 	SDL_Rect sh = {-14, -60, 0, 0};
 	SDL_Rect sa = {-16, -60, 0, 0};	
-	m_object = new SpriteObject(NULL, m_shadow, NULL, position(), sr, sh, sa);
+	m_object = new SpriteObject(NULL, NULL, NULL, position(), sr, sh, sa);
 	m_renderer->addSprite(m_object);
 
 	m_goalie = goalie;
@@ -96,7 +96,6 @@ Player::~Player()
 	delete m_header;
 	delete m_tackle;
 	delete m_object;
-	SurfaceManager::instance()->release(m_shadow);
 	SurfaceManager::instance()->release(m_active);
 }
 
@@ -202,16 +201,13 @@ void Player::loadSpriteSurfaces(std::string skin, std::string playerMarker)
 		m_run = new SpriteSequence(m_renderer->screen()->format, 
 								"graphics/"+skin+"/running", "running", 40, true, true);
 		m_tackle = new SpriteSequence(m_renderer->screen()->format, 
-								"graphics/"+skin+"/tackling", "tackling", 12, false, false);
+								"graphics/"+skin+"/tackling", "tackling", 25, false, true);
 		m_header = new SpriteSequence(m_renderer->screen()->format, 
 								"graphics/"+skin+"/header", "header", 12, false, false);
-		m_shadow = SurfaceManager::instance()->load(m_renderer->screen()->format, 
-								"graphics/shadow.tga", true, false);
 		m_active = SurfaceManager::instance()->load(m_renderer->screen()->format, playerMarker, true, false);
 	} else {
 		std::cerr << "Error - cannot load Player Sprite surfaces, problem with renderer" << std::endl;
 		m_walk = m_stand = m_run = m_tackle = NULL;
-		m_shadow = m_active = NULL;
 	}
 }
 

@@ -2,7 +2,44 @@
 
 echo "" > create.log
 
-for COLOR in "1.0, 0.0, 0.0" "0.0, 0.0, 1.0"; do
+render() {
+	TEAMDIR=${1}
+	DEGREE=${2}
+	TARGETDIR=${3}
+	ANIMATION=${4}
+	FROM=${5}
+	TO=${6}
+	echo "Creating ${TEAMDIR} ${DEGREE}° ${ANIMATION}"
+	echo "Creating ${TEAMDIR} ${DEGREE}° ${ANIMATION}" >> create.log
+	if [ "" = "${TO}" ]; then
+		blender -b player${DEGREE}.blend -o ${TEAMDIR}/${ANIMATION}/${TARGETDIR}/${ANIMATION} -f ${FROM} >> create.log
+	else
+		blender -b player${DEGREE}.blend -o ${TEAMDIR}/${ANIMATION}/${TARGETDIR}/${ANIMATION} -s ${FROM} -e ${TO} -a >> create.log
+	fi
+	for X in `seq ${FROM} ${TO}`; do
+		TARGET=`expr ${X} - ${FROM} + 1`
+		if [ ${TARGET} -lt 10 ]; then
+			TO_FIX='0'
+		else
+			TO_FIX=''
+		fi
+		if [ ${X} -lt 10 ]; then
+			FROM_FIX='000'
+		else
+			if [ ${X} -lt 100 ]; then
+				FROM_FIX='00'
+			else
+				FROM_FIX='0'
+			fi
+		fi
+		if [ "${TEAMDIR}/${ANIMATION}/${TARGETDIR}/${ANIMATION}${FROM_FIX}${X}" != "${TEAMDIR}/${ANIMATION}/${TARGETDIR}/${ANIMATION}00${TO_FIX}${TARGET}" ]; then
+			mv ${TEAMDIR}/${ANIMATION}/${TARGETDIR}/${ANIMATION}${FROM_FIX}${X}.png ${TEAMDIR}/${ANIMATION}/${TARGETDIR}/${ANIMATION}00${TO_FIX}${TARGET}.png
+		fi
+	done
+
+}
+
+for COLOR in "0.0, 0.0, 1.0" "1.0, 0.0, 0.0"; do
 	TEAMDIR="failed"
 	if [ "1.0, 0.0, 0.0" = "${COLOR}" ]; then
 		TEAMDIR="team2"
@@ -40,34 +77,19 @@ for COLOR in "1.0, 0.0, 0.0" "0.0, 0.0, 1.0"; do
 			echo "Failed to find target dir"
 			exit 1
 		fi
-		echo "Creating ${TEAMDIR} ${DEGREE}° standing"
-		echo "Creating ${TEAMDIR} ${DEGREE}° standing" >> create.log
-		blender -b player${DEGREE}.blend -o ${TEAMDIR}/standing/${TARGETDIR}/standing -f 1 >> create.log
-		echo "Creating ${TEAMDIR} ${DEGREE}° walking"
-		echo "Creating ${TEAMDIR} ${DEGREE}° walking" >> create.log
-		blender -b player${DEGREE}.blend -o ${TEAMDIR}/walking/${TARGETDIR}/walking -s 10 -e 49 -a >> create.log
-		for X in `seq 10 49`; do
-			TARGET=`expr ${X} - 9`
-			if [ ${TARGET} -lt 10 ]; then
-				mv ${TEAMDIR}/walking/${TARGETDIR}/walking00${X}.png ${TEAMDIR}/walking/${TARGETDIR}/walking000${TARGET}.png
-			else
-				mv ${TEAMDIR}/walking/${TARGETDIR}/walking00${X}.png ${TEAMDIR}/walking/${TARGETDIR}/walking00${TARGET}.png
-			fi
-		done
-		echo "Creating ${TEAMDIR} ${DEGREE}° running"
-		echo "Creating ${TEAMDIR} ${DEGREE}° running" >> create.log
-		blender -b player${DEGREE}.blend -o ${TEAMDIR}/running/${TARGETDIR}/running -s 60 -e 99 -a >> create.log
-		for X in `seq 60 99`; do
-			TARGET=`expr ${X} - 59`
-			if [ ${TARGET} -lt 10 ]; then
-				mv ${TEAMDIR}/running/${TARGETDIR}/running00${X}.png ${TEAMDIR}/running/${TARGETDIR}/running000${TARGET}.png
-			else
-				mv ${TEAMDIR}/running/${TARGETDIR}/running00${X}.png ${TEAMDIR}/running/${TARGETDIR}/running00${TARGET}.png
-			fi
-		done
+		render ${TEAMDIR} ${DEGREE} ${TARGETDIR} 'standing' 1
+		render ${TEAMDIR} ${DEGREE} ${TARGETDIR} 'walking' 10 49
+		render ${TEAMDIR} ${DEGREE} ${TARGETDIR} 'running' 60 99
+		render ${TEAMDIR} ${DEGREE} ${TARGETDIR} 'tackling' 110 134
 		rm -f player${DEGREE}.blend rotate${DEGREE}.py
 	done
 done
+
+echo "Optimizing PNGs"
+echo "Optimizing PNGs" >> create.log
+
+find team1 -name "*.png" | xargs optipng >> create.log
+find team2 -name "*.png" | xargs optipng >> create.log
 
 echo "All done"
 

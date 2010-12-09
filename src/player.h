@@ -130,7 +130,6 @@ private:
 	static double walkDistance;
 	static double runDistance;
 	static double moveSlowdown;
-	SDL_Surface *m_shadow;
 	SDL_Surface *m_active;
 	SpriteObject *m_object;
 	bool m_isActive;
