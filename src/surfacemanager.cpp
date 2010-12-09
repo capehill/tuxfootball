@@ -27,7 +27,8 @@
 std::map<std::string, ManagedSurface> SurfaceManager::m_surfaces;
 
 SDL_Surface *SurfaceManager::load(std::string filename) {
-	// FIXME: Dummy
+	// FIXME: Dummy, we need the SDL_PixelFormat
+	return 0;
 }
 
 SDL_Surface *SurfaceManager::load(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha)
@@ -63,7 +64,8 @@ void SurfaceManager::release(SDL_Surface *surface)
 }
 
 SDL_Surface *SurfaceManager::add(std::string filename) {
-	// FIXME: Dummy
+	// FIXME: Dummy, we need the SDL_PixelFormat
+	return 0;
 }
 
 SDL_Surface *SurfaceManager::add(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha)

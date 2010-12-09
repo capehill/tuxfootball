@@ -27,7 +27,8 @@ std::map<std::string, ManagedFont> FontManager::m_fonts;
 
 SFont *FontManager::load(std::string filename)
 {
-	// FIXME: Dummy
+	// FIXME: Dummy, we need the SDL_PixelFormat
+	return 0;
 }
 
 SFont *FontManager::load(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha)
@@ -67,7 +68,8 @@ void FontManager::release(SFont *font)
 
 SFont *FontManager::add(std::string filename)
 {
-	// FIXME: Dummy
+	// FIXME: Dummy, we need the SDL_PixelFormat
+	return 0;
 }
 
 SFont *FontManager::add(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha)

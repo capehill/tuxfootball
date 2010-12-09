@@ -275,8 +275,6 @@ int Controller::calculateBestPass(Player *player) {
 
 double Controller::calculateClosestOpponent(Player *player)
 {	
-	double closestOpponent = -1;
-
 	Player *p = m_oppTeam->calculateClosestPlayers(player->position());
 	
 	if(p) {

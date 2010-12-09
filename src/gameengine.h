@@ -133,7 +133,7 @@ public:
 
 	void setTimer(TimerState state);
 	TimerState timerState() const;
-	int timer() const;
+	uint timer() const;
 
 	Team *team(TeamTypes team);
 	uint score(TeamTypes team) const;
@@ -160,7 +160,7 @@ private: // attributes
 	 *  If this is true, we take account of corners and submodes. */
 	bool m_gameInProgress;
 	/** Used for timings such as referee whistle, half length, etc.*/
-	int m_timer;
+	uint m_timer;
 	TimerState m_timerState;
 	int m_frameSpeed;
 	bool m_finished;
@@ -197,6 +197,7 @@ private: // attributes
 
 	Menu *m_menu;
 	SDL_Surface *m_logo;
+	SDL_Surface *m_score;
 
 	/** Returns the team other than the one specified. E.g. if you pass it the home team, it returns the away team */
 	Team *otherTeam(Team *team);

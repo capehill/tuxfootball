@@ -152,11 +152,11 @@ GameEngine::GameEngine(bool fullscreen) :
 
 		m_scoreFont->write(m_screen, _("Loading Team 1"), 10, 100);
 		SDL_Flip(m_screen);
-		m_homeTeam = new Team(this, "Blue Utd.", "team1", "graphics/homeplayermarker.png", m_pitch, m_ball, true);
+		m_homeTeam = new Team(this, "Blue Utd.", "BLU", "team1", "graphics/homeplayermarker.png", m_pitch, m_ball, true);
 
 		m_scoreFont->write(m_screen, _("Loading Team 2"), 10, 130);
 		SDL_Flip(m_screen);
-		m_awayTeam = new Team(this, "Red City", "team2", "graphics/awayplayermarker.png", m_pitch, m_ball, false);
+		m_awayTeam = new Team(this, "Red City", "RED", "team2", "graphics/awayplayermarker.png", m_pitch, m_ball, false);
 	}
 
 	SDL_Rect r = {m_resX/2, m_resY/2, m_pitch->width()-(m_resX), m_pitch->height()-(m_resY)};
@@ -174,7 +174,7 @@ GameEngine::GameEngine(bool fullscreen) :
 	m_logo = 0;
 	m_halfLength = 6000;
 
-	m_displayFPS = true;
+	m_displayFPS = false;
 	m_framesPerSecond = 60;
 
 	m_gameStates.push_back( new MainMenuState(*this) );
@@ -193,6 +193,8 @@ GameEngine::GameEngine(bool fullscreen) :
 	m_gameStates.push_back( new PenaltyShootoutState(*this) );
 	m_gameStates.push_back( new MatchAbortedState(*this) );
 	m_gameStates.push_back( new MatchFinishedState(*this) );
+
+	m_score = SurfaceManager::instance()->load(m_screen->format, "graphics/score.png", false, true);
 }
 
 GameEngine::~GameEngine()
@@ -205,6 +207,8 @@ GameEngine::~GameEngine()
 	if(m_awayController) delete m_awayController;
 	if(m_renderer) delete m_renderer;
 
+	if(m_score) SurfaceManager::instance()->release(m_score);
+	
 	if(m_nameFont) FontManager::instance()->release(m_nameFont);
 	if(m_scoreFont) FontManager::instance()->release(m_scoreFont);
 
@@ -370,7 +374,7 @@ void GameEngine::iterateEngine()
 void GameEngine::drawFrame()
 {
 	static int x = 0;
-	SDL_Rect r, s;
+	SDL_Rect r, s, score_pos, score_size;
 	x+=2;
 	
 	int left = (int)m_camera.position().x() - m_resX/2;
@@ -382,24 +386,51 @@ void GameEngine::drawFrame()
 	m_renderer->draw(left, top);
 
 	if(m_gameInProgress) {
+
+		//
+		// Draw Score background
+		//
+		if(m_score) {
+			score_size.x = 0;
+			score_size.y = 0;
+			score_size.w = 298;
+			score_size.h = 28;
+			score_pos.x = m_screen->w - score_size.w - 10;
+			score_pos.y = 10;
+			score_pos.w = 298;
+			score_pos.h = 28;
+			if(SDL_BlitSurface(m_score, &score_size, m_screen, &score_pos) < 0) {
+				std::cerr << "Error - could not blit score : " << SDL_GetError() << std::endl;
+			}
+		}
+
 		//
 		// Draw Score
 		//
-	
-		std::ostringstream str1;
-		std::ostringstream str2;
-	
-		str1 << m_homeScore;
-		str2 << m_awayScore;	
-	
-		int scoreWidth = m_scoreFont->getTextWidth(str1.str().c_str());
-		scoreWidth = (scoreWidth < m_scoreFont->getTextWidth(str2.str().c_str())) ? scoreWidth : m_scoreFont->getTextWidth(str2.str().c_str());
+		std::ostringstream homeScoreStr;
+		std::ostringstream awayScoreStr;
+
+		homeScoreStr << m_homeScore;
+		awayScoreStr << m_awayScore;	
+
+		m_scoreFont->write(m_screen, homeScoreStr.str().c_str(), m_screen->w-228, 12);
+		m_scoreFont->write(m_screen, "-", m_screen->w-207, 12);
+		m_scoreFont->write(m_screen, awayScoreStr.str().c_str(), m_screen->w-193, 12);
+
+		m_nameFont->write(m_screen, m_homeTeam->shortname().c_str(), 
+			  m_screen->w-295, 12);
+		m_nameFont->write(m_screen, m_awayTeam->shortname().c_str(), 
+			  m_screen->w-160, 12);
+
+		
+		int scoreWidth = m_scoreFont->getTextWidth(homeScoreStr.str().c_str());
+		scoreWidth = (scoreWidth < m_scoreFont->getTextWidth(awayScoreStr.str().c_str())) ? scoreWidth : m_scoreFont->getTextWidth(awayScoreStr.str().c_str());
 		scoreWidth += 20;
 
 		int sm = m_screen->w/2;
 
-		m_scoreFont->write(m_screen, str1.str().c_str(), sm - scoreWidth, m_screen->h-34);
-		m_scoreFont->write(m_screen, str2.str().c_str(), sm + 20, m_screen->h-34);
+		m_scoreFont->write(m_screen, homeScoreStr.str().c_str(), sm - scoreWidth, m_screen->h-34);
+		m_scoreFont->write(m_screen, awayScoreStr.str().c_str(), sm + 20, m_screen->h-34);
 	
 		m_nameFont->write(m_screen, m_homeTeam->name().c_str(), 
 			  sm - scoreWidth - m_nameFont->getTextWidth(m_homeTeam->name().c_str())-20, m_screen->h-34);
@@ -417,19 +448,18 @@ void GameEngine::drawFrame()
 		} else {
 			str3 << ((2700 * m_timer)/m_halfLength)/60 << ":" << ((2700 * m_timer)/m_halfLength)%60;
 		}
-		m_scoreFont->write(m_screen, str3.str().c_str(), 10, 10);
+		
+		m_scoreFont->write(m_screen, str3.str().c_str(), m_screen->w - m_scoreFont->getTextWidth(str3.str().c_str()) - 22, 12);
 	}
 
 	//
 	// Draw frames per second
 	// 
 	if(m_displayFPS) {
-
 		std::ostringstream str4;
 		str4 << "FPS : " << m_framesPerSecond;
-		m_scoreFont->write(m_screen, str4.str().c_str(), m_screen->w - 10 - m_scoreFont->getTextWidth(str4.str().c_str()), 10);
+		m_scoreFont->write(m_screen, str4.str().c_str(), m_screen->w - 10 - m_scoreFont->getTextWidth(str4.str().c_str()), 40);
 	}
-	
 
 	//
 	// Draw Menu
@@ -474,7 +504,7 @@ GameEngine::TimerState GameEngine::timerState() const
 	return m_timerState;
 }
 
-int GameEngine::timer() const
+uint GameEngine::timer() const
 {
 	return m_timer;
 }

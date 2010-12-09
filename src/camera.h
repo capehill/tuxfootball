@@ -41,10 +41,11 @@ private: // private attributes
 	
 	Body m_body;
 
+	Point3D m_dest;
+
 	/** If set, the camera will follow this target. */
 	Body *m_target;
 	
-	Point3D m_dest;
 	SDL_Rect m_boundRect;
 	SDL_Rect m_screenRect;
 

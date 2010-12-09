@@ -209,7 +209,6 @@ void Menu::draw()
 	}
 
 	int curY = m_menuBounds.y + m_menuPadding_h;
-	int midX = m_menuBounds.x + (m_menuBounds.w/2);
 	
 	for(itt = m_itemList.begin(); itt!=m_itemList.end(); ++itt) {
 		if(itt == m_active) {

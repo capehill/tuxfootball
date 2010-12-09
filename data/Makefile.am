@@ -16,8 +16,8 @@ graphics_DATA = \
 	graphics/penalty.png \
 	graphics/pitchtile.png \
 	graphics/scratch.png \
-	graphics/shadow.tga \
-	graphics/tuxfootball.png
+	graphics/tuxfootball.png \
+	graphics/score.png
 
 EXTRA_DIST = \
 	$(graphics_DATA)\

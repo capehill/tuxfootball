@@ -32,7 +32,7 @@ using std::list;
 
 class Team {
 public:	
-	Team(GameEngine *gameEngine, std::string name, std::string skin, std::string playerMarker, Pitch *pitch, Ball *ball, bool topHalf);
+	Team(GameEngine *gameEngine, std::string name, std::string shortname, std::string skin, std::string playerMarker, Pitch *pitch, Ball *ball, bool topHalf);
 	~Team();
 
 	void setFormation(int defense, int midfield, int attack);	
@@ -55,6 +55,7 @@ public:
 	Player *activePlayer();
 	void calculateDesirablePositions();
 	std::string name();
+	std::string shortname();
 	bool topHalf();
 	Player *findPlayerFromPosition(Point3D position, int direction);
 	Player *calculateClosestPlayers(Point3D point);
@@ -71,6 +72,7 @@ private:
 	Player *m_firstPlayer;
 	Player *m_secondPlayer;
 	std::string m_name;
+	std::string m_shortname;
 };
 
 #endif /* TUXFOOTBALL_TEAM */

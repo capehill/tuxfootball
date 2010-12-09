@@ -22,9 +22,10 @@
 #include <string>
 #include <iostream>
 
-Team::Team(GameEngine *gameEngine, std::string name, std::string skin, std::string playerMarker, Pitch *pitch, Ball *ball, bool topHalf)
+Team::Team(GameEngine *gameEngine, std::string name, std::string shortname, std::string skin, std::string playerMarker, Pitch *pitch, Ball *ball, bool topHalf)
 {
 	m_name = name;
+	m_shortname = shortname;
 	m_firstPlayer = NULL;
 	m_secondPlayer = NULL;
 
@@ -447,6 +448,10 @@ std::string Team::name() {
 	return m_name;
 }
 
+std::string Team::shortname() {
+	return m_shortname;
+}
+
 
 bool Team::topHalf()
 {
@@ -563,7 +568,6 @@ void Team::setupThrowIn(const Point3D &pos, bool attack)
 	Point3D playerPos, inc;
 
 	double ourEnd = m_topHalf ? m_pitch->topBound() : m_pitch->bottomBound();
-	double theirEnd = m_topHalf ? m_pitch->bottomBound() : m_pitch->topBound();
 
 	double mid = pos.y();
 	double def = pos.y() + (ourEnd - pos.y())*0.3;
