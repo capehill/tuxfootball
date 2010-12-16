@@ -63,6 +63,8 @@ AM_PROG_LIBTOOL
 AC_CONFIG_FILES([Makefile
                  data/Makefile
                  data/graphics/Makefile
+                 data/graphics/team1/Makefile
+                 data/graphics/team2/Makefile
                  po/Makefile.in
                  src/Makefile])
 AC_OUTPUT

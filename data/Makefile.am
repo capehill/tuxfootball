@@ -1,4 +1,3 @@
-
 graphics_DATA = \
 	graphics/awayplayermarker.png \
 	graphics/font_white.png\
@@ -19,15 +18,11 @@ graphics_DATA = \
 	graphics/tuxfootball.png \
 	graphics/score.png
 
-EXTRA_DIST = \
-	$(graphics_DATA)\
-	$(sound_DATA)
-
 graphicsdir = \
 	$(pkgdatadir)/graphics
 
 sound_DATA = \
-	sound/beep.wav\
+	sound/beep.wav \
 	sound/bounce.wav \
 	sound/crowdboo.wav \
 	sound/crowdcheer.wav \
@@ -46,8 +41,9 @@ sound_DATA = \
 sounddir = \
 	$(pkgdatadir)/sound
 
+EXTRA_DIST = \
+	$(graphics_DATA) \
+	$(sound_DATA)
+
 SUBDIRS = \
 	graphics
-
-## File created by the gnome-build tools
-
