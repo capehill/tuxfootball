@@ -81,6 +81,7 @@ for COLOR in "0.0, 0.0, 1.0" "1.0, 0.0, 0.0"; do
 		render ${TEAMDIR} ${DEGREE} ${TARGETDIR} 'walking' 10 49
 		render ${TEAMDIR} ${DEGREE} ${TARGETDIR} 'running' 60 99
 		render ${TEAMDIR} ${DEGREE} ${TARGETDIR} 'tackling' 110 134
+		render ${TEAMDIR} ${DEGREE} ${TARGETDIR} 'header' 160 180
 		rm -f player${DEGREE}.blend rotate${DEGREE}.py
 	done
 done

@@ -203,7 +203,7 @@ void Player::loadSpriteSurfaces(std::string skin, std::string playerMarker)
 		m_tackle = new SpriteSequence(m_renderer->screen()->format, 
 								"graphics/"+skin+"/tackling", "tackling", 25, false, true);
 		m_header = new SpriteSequence(m_renderer->screen()->format, 
-								"graphics/"+skin+"/header", "header", 12, false, false);
+								"graphics/"+skin+"/header", "header", 20, false, true);
 		m_active = SurfaceManager::instance()->load(m_renderer->screen()->format, playerMarker, true, false);
 	} else {
 		std::cerr << "Error - cannot load Player Sprite surfaces, problem with renderer" << std::endl;

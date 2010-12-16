@@ -1,5 +1,10 @@
 This document describes how to perform a Tux Football release.
 
+Prequisits
+-Wall -Wextra
+
+cppcheck --force --enable=all src/ -I /usr/include/SDL/
+
 Linux
 -----
 
