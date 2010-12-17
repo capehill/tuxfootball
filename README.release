@@ -49,3 +49,6 @@ cp -r data/graphics/team1 tuxfootball-0.3.0/data/graphics
 cp -r data/graphics/team2 tuxfootball-0.3.0/data/graphics
 cp -r data/sound tuxfootball-0.3.0/data
 zip -r -9 tuxfootball-0.3.0.zip tuxfootball-0.3.0
+
+Open tuxfootball.iss using InnoSetup
+cp bin/setup.exe tuxfootball-0.3.0.exe
