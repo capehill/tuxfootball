@@ -19,6 +19,10 @@ initial layout using
 
 debchange to note changes
 
+fakeroot debian/rules clean
+fakeroot debian/rules build
+fakeroot debian/rules binary 
+
 Windows
 -------
 
@@ -33,3 +37,15 @@ Extract DLLs to ./lib
 Extract Includes to ./lib
 
 Install the "codeblocks with mingw package" in wine
+
+Compile using "Release" target
+
+mkdir tuxfootball-0.3.0
+cp bin/Release/tuxfootball.exe tuxfootball-0.3.0
+cp lib/*.dll tuxfootball-0.3.0
+mkdir -p tuxfootball-0.3.0/data/graphics
+cp data/graphics/*.png tuxfootball-0.3.0/data/graphics
+cp -r data/graphics/team1 tuxfootball-0.3.0/data/graphics
+cp -r data/graphics/team2 tuxfootball-0.3.0/data/graphics
+cp -r data/sound tuxfootball-0.3.0/data
+zip -r -9 tuxfootball-0.3.0.zip tuxfootball-0.3.0
