@@ -33,6 +33,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions -mwindows" />
 			<Add directory="lib\SDL" />
+			<Add directory="include\SDL" />
 			<Add directory="Z:\usr\include\SDL" />
 		</Compiler>
 		<Linker>
