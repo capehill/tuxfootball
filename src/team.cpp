@@ -80,6 +80,7 @@ void Team::update(void)
 	}
 
 	switch(controlState()) {
+		default:
 		case Player::None :
 			break;
 		case Player::KickOnly :

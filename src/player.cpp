@@ -51,27 +51,27 @@ double Player::moveSlowdown = 0.7;
 double Player::walkDistance = 5000;
 /** Further away than this and the player starts running */
 double Player::runDistance = 20000;
-		
+
 
 Player::Player(Graphics *renderer, std::string skin, std::string playerMarker, Pitch *pitch, Team *team, Ball *ball, bool goalie) :
 	Body(Point3D(512.0, 1024.0, 0.0), Point3D(0.0, 0.0, 0.0), Rect()),
 	m_desiredPosition(Point3D(512.0, 1024.0, 0.0))
-{	
+{
 	m_limpSpeed = 1.5;
 	m_walkSpeed = 2.6;
 	m_runSpeed = 3.5;
-	
+
 	m_pitch = pitch;
 	m_renderer = renderer;
 	m_ball = ball;
 	m_team = team;
-	
+
 	m_commitTime = 0;
 	m_kickCountdown = 0;
 	m_touchTimer = 0;
 	m_justTurned = false;
 	m_dribbleTimer = 0;
-	
+
 	loadSpriteSurfaces(skin , playerMarker);
 	m_refCount=0;
 
@@ -81,7 +81,7 @@ Player::Player(Graphics *renderer, std::string skin, std::string playerMarker, P
 
 	SDL_Rect sr = {-32, -54, 0, 0};
 	SDL_Rect sh = {-14, -60, 0, 0};
-	SDL_Rect sa = {-16, -60, 0, 0};	
+	SDL_Rect sa = {-16, -60, 0, 0};
 	m_object = new SpriteObject(NULL, NULL, NULL, position(), sr, sh, sa);
 	m_renderer->addSprite(m_object);
 
@@ -115,22 +115,22 @@ void Player::calculateDestintaion()
 }
 
 void Player::calculateMovement()
-{	
+{
 	if(controlState() == Full) {
 		tryTrapBall();
-		
+
 		if(!isActive()) {
 			/* This code controls the movement of players who are not on the ball when the ball
 			 * is in play. Players should move towards their desired position, whilst also acting
 			 * intelligently to e.g. intercept the ball.
 			 */
-			
+
 			if(m_goalie) {
 				moveGoalkeeper();
 			} else {
 				Point3D wantToBe = m_desiredPosition;
 				Point3D curDist = position() - wantToBe;
-			
+
 				if(curDist.length() < m_limpSpeed*m_limpSpeed) {
 					setMove(Stand);
 					setDirection(closestDirection(m_ball->position()));
@@ -138,7 +138,7 @@ void Player::calculateMovement()
 					if((m_move!=Run) && (m_move!=Walk)) {
 						setMove(Run);
 					}
-	
+
 					if(curDist.length() < walkDistance) {
 						setMove(Walk);
 					} else if(curDist.length() > runDistance) {
@@ -161,23 +161,23 @@ void Player::calculateMovement()
 
 void Player::move()
 {
-	accelerate(Point3D(0, 0, Pitch::gravity));	
+	accelerate(Point3D(0, 0, Pitch::gravity));
 	Body::move();
 	if(position().z() < 0) {
 		setPosition(Point3D(position().x(), position().y(), 0.0));
 	}
-	
+
 	if((m_move == Tackle) || (m_move == HeavyTackle) || ((m_move == Header) && (position().z()==0))) {
 		applyFriction(m_pitch->friction());
 		m_pitch->scratchSurface(position());
 	}
-	
+
 	if(isActive()) {
 		m_object->setOverlaySurface(m_active);
 	} else {
 		m_object->setOverlaySurface(NULL);
 	}
-	
+
 	m_object->setPosition(position());
 	m_object->setSurface(getSurface());
 }
@@ -194,15 +194,15 @@ void Player::freeReference() {
 void Player::loadSpriteSurfaces(std::string skin, std::string playerMarker)
 {
 	if(m_renderer && m_renderer->screen()) {
-		m_walk = new SpriteSequence(m_renderer->screen()->format, 
+		m_walk = new SpriteSequence(m_renderer->screen()->format,
 								"graphics/"+skin+"/walking", "walking", 40, true, true);
-		m_stand = new SpriteSequence(m_renderer->screen()->format, 
+		m_stand = new SpriteSequence(m_renderer->screen()->format,
 								"graphics/"+skin+"/standing", "standing", 1, true, true);
-		m_run = new SpriteSequence(m_renderer->screen()->format, 
+		m_run = new SpriteSequence(m_renderer->screen()->format,
 								"graphics/"+skin+"/running", "running", 40, true, true);
-		m_tackle = new SpriteSequence(m_renderer->screen()->format, 
+		m_tackle = new SpriteSequence(m_renderer->screen()->format,
 								"graphics/"+skin+"/tackling", "tackling", 25, false, true);
-		m_header = new SpriteSequence(m_renderer->screen()->format, 
+		m_header = new SpriteSequence(m_renderer->screen()->format,
 								"graphics/"+skin+"/header", "header", 20, false, true);
 		m_active = SurfaceManager::instance()->load(m_renderer->screen()->format, playerMarker, true, false);
 	} else {
@@ -223,10 +223,10 @@ bool Player::setMove(Moves move, int variable)
 	Player *player;
 
 	if(committedToMove()) return false;
-	
+
 	if(move!=m_move) {
 		switch(move) {
-			case Stand: 
+			case Stand:
 				break;
 			case Limp:
 				break;
@@ -250,14 +250,14 @@ bool Player::setMove(Moves move, int variable)
 
 				player = m_team->findPlayerFromPosition(position(), m_direction);
 
-				if(player==NULL) {					
+				if(player==NULL) {
 					v = dirVal[m_direction]*m_runSpeed * 1.4;
 					v.setZ(2);
 				} else {
 					std::cout << "FIXME : pass code passes to players feet where he is now, not where he is " <<
 						"going to be when the ball reaches him" << std::endl;
 
-					Point3D aimFor = player->position();					
+					Point3D aimFor = player->position();
 
 					v = m_ball->calculateReqVelocity(2, aimFor);
 
@@ -297,16 +297,16 @@ bool Player::setMove(Moves move, int variable)
 
 		k = moveSpeed(move);
 		if(m_touchTimer!=0) k*= Player::moveSlowdown;
-		
+
 		setVelocity(dirVal[m_direction] * k);
 		if(move==Header) {
 			accelerate(Point3D(0,0, 2.5));
 		}
-		
+
 		m_move = move;
 		resetMove();
 		return true;
-	}	
+	}
 	return false;
 }
 
@@ -315,12 +315,12 @@ void Player::resetMove()
 	switch(m_move) {
 		case Stand: 	m_stand->restartSequence();
 				break;
-		case Limp: 
+		case Limp:
 		case Walk: 	m_walk->restartSequence();
 				break;
 		case Run: 	m_run->restartSequence();
 				break;
-		case Tackle:	
+		case Tackle:
 		case HeavyTackle:
 				m_tackle->restartSequence();
 				break;
@@ -343,12 +343,12 @@ void Player::updateMove()
 	switch(m_move) {
 		case Stand: 		m_stand->updateSequence();
 					break;
-		case Limp: 
+		case Limp:
 		case Walk: 		m_walk->updateSequence();
 					break;
 		case Run: 		m_run->updateSequence();
 					break;
-		case Tackle: 	
+		case Tackle:
 		case HeavyTackle:	m_tackle->updateSequence();
 					break;
 		case Header:		m_header->updateSequence();
@@ -358,26 +358,28 @@ void Player::updateMove()
 		case Shoot:		m_run->updateSequence();
 					break;
 		case FallOver:
-					std::cout << "FIXME : case FallOver not handles in updateMove" << std::endl;
+		default:
+					std::cout << "FIXME : case " << m_move << " not handles in updateMove" << std::endl;
 					break;
 	}
 }
 
 SDL_Surface *Player::getSurface()
 {
-	
+
 	switch(m_move) {
 		case Stand: 		return m_stand->surface(m_direction);
 		case Limp: 		return m_walk->surface(m_direction);
 		case Walk: 		return m_walk->surface(m_direction);
 		case Run: 		return m_run->surface(m_direction);
-		case Tackle: 	
+		case Tackle:
 		case HeavyTackle:	return m_tackle->surface(m_direction);
 		case Header:		return m_header->surface(m_direction);
 		case Pass:		return m_run->surface(m_direction);
 		case Shoot:		return m_run->surface(m_direction);
+		case FallOver: // TODO
 		default: 		return m_stand->surface(m_direction);
-	}	
+	}
 }
 
 bool Player::inPosition()
@@ -392,12 +394,12 @@ bool Player::inPosition()
 void Player::setDirection(int direction)
 {
 	if((direction < 0) || (direction > 7)) {
-		std::cout << "Warning : Player::setDirection passed out of range direction " << 
+		std::cout << "Warning : Player::setDirection passed out of range direction " <<
 			direction << " - ignoring" << std::endl;
 		return;
 	}
 	double k;
-		
+
 	//
 	// If we are tackling, we can't do anything else until we've finished sliding!
 	//
@@ -406,12 +408,12 @@ void Player::setDirection(int direction)
 			m_justTurned=true;
 		}
 		m_direction=direction;
-			
+
 		k = moveSpeed(m_move);
 		if(m_touchTimer!=0) k*= Player::moveSlowdown;
-	
+
 		Point3D newVelocity = dirVal[m_direction]*k;
-	
+
 		// Player "guidance" so that it is easy to connect with the ball. If the player is slightly
 		// off line, he will be moved on line, so you don't have to press as many diagonals to hit
 		// the ball. Subtle, but effective.
@@ -420,15 +422,15 @@ void Player::setDirection(int direction)
 				(position() - m_ball->position()).length() ) {
 				Point3D left = Matrix::rollTransform(-0.174539252) * dirVal[m_direction];
 				Point3D right= Matrix::rollTransform(0.174539252) * dirVal[m_direction];
-			
+
 				if( (m_ball->position() - position()).liesWithinArc(left, right)) {
 					newVelocity = (m_ball->position() -
 						       		position()).setZ(0).normalise() * k;
 				}
 			}
 		}
-		
-		setVelocity(newVelocity);	
+
+		setVelocity(newVelocity);
 	}
 }
 
@@ -479,7 +481,7 @@ int Player::closestDirection(const Point3D &pos)
 	Point3D newDist;
 	int dir = 0;
 	double currentLength = (position() - pos).length();
-	
+
 	m_directionCount=0;
 	for(int count=0; count<8; count++) {
 		newDist = position() + (dirVal[count] * 0.01) - pos;
@@ -488,7 +490,7 @@ int Player::closestDirection(const Point3D &pos)
 			currentLength = newDist.length();
 		}
 	}
-	
+
 	return dir;
 }
 
@@ -498,12 +500,12 @@ bool Player::committedToMove()
 	// Shooting/passing takes time!
 	// If we are tackling, we can't do anything else until we've finished sliding!
 	//
-	
+
 	return m_commitTime>0;
-}	
+}
 
 bool Player::applyAftertouch(int direction)
-{	
+{
 	if(!m_kickCountdown) return false;
 
 
@@ -515,16 +517,16 @@ bool Player::applyAftertouch(int direction)
 		m_kickCountdown = 0;
 		return false;   // an upwards moving ball does not have aftertouch applied.
 	}
-	ubv *= 1.0 / sqrt(ubv.length());		
-	
+	ubv *= 1.0 / sqrt(ubv.length());
+
 	// Determine unit vector perpendicular to the ball direction.
 	ubv = Matrix::rollTransform(1.570796327) * ubv;
-		
+
 
 	// Rotate direction vector by so many radians around the direction vector.
 	Point3D udv = dirVal[direction];
 	udv = Matrix::arbitraryTransform(ubv, 1.2) * udv;
-	
+
 	m_ball->accelerate(udv * 0.07);
 
 	return true;
@@ -533,9 +535,9 @@ bool Player::applyAftertouch(int direction)
 bool Player::touchingBall(bool shooting)
 {
 	if((controlState() == Full) || (controlState() == KickOnly)) {
-		double len = (m_ball->position() - position()).length();	
+		double len = (m_ball->position() - position()).length();
 		if(m_ball->position().z() < kickHeight) {
-			if( (justTurned() && len < cornerControl) || 
+			if( (justTurned() && len < cornerControl) ||
 			    (len < lineControl) || (shooting && len < shootControl)) {
 				return true;
 			}
@@ -560,7 +562,7 @@ int Player::currentKickPriority()
 	return priority;
 }
 
-void Player::tryTrapBall() 
+void Player::tryTrapBall()
 {
 	/* This code lets a player trap the ball. */
 	Point3D groundVel = velocity();
@@ -585,7 +587,7 @@ void Player::tryTrapBall()
 
 					if( sqrt((reqvel - m_ball->velocity()).length()) / sqrt(m_ball->velocity().length()) > 0.05) {
 						m_ball->kickBall(reqvel,
-							currentKickPriority(), 
+							currentKickPriority(),
 							this);
 						m_touchTimer = 100;
 					}
@@ -612,6 +614,7 @@ double Player::moveSpeed(Moves move)
 		case Pass	:	return m_runSpeed;
 		case Shoot	:	return m_runSpeed;
 		case Header	:	return m_runSpeed * 2;
+		case FallOver: // TODO
 		default		:	std::cout << "Warning - moveSpeed() asked for unknown move" << std::endl;
 					return m_runSpeed;
 	}
@@ -632,7 +635,7 @@ bool Player::hasBall()
 	if(!isActive()) return false;
 	if(GameEngine::lastPlayerTouch() != this) return false;
 	if(m_touchTimer == 0) return false;
-	
+
 	return true;
 }
 
@@ -650,7 +653,7 @@ void Player::moveToDesiredPosition()
 	if(currentLength < m_limpSpeed*m_limpSpeed) {
 		setMove(Stand);
 		setDirection(closestDirection(m_ball->position()));
-	} else {	
+	} else {
 		newDist += dirVal[m_direction] * m_limpSpeed;
 		newDist -= m_desiredPosition;
 
@@ -693,9 +696,9 @@ void Player::moveGoalkeeper()
 			wantToBe = m_desiredPosition+vector;
 		}
 	}
-	
+
 	Point3D curDist = position() - wantToBe;
-			
+
 	if(curDist.length() < m_limpSpeed*m_limpSpeed) {
 		setMove(Stand);
 		setDirection(closestDirection(m_ball->position()));

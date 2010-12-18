@@ -99,4 +99,6 @@ void MenuButton::selectPressed()
 
 void MenuButton::update(Uint8 *keys)
 {
+	// Does not react to keys
+	(void) keys;
 }

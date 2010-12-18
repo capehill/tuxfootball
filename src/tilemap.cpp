@@ -165,6 +165,6 @@ bool TileMap::isWhiteSpace(char val)
 		case ',' :
 		case ' ' :
 		case '\n' : return true;
+		default: return false;
 	}
-	return false;
 }

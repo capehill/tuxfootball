@@ -26,7 +26,7 @@
 #else
 #define _(String) (String)
 #endif
-	
+
 #include "gameengine.h"
 #include "surfacemanager.h"
 #include "fontmanager.h"
@@ -108,7 +108,7 @@ GameEngine::GameEngine(bool fullscreen) :
 	m_sounds.push_back(SoundManager::instance()->load("sound/crowdooh.wav"));
 
 	m_quitKey = SDLK_ESCAPE;
-	
+
 	m_resX = 800;
 	m_resY = 600;
 
@@ -202,13 +202,13 @@ GameEngine::~GameEngine()
 	if(m_pitch) delete m_pitch;
 	if(m_homeTeam) delete m_homeTeam;
 	if(m_awayTeam) delete m_awayTeam;
-	
+
 	if(m_homeController) delete m_homeController;
 	if(m_awayController) delete m_awayController;
 	if(m_renderer) delete m_renderer;
 
 	if(m_score) SurfaceManager::instance()->release(m_score);
-	
+
 	if(m_nameFont) FontManager::instance()->release(m_nameFont);
 	if(m_scoreFont) FontManager::instance()->release(m_scoreFont);
 
@@ -218,7 +218,7 @@ GameEngine::~GameEngine()
 		if(*it) SoundManager::instance()->release((*it));
 		++it;
 	}
-	
+
 	// Shutdown Audio.
 	Mix_CloseAudio();
 
@@ -233,23 +233,23 @@ void GameEngine::gameLoop()
 {
 	static double totalFPSTime = 0;
 	m_music = 0;
-	
+
 	int nextTime = SDL_GetTicks();
 	m_camera.setPosition(Point3D(m_pitch->width()/2, m_pitch->height()-m_screen->h));
-	
+
 	m_finished = false;
 	setState(TitleScreen);
 	initialiseMatch();
-	
+
 	do {
 		int startTime = SDL_GetTicks();
 		int currentTime;
 
-		// Make sure we wait for the next frame if we are going too fast... 
+		// Make sure we wait for the next frame if we are going too fast...
 		while( (currentTime = SDL_GetTicks()) < nextTime ) {
 			SDL_Delay(1);
 		}
-	
+
 		// And make sure we catch up if we are going too slow.
 		while(nextTime < currentTime) {
 			iterateEngine();
@@ -272,7 +272,7 @@ void GameEngine::gameLoop()
 void GameEngine::iterateEngine()
 {
 	m_gameStates[m_currentState]->updateLoop();
-	
+
 	if((m_menu) && (m_menu->finished())) {
 		delete m_menu;
 		m_menu = 0;
@@ -299,7 +299,7 @@ void GameEngine::iterateEngine()
 
 	if(m_gameInProgress) {
 		switch(m_subMode) {
-			case InPlay :				
+			case InPlay :
 				if(m_pitch->crossesSideLine(Segment(m_ball->lastPosition(), m_ball->position()))) {
 					setBallPreparedPosition(m_pitch->lastIntersection());
 					setSubMode(ThrowIn, (GameEngine::lastTeamTouch() == m_awayTeam), false, m_pitch->lastIntersection());
@@ -367,7 +367,7 @@ void GameEngine::iterateEngine()
 			case GoalCelebration :
 				setSubMode(KickOff, !m_subModeHome);
 				break;
-		} 
+		}
 	}
 }
 
@@ -376,7 +376,7 @@ void GameEngine::drawFrame()
 	static int x = 0;
 	SDL_Rect r, s, score_pos, score_size;
 	x+=2;
-	
+
 	int left = (int)m_camera.position().x() - m_resX/2;
 	int top = (int)m_camera.position().y() - m_resY/2;
 
@@ -411,18 +411,18 @@ void GameEngine::drawFrame()
 		std::ostringstream awayScoreStr;
 
 		homeScoreStr << m_homeScore;
-		awayScoreStr << m_awayScore;	
+		awayScoreStr << m_awayScore;
 
 		m_scoreFont->write(m_screen, homeScoreStr.str().c_str(), m_screen->w-228, 12);
 		m_scoreFont->write(m_screen, "-", m_screen->w-207, 12);
 		m_scoreFont->write(m_screen, awayScoreStr.str().c_str(), m_screen->w-193, 12);
 
-		m_nameFont->write(m_screen, m_homeTeam->shortname().c_str(), 
+		m_nameFont->write(m_screen, m_homeTeam->shortname().c_str(),
 			  m_screen->w-295, 12);
-		m_nameFont->write(m_screen, m_awayTeam->shortname().c_str(), 
+		m_nameFont->write(m_screen, m_awayTeam->shortname().c_str(),
 			  m_screen->w-160, 12);
 
-		
+
 		int scoreWidth = m_scoreFont->getTextWidth(homeScoreStr.str().c_str());
 		scoreWidth = (scoreWidth < m_scoreFont->getTextWidth(awayScoreStr.str().c_str())) ? scoreWidth : m_scoreFont->getTextWidth(awayScoreStr.str().c_str());
 		scoreWidth += 20;
@@ -431,10 +431,10 @@ void GameEngine::drawFrame()
 
 		m_scoreFont->write(m_screen, homeScoreStr.str().c_str(), sm - scoreWidth, m_screen->h-34);
 		m_scoreFont->write(m_screen, awayScoreStr.str().c_str(), sm + 20, m_screen->h-34);
-	
-		m_nameFont->write(m_screen, m_homeTeam->name().c_str(), 
+
+		m_nameFont->write(m_screen, m_homeTeam->name().c_str(),
 			  sm - scoreWidth - m_nameFont->getTextWidth(m_homeTeam->name().c_str())-20, m_screen->h-34);
-		m_nameFont->write(m_screen, m_awayTeam->name().c_str(), 
+		m_nameFont->write(m_screen, m_awayTeam->name().c_str(),
 			  sm+scoreWidth+20, m_screen->h-34);
 
 		//
@@ -442,19 +442,19 @@ void GameEngine::drawFrame()
 		//
 		std::ostringstream str3;
 		int minutes = ((2700 * m_timer)/m_halfLength)%60;
-	
+
 		if(minutes<10) {
 			str3 << ((2700 * m_timer)/m_halfLength)/60 << ":0" << ((2700 * m_timer)/m_halfLength)%60;
 		} else {
 			str3 << ((2700 * m_timer)/m_halfLength)/60 << ":" << ((2700 * m_timer)/m_halfLength)%60;
 		}
-		
+
 		m_scoreFont->write(m_screen, str3.str().c_str(), m_screen->w - m_scoreFont->getTextWidth(str3.str().c_str()) - 22, 12);
 	}
 
 	//
 	// Draw frames per second
-	// 
+	//
 	if(m_displayFPS) {
 		std::ostringstream str4;
 		str4 << "FPS : " << m_framesPerSecond;
@@ -465,7 +465,7 @@ void GameEngine::drawFrame()
 	// Draw Menu
 	//
 	if(m_menu) m_menu->draw();
-	
+
 	if(m_logo) {
 		s.x = (m_screen->w - m_logo->w) / 2;
 		s.y = 50;
@@ -474,7 +474,7 @@ void GameEngine::drawFrame()
 		s.w = r.w = m_logo->w;
 		s.h = r.h = m_logo->h;
 
-		
+
 		if(SDL_BlitSurface(m_logo, &r, m_screen, &s) < 0) {
 			std::cerr << "Error - could not pitch tile : " << SDL_GetError() << std::endl;
 		}
@@ -483,7 +483,7 @@ void GameEngine::drawFrame()
 	SDL_Flip(m_screen);
 }
 
-bool GameEngine::finished() 
+bool GameEngine::finished()
 {
 	return m_finished;
 }
@@ -492,7 +492,7 @@ bool GameEngine::finished()
 void GameEngine::setTimer(TimerState state)
 {
 	m_timerState = state;
-	
+
 	if(state==Restart) {
 		m_timer = 0;
 		m_timerState = Start;
@@ -511,16 +511,16 @@ uint GameEngine::timer() const
 
 void GameEngine::setState(GameState state)
 {
-	if((m_currentState >= 0) && (m_currentState < m_gameStates.size()))
+	if((m_currentState >= 0) && (m_currentState < (int) m_gameStates.size()))
 	{
 		m_gameStates[m_currentState]->leaveState();
 	}
 	m_currentState=state;
-	if((m_currentState >= 0) && (m_currentState < m_gameStates.size()))
+	if((m_currentState >= 0) && (m_currentState < (int) m_gameStates.size()))
 	{
 		m_gameStates[m_currentState]->enterState();
 	}
-	
+
 	if((m_currentState==FirstHalf) || (m_currentState==SecondHalf) ||
 	   (m_currentState==ExtraTimeFirstHalf) || (m_currentState==ExtraTimeSecondHalf)) {
 		m_gameInProgress = true;
@@ -532,16 +532,16 @@ void GameEngine::setState(GameState state)
 }
 
 void GameEngine::updateKeyboard()
-{	
+{
 	SDL_Event event;
 	static bool quitting = false;
 
-	while(SDL_PollEvent(&event)) {		
+	while(SDL_PollEvent(&event)) {
 		if(event.type == SDL_QUIT) m_finished = 1;
 	}
 
 	Uint8 *keys = SDL_GetKeyState(NULL);
-	
+
 	m_homeController->updateController(keys);
 	m_awayController->updateController(keys);
 
@@ -569,7 +569,7 @@ void GameEngine::setSubMode(SubMode mode, bool home, bool left, const Point3D &p
 			m_awayTeam->setControlState(Player::Full);
 			setTimer(Start);
 			break;
-		case KickOff : 
+		case KickOff :
 			m_homeTeam->setupKickoff(home);
 			m_awayTeam->setupKickoff(!home);
 			setTimer(Stop);
@@ -582,7 +582,7 @@ void GameEngine::setSubMode(SubMode mode, bool home, bool left, const Point3D &p
 			setBallPreparedPosition(m_pitch->cornerSpot(left, home ? m_awayTeam->topHalf() : m_homeTeam->topHalf()));
 			playSound(RefWhistleTwice);
 			break;
-		case ThrowIn :		
+		case ThrowIn :
 			std::cout << "Prepare throwin" << std::endl;
 			m_homeTeam->setupThrowIn(pos, home);
 			m_awayTeam->setupThrowIn(pos, !home);
@@ -597,15 +597,17 @@ void GameEngine::setSubMode(SubMode mode, bool home, bool left, const Point3D &p
 			setTimer(Stop);
 			setBallPreparedPosition(m_pitch->goalKickSpot(left, home ? m_homeTeam->topHalf() : m_awayTeam->topHalf()));
 			playSound(RefWhistleTwice);
-			break;			
+			break;
 		case GoalCelebration :
 			std::cout << "No goal celebration at present, go straight to kick off." << std::endl;
 			playSound(RefWhistleTwice);
 			break;
+		case Penalty:
+		case FreeKick:
 		default :
 			std::cout << "Warning - setSubMode called for mode as yet unwritten" << std::endl;
 	}
-	
+
 	m_subModeHome = home;
 }
 
@@ -695,7 +697,7 @@ Player *GameEngine::addPlayer(std::string skin, std::string playerMarker, Team *
 	Player *p = new Player(m_renderer, skin, playerMarker, m_pitch, team, m_ball, goalkeeper);
 
 	m_playerList.push_back(PlayerContainer(p));
-	
+
 	return p;
 }
 
@@ -738,9 +740,9 @@ Controller *GameEngine::controller(ControllerType controller)
 		return m_homeController;
 	case AwayController :
 		return m_awayController;
+	default:
+		return 0;
 	}
-	
-	return 0;
 }
 
 SDL_Surface *GameEngine::screen()
@@ -755,14 +757,15 @@ Team *GameEngine::team(TeamTypes team)
 		return m_homeTeam;
 	case AwayTeam :
 		return m_awayTeam;
+	default:
+		return 0;
 	}
-	return 0;
 }
 
 Mix_Chunk *GameEngine::gameSound(GameSounds sound)
 {
 	Mix_Chunk *result = 0;
-	if((sound>=0) && (sound<= m_sounds.size())) {
+	if((sound>=0) && (sound<= (int) m_sounds.size())) {
 		result = m_sounds[sound];
 	}
 	return result;
@@ -770,7 +773,7 @@ Mix_Chunk *GameEngine::gameSound(GameSounds sound)
 
 void GameEngine::playSound(GameSounds sound)
 {
-	if((sound>=0) && (sound<= m_sounds.size())) {
+	if((sound>=0) && (sound<= (int) m_sounds.size())) {
 		if(m_sounds[sound]) {
 			Mix_PlayChannel(-1, m_sounds[sound], 0);
 		}
@@ -779,15 +782,15 @@ void GameEngine::playSound(GameSounds sound)
 
 uint GameEngine::score(TeamTypes team) const
 {
-	uint result = 0;
 	switch(team)
 	{
 	case HomeTeam :
-		result = m_homeScore;
+		return m_homeScore;
 	case AwayTeam :
-		result = m_awayScore;
+		return m_awayScore;
+	default:
+		return 0;
 	}
-	return result;
 }
 
 void GameEngine::setFullScreen(bool fullscreen)

@@ -43,7 +43,7 @@ Menu::Menu(SDL_Surface *screen, std::string name)
 	m_menuPadding_h = 15;
 
 	// FIXME: GCC 4 issue m_active = 0;
-	
+
 	std::string str = "graphics/font_white.png";
 	m_activeFont = FontManager::instance()->load(m_screen->format, str, false, true);
 	str = "graphics/font_yellow.png";
@@ -51,7 +51,7 @@ Menu::Menu(SDL_Surface *screen, std::string name)
 
 	m_logo = SurfaceManager::instance()->load(screen->format, "graphics/tuxfootball.png", false, true);
 	m_background = SurfaceManager::instance()->load(screen->format, "graphics/menu_background.png", false, true);
-	
+
 	m_beep = SoundManager::instance()->load("sound/beep.wav");
 	m_incrementBeep = SoundManager::instance()->load("sound/increment_beep.wav");
 	m_decrementBeep = SoundManager::instance()->load("sound/decrement_beep.wav");
@@ -88,7 +88,7 @@ void Menu::addItem(MenuItem *item)
 
 	// FIXME: GCC 4 issue if(m_active==0)
 	m_active = m_itemList.begin();
-	
+
 	if(m_show) {
 		calculateMenuBounds();
 	}
@@ -113,12 +113,12 @@ void Menu::update(Uint8 *keys)
 	static bool rightPressed = false;
 	static bool escapePressed = false;
 	static bool returnPressed = false;
-	
+
 	if(m_finished) return;
 
 	if(m_grabFocus) {
 		m_grabFocus->update(keys);
-	} else {	
+	} else {
 		if(keys[SDLK_ESCAPE]) {
 			if(!escapePressed) {
 				if(m_selectBeep) Mix_PlayChannel(-1, m_selectBeep, 0);
@@ -127,7 +127,7 @@ void Menu::update(Uint8 *keys)
 		} else if(escapePressed) {
 			escapePressed = false;
 		}
-	
+
 		if(keys[SDLK_RETURN]) {
 			if(!returnPressed) {
 				returnPressed = true;
@@ -137,7 +137,7 @@ void Menu::update(Uint8 *keys)
 			(*(*m_active))->selectPressed();
 			returnPressed = false;
 		}
-	
+
 		if(keys[SDLK_UP]) {
 			if(!upPressed) {
 				upPressed = true;
@@ -150,7 +150,7 @@ void Menu::update(Uint8 *keys)
 		} else {
 			upPressed = false;
 		}
-	
+
 		if(keys[SDLK_DOWN]) {
 			if(!downPressed) {
 				downPressed = true;
@@ -163,7 +163,7 @@ void Menu::update(Uint8 *keys)
 		} else {
 			downPressed = false;
 		}
-	
+
 		if(keys[SDLK_LEFT]) {
 			if(!leftPressed) {
 				leftPressed = true;
@@ -173,7 +173,7 @@ void Menu::update(Uint8 *keys)
 		} else {
 			leftPressed = false;
 		}
-	
+
 		if(keys[SDLK_RIGHT]) {
 			if(!rightPressed) {
 				rightPressed = true;
@@ -190,10 +190,10 @@ void Menu::draw()
 {
 	SDL_Rect r, s;
 	std::list<MenuItemContainer>::iterator itt;
-	
+
 	if(!m_show) return;
 
-	for(int y=0; y<m_menuBounds.h; y+=m_background->h) {		
+	for(int y=0; y<m_menuBounds.h; y+=m_background->h) {
 		for(int x=0; x<m_menuBounds.w; x+=m_background->w) {
 			r.x = 0;
 			r.y = 0;
@@ -209,7 +209,7 @@ void Menu::draw()
 	}
 
 	int curY = m_menuBounds.y + m_menuPadding_h;
-	
+
 	for(itt = m_itemList.begin(); itt!=m_itemList.end(); ++itt) {
 		if(itt == m_active) {
 			(*(*itt))->draw(m_activeFont, m_menuBounds.x, curY, m_menuBounds.w, m_screen);
@@ -234,11 +234,13 @@ void Menu::calculateMenuBounds()
 		m_menuBounds.h += (*(*itt))->height();
 	}
 	m_menuBounds.w += m_menuPadding_w*2;
-	
+
 	switch(m_pos) {
 		case Centered :	m_menuBounds.x = (m_screen->w - m_menuBounds.w)/2;
 				m_menuBounds.y = (m_screen->h - m_menuBounds.h)/2;
-				break;
+			break;
+		default:
+			break;
 	}
 }
 
@@ -252,7 +254,7 @@ bool Menu::selectionMade()
 	return m_selectionMade;
 }
 
-bool Menu::finished()	
+bool Menu::finished()
 {
 	return m_finished;
 }
@@ -265,7 +267,7 @@ const MenuItem *Menu::selected()
 const MenuItem *Menu::menuItem(std::string name)
 {
 	std::list<MenuItemContainer>::iterator itt;
-	
+
 	for(itt = m_itemList.begin(); itt!=m_itemList.end(); ++itt) {
 		std::cout << "checking " << (*(*itt))->identifier() << " against " << name << std::endl;
 		if((*(*itt))->identifier().compare(name)==0) {
@@ -280,7 +282,7 @@ const MenuItem *Menu::menuItem(std::string name)
 void Menu::setFinished()
 {
 	m_finished=true;
-	m_selectionMade = true;	
+	m_selectionMade = true;
 }
 
 void Menu::grabFocus(MenuItem *item)

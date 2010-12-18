@@ -88,7 +88,7 @@ int MenuOptionList::width(SFont* font)
 int MenuOptionList::maximumWidth(SFont* font)
 {
 	if(!isOption()) return width(font);
-	
+
 	int maxWidth = 0;
 
 	std::list<MenuOption>::iterator itt;
@@ -109,16 +109,16 @@ std::string MenuOptionList::text() const
 	if(isOption()) {
 		return calculateTextString((*m_curOption).text);
 	}
-	
+
 	return m_name;
 }
 
 void MenuOptionList::selectOption(std::string option)
 {
 	if(!isOption()) return;
-	
+
 	std::list<MenuOption>::iterator itt;
-	
+
 	for(itt=m_optionList.begin(); itt!=m_optionList.end(); ++itt) {
 		if((*itt).text == option) {
 			m_curOption = itt;
@@ -130,9 +130,9 @@ void MenuOptionList::selectOption(std::string option)
 void MenuOptionList::selectOption(int value)
 {
 	if(!isOption()) return;
-	
+
 	std::list<MenuOption>::iterator itt;
-	
+
 	for(itt=m_optionList.begin(); itt!=m_optionList.end(); ++itt) {
 		if((*itt).value == value) {
 			m_curOption = itt;
@@ -178,7 +178,7 @@ std::string MenuOptionList::identifier() const
 	return m_identifier;
 }
 
-void MenuOptionList::leftPressed() 
+void MenuOptionList::leftPressed()
 {
 	decrementOption();
 }
@@ -194,5 +194,7 @@ void MenuOptionList::selectPressed()
 
 void MenuOptionList::update(Uint8 *keys)
 {
+	// Does not react to keys
+	(void) keys;
 }
 
