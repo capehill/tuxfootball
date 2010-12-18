@@ -88,6 +88,11 @@ int main(int argc, char *argv[])
 }
 
 #ifdef _WIN32
+
+#ifndef _MAX_PATH
+#define _MAX_PATH 2048
+#endif
+
 /* Taken from http://www.flipcode.com/archives/WinMain_Command_Line_Parser.shtml */
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, char* command_line, int show_command)
 {
