@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{170A5844-0213-47E7-8DB7-C764B985AF8C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>tuxfootball</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>include\SDL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ball.cpp" />
+    <ClCompile Include="src\body.cpp" />
+    <ClCompile Include="src\camera.cpp" />
+    <ClCompile Include="src\controller.cpp" />
+    <ClCompile Include="src\extratimefirsthalfstate.cpp" />
+    <ClCompile Include="src\extratimehalftimestate.cpp" />
+    <ClCompile Include="src\extratimesecondhalfstate.cpp" />
+    <ClCompile Include="src\extratimestate.cpp" />
+    <ClCompile Include="src\firsthalfstate.cpp" />
+    <ClCompile Include="src\fontmanager.cpp" />
+    <ClCompile Include="src\fulltimestate.cpp" />
+    <ClCompile Include="src\gameengine.cpp" />
+    <ClCompile Include="src\graphics.cpp" />
+    <ClCompile Include="src\halftimestate.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\mainmenu.cpp" />
+    <ClCompile Include="src\mainmenustate.cpp" />
+    <ClCompile Include="src\matchabortedstate.cpp" />
+    <ClCompile Include="src\matchfinishedstate.cpp" />
+    <ClCompile Include="src\matchstartstate.cpp" />
+    <ClCompile Include="src\matrix.cpp" />
+    <ClCompile Include="src\menu.cpp" />
+    <ClCompile Include="src\menubutton.cpp" />
+    <ClCompile Include="src\menuitem.cpp" />
+    <ClCompile Include="src\menukeyselect.cpp" />
+    <ClCompile Include="src\menulabel.cpp" />
+    <ClCompile Include="src\menuoptionlist.cpp" />
+    <ClCompile Include="src\nationalanthemstate.cpp" />
+    <ClCompile Include="src\penaltyshootoutstate.cpp" />
+    <ClCompile Include="src\pitch.cpp" />
+    <ClCompile Include="src\player.cpp" />
+    <ClCompile Include="src\point3d.cpp" />
+    <ClCompile Include="src\rect.cpp" />
+    <ClCompile Include="src\redefinekeysmenu.cpp" />
+    <ClCompile Include="src\redefinekeysstate.cpp" />
+    <ClCompile Include="src\resourcemanager.cpp" />
+    <ClCompile Include="src\secondhalfstate.cpp" />
+    <ClCompile Include="src\segment.cpp" />
+    <ClCompile Include="src\SFont.c" />
+    <ClCompile Include="src\soundmanager.cpp" />
+    <ClCompile Include="src\spriteobject.cpp" />
+    <ClCompile Include="src\spritesequence.cpp" />
+    <ClCompile Include="src\statebase.cpp" />
+    <ClCompile Include="src\surfacemanager.cpp" />
+    <ClCompile Include="src\team.cpp" />
+    <ClCompile Include="src\tilemap.cpp" />
+    <ClCompile Include="src\videomenustate.cpp" />
+    <ClCompile Include="src\videosettingsmenu.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\ball.h" />
+    <ClInclude Include="src\body.h" />
+    <ClInclude Include="src\camera.h" />
+    <ClInclude Include="src\const.h" />
+    <ClInclude Include="src\controller.h" />
+    <ClInclude Include="src\extratimefirsthalfstate.h" />
+    <ClInclude Include="src\extratimehalftimestate.h" />
+    <ClInclude Include="src\extratimesecondhalfstate.h" />
+    <ClInclude Include="src\extratimestate.h" />
+    <ClInclude Include="src\firsthalfstate.h" />
+    <ClInclude Include="src\Font.hpp" />
+    <ClInclude Include="src\fontmanager.h" />
+    <ClInclude Include="src\fulltimestate.h" />
+    <ClInclude Include="src\gameengine.h" />
+    <ClInclude Include="src\graphics.h" />
+    <ClInclude Include="src\halftimestate.h" />
+    <ClInclude Include="src\mainmenu.h" />
+    <ClInclude Include="src\mainmenustate.h" />
+    <ClInclude Include="src\matchabortedstate.h" />
+    <ClInclude Include="src\matchfinishedstate.h" />
+    <ClInclude Include="src\matchstartstate.h" />
+    <ClInclude Include="src\matrix.h" />
+    <ClInclude Include="src\menu.h" />
+    <ClInclude Include="src\menubutton.h" />
+    <ClInclude Include="src\menuitem.h" />
+    <ClInclude Include="src\menukeyselect.h" />
+    <ClInclude Include="src\menulabel.h" />
+    <ClInclude Include="src\menuoptionlist.h" />
+    <ClInclude Include="src\nationalanthemstate.h" />
+    <ClInclude Include="src\penaltyshootoutstate.h" />
+    <ClInclude Include="src\pitch.h" />
+    <ClInclude Include="src\player.h" />
+    <ClInclude Include="src\point3d.h" />
+    <ClInclude Include="src\rect.h" />
+    <ClInclude Include="src\redefinekeysmenu.h" />
+    <ClInclude Include="src\redefinekeysstate.h" />
+    <ClInclude Include="src\resourcemanager.h" />
+    <ClInclude Include="src\secondhalfstate.h" />
+    <ClInclude Include="src\segment.h" />
+    <ClInclude Include="src\SFont.h" />
+    <ClInclude Include="src\soundmanager.h" />
+    <ClInclude Include="src\spriteobject.h" />
+    <ClInclude Include="src\spritesequence.h" />
+    <ClInclude Include="src\statebase.h" />
+    <ClInclude Include="src\surfacemanager.h" />
+    <ClInclude Include="src\team.h" />
+    <ClInclude Include="src\tilemap.h" />
+    <ClInclude Include="src\videomenustate.h" />
+    <ClInclude Include="src\videosettingsmenu.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
