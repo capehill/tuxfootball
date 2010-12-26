@@ -38,5 +38,5 @@ VideoSettingsMenu::~VideoSettingsMenu()
 bool
 VideoSettingsMenu::currentMode() const
 {
-	return m_modes->currentOptionValue();
+	return m_modes->currentOptionValue() == 1;
 }
