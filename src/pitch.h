@@ -60,11 +60,11 @@ public:
 	/** returns true if the line given, once projected onto the ground, crosses the sideline. Otherwise
 	 * returns false. the intersection Point will be set to the correct point of the line if true*/
 	bool crossesSideLine(Segment move);
-	/** returns true if the line given, once projected onto the ground, crosses one of the goal lines. 
+	/** returns true if the line given, once projected onto the ground, crosses one of the goal lines.
 	 * Otherwise returns false. the intersection Point will be set to the correct point of the line if
 	 * true */
 	bool crossesGoalLine(Segment move);
-	/** returns true if the line given has entered the goal mouth. 
+	/** returns true if the line given has entered the goal mouth.
 	 * Otherwise returns false. the intersection Point will be set to the correct point of the line if
 	 * true */
 	bool entersGoal(Segment move);

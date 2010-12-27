@@ -43,7 +43,7 @@ Pitch::Pitch(Graphics *renderer)
 
 	m_sixYardHeight = 150;
 	m_sixYardWidth = 600;
-	
+
 	m_penaltySpotTop = 560;
 	m_penaltySpotBottom = 3536;
 
@@ -62,8 +62,8 @@ Pitch::Pitch(Graphics *renderer)
 		SDL_Rect sr = {-256, -150, 0, 0};
 		SDL_Rect sh = {0,0,0,0};
 		SDL_Rect so = {0,0,0,0};
-		
-		m_goalPostSpriteTop = new SpriteObject(m_goalPostTop, NULL, NULL, 
+
+		m_goalPostSpriteTop = new SpriteObject(m_goalPostTop, NULL, NULL,
 							Point3D(centerX(), topBound()),
 							sr, sh, so);
 
@@ -71,10 +71,10 @@ Pitch::Pitch(Graphics *renderer)
 		m_goalPostSpriteBottom = new SpriteObject(m_goalPostBottom, NULL, NULL,
 							Point3D(centerX(), bottomBound()),
 							sr, sh, so);
-		
+
 		m_renderer->addSprite(m_goalPostSpriteTop);
 		m_renderer->addSprite(m_goalPostSpriteBottom);
-		
+
 		m_width = 2560;
 		m_height = 4096;
 	} else {
@@ -98,7 +98,7 @@ Pitch::~Pitch()
 
 	delete m_goalPostSpriteTop;
 	delete m_goalPostSpriteBottom;
-	
+
 	SurfaceManager::instance()->release(m_goalPostTop);
 	SurfaceManager::instance()->release(m_goalPostBottom);
 	SurfaceManager::instance()->release(m_scratch);
@@ -135,12 +135,12 @@ void Pitch::draw(int left, int top)
 	//
 	// Draw the pitch tile across the screen.
 	//
-	
+
 	int x=(left/m_surface->w)*m_surface->w - left;
-	
+
 	while(x< m_renderer->screen()->w) {
 		int y= (top / m_surface->h) * m_surface->h - top;
-		
+
 		while(y < m_renderer->screen()->w) {
 			r.x = 0;
 			r.y = 0;
@@ -152,10 +152,10 @@ void Pitch::draw(int left, int top)
 			if(SDL_BlitSurface(m_surface, &r, m_renderer->screen(), &s) < 0) {
 				std::cerr << "Error - could not pitch tile : " << SDL_GetError() << std::endl;
 			}
-			
-			y+= m_surface->h;			
+
+			y+= m_surface->h;
 		}
-		
+
 		x += m_surface->w;
 	}
 
@@ -172,7 +172,7 @@ void Pitch::draw(int left, int top)
 			std::cerr << "Error - could not draw pitch scratch : " << SDL_GetError() << std::endl;
 		}
 	}*/
-}	
+}
 
 Point3D Pitch::centerSpot()
 {
@@ -317,9 +317,9 @@ bool Pitch::crossesSideLine(Segment move)
 	Point3D end = move.end();
 	start.setZ(0);
 	end.setZ(0);
-	
+
 	Segment flat(start, end);
-	
+
 	Segment sideline(	Point3D(m_bound.x, m_bound.y),
 				Point3D(m_bound.x, m_bound.y + m_bound.h));
 
@@ -328,10 +328,10 @@ bool Pitch::crossesSideLine(Segment move)
 			return true;
 		}
 	}
-	
+
 	sideline = Segment(	Point3D(m_bound.x + m_bound.w, m_bound.y),
 				Point3D(m_bound.x + m_bound.w, m_bound.y + m_bound.h));
-	
+
 	if(closestPointLineSegments(flat, sideline) < 0.1) {
 		if(move.end().x() > m_bound.x + m_bound.w) {
 			return true;
@@ -342,7 +342,7 @@ bool Pitch::crossesSideLine(Segment move)
 	return false;
 }
 
-/** returns true if the line given, once projected onto the ground, crosses one of the goal lines. 
+/** returns true if the line given, once projected onto the ground, crosses one of the goal lines.
  * Otherwise returns false. the intersection Point will be set to the correct point of the line if
  * true */
 bool Pitch::crossesGoalLine(Segment move)
@@ -351,11 +351,11 @@ bool Pitch::crossesGoalLine(Segment move)
 	Point3D end = move.end();
 	start.setZ(0);
 	end.setZ(0);
-	
+
 	Segment flat(start, end);
-	
+
 	Segment goalline(	Point3D(m_bound.x, m_bound.y),
-				Point3D(m_bound.x + m_bound.w, m_bound.y));	
+				Point3D(m_bound.x + m_bound.w, m_bound.y));
 
 	if(closestPointLineSegments(flat, goalline) < 0.1) {
 		if(move.end().y() < m_bound.y) {
@@ -365,7 +365,7 @@ bool Pitch::crossesGoalLine(Segment move)
 
 	goalline = Segment(     Point3D(m_bound.x, m_bound.y + m_bound.h),
 				Point3D(m_bound.x + m_bound.w, m_bound.y + m_bound.h));
-	
+
 	if(closestPointLineSegments(flat, goalline) < 0.1) {
 		if(move.end().y() > m_bound.y + m_bound.h) {
 			return true;
@@ -375,15 +375,15 @@ bool Pitch::crossesGoalLine(Segment move)
 	return false;
 }
 
-/** returns true if the line given has entered the goal mouth. 
+/** returns true if the line given has entered the goal mouth.
  * Otherwise returns false. the intersection Point will be set to the correct point of the line if
  * true */
 bool Pitch::entersGoal(Segment move)
 {
 	std::cout << "FIXME : Ball going over the goal will stil score a goal at present" << std::endl;
-	
+
 	if(crossesGoalLine(move)) {
-		if ( 	(m_lastIntersection.x() > m_goalBoundLeft) && 
+		if ( 	(m_lastIntersection.x() > m_goalBoundLeft) &&
 			(m_lastIntersection.x() < m_goalBoundRight) &&
 			(m_lastIntersection.z() < m_goalHeight)) {
 			return true;
@@ -393,7 +393,7 @@ bool Pitch::entersGoal(Segment move)
 	return false;
 }
 
-Point3D Pitch::lastIntersection() 
+Point3D Pitch::lastIntersection()
 {
 	return m_lastIntersection;
 }
