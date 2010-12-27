@@ -28,12 +28,12 @@ Segment::~Segment()
 {
 }
 
-Point3D Segment::start()
+const Point3D Segment::start()
 {
 	return m_start;
 }
 
-Point3D Segment::end()
+const Point3D Segment::end()
 {
 	return m_end;
 }

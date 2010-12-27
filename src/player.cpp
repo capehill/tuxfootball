@@ -218,7 +218,6 @@ void Player::setDestination(const Point3D &pos)
 
 bool Player::setMove(Moves move, int variable)
 {
-	double k = 0.0;
 	Point3D v;
 	Player *player;
 
@@ -295,7 +294,7 @@ bool Player::setMove(Moves move, int variable)
 				break;
 		}
 
-		k = moveSpeed(move);
+        double k = moveSpeed(move);
 		if(m_touchTimer!=0) k*= Player::moveSlowdown;
 
 		setVelocity(dirVal[m_direction] * k);

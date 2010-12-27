@@ -70,7 +70,7 @@ void Camera::updateDestination()
 		double cy = m_boundRect.y + (m_boundRect.h/2);
 		setDestination(Point3D( cx + ((m_boundRect.w)/2)*sin(angx),
 					cy + ((m_boundRect.h)/2)*cos(angy)));
-		
+
 		angx += incx;
 		angy += incy;
 	}
@@ -80,13 +80,13 @@ void Camera::updatePosition()
 {
 	Point3D desVel(0,0,0);
 	double x, y, z;
-	
+
 	desVel = m_dest - m_body.position();
 
 	x = desVel.x();
 	y = desVel.y();
 	z = desVel.z();
-	
+
 	x = (x > 0) ? sqrt(x * m_accel) : -sqrt(-x * m_accel);
 	y = (y > 0) ? sqrt(y * m_accel) : -sqrt(-y * m_accel);
 	z = (z > 0) ? sqrt(z * m_accel) : -sqrt(-z * m_accel);
@@ -100,9 +100,9 @@ void Camera::updatePosition()
 	desVel = Point3D( keepInRange(desVel.x(), m_accel),
 			  keepInRange(desVel.y(), m_accel),
 			  keepInRange(desVel.z(), m_accel));
-	
-	m_body.accelerate(desVel);		
-	
+
+	m_body.accelerate(desVel);
+
 	m_body.move();
 
 	// check bounds

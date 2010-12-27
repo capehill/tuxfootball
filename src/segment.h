@@ -23,10 +23,10 @@
 
 class Segment {
 public:
-	Segment(Point3D start, Point3D end);		
+	Segment(Point3D start, Point3D end);
 	~Segment();
-	Point3D start();
-	Point3D end();
+	const Point3D start();
+	const Point3D end();
 	Point3D vector();
 private:
 	Point3D m_start;
