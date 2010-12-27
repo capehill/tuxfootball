@@ -32,26 +32,26 @@ public:
 	void setDestination(const Point3D &pos);
 	void update();
 	Point3D position();
-	double keepInRange(double val, double range);
 	void setBoundingRect(const SDL_Rect &rect);
 	void setScreenRect(const SDL_Rect &rect);
 	void setTarget(Body *target);
 private: // private attributes
 	double m_accel;
-	
+
 	Body m_body;
 
 	Point3D m_dest;
 
 	/** If set, the camera will follow this target. */
 	Body *m_target;
-	
+
 	SDL_Rect m_boundRect;
 	SDL_Rect m_screenRect;
 
 private: // private methods
 	void updateDestination();
 	void updatePosition();
+	double keepInRange(double val, double range);
 };
 
 
