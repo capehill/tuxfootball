@@ -205,14 +205,9 @@ Point3D Ball::calculateReqVelocity(double z, Point3D end)
 	if(z<=0) {
 		n = 0;
 	}
-	std::cout << "Num Bounces = " << n << std::endl;
 
-//	double u = (s*g*(1-f*b)) / (2*z*(1-pow(f, n-1)*pow(b, n-1)));
-
+	//	double u = (s*g*(1-f*b)) / (2*z*(1-pow(f, n-1)*pow(b, n-1)));
 	double u = s / ( (2*z/g)*(1-pow(f, n-1)*pow(b, n-1))/(1-f*b) + (pow(h, n)/(1-h)));
-
-	std::cout << "u = " << u <<std::endl;
-		
 
 	Point3D ret = ((end-position()).normalise())*u;
 	ret.setZ(z);
