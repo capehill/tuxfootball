@@ -20,11 +20,11 @@
 
 #include "point3d.h"
 
-class Matrix {	
+class Matrix {
 public:
 	Matrix();
 	~Matrix();
-	
+
 	Matrix operator*(const Matrix &mat);
 	Matrix& operator*=(const Matrix &mat);
 	Point3D operator*(const Point3D &vec);
@@ -34,13 +34,15 @@ public:
 	static Matrix pitchTransform(double pitch);
 	static Matrix rollTransform(double roll);
 	static Matrix yawTransform(double yaw);
-	
+
 	Matrix inverse();
 
 	double val(int x, int y) const;
 	void setVal(int x, int y, double val);
+#if 0
 private:
 	void correct();
+#endif
 private:
 	double m_array[16];
 };

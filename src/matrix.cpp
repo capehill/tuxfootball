@@ -19,7 +19,7 @@
 
 #include "matrix.h"
 
-Matrix::Matrix() 
+Matrix::Matrix()
 {
   m_array[0]=1.0;
   m_array[1]=0.0;
@@ -104,8 +104,8 @@ Matrix Matrix::arbitraryTransform(const Point3D &dir, double angle)
 	m.setVal(2, 1, y*z*ocos - x*sine);
 	m.setVal(0, 2, z*x*ocos - y*sine);
 	m.setVal(1, 2, z*y*ocos + x*sine);
-	m.setVal(2, 2, z*z*ocos + cosine);	
-	
+	m.setVal(2, 2, z*z*ocos + cosine);
+
 	return m;
 }
 
@@ -147,7 +147,7 @@ Matrix Matrix::yawTransform(double yaw)
 
 Matrix Matrix::inverse()
 {
-  Matrix inv;  
+  Matrix inv;
 
   inv.setVal(0,0, m_array[0]);
   inv.setVal(1,0, m_array[4]);
@@ -162,6 +162,7 @@ Matrix Matrix::inverse()
   return inv;
 }
 
+#if 0
 void Matrix::correct()
 {
   double x, y, z, len;
@@ -203,9 +204,9 @@ void Matrix::correct()
   m_array[10]=z;
 
   m_array[3]=m_array[7]=m_array[11]=m_array[12]=m_array[13]=m_array[14]=0;
-  m_array[15]=1;  
+  m_array[15]=1;
 }
-
+#endif
 
 void Matrix::setVal(int x, int y, double val)
 {
