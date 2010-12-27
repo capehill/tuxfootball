@@ -373,9 +373,7 @@ void GameEngine::iterateEngine()
 
 void GameEngine::drawFrame()
 {
-	static int x = 0;
 	SDL_Rect r, s, score_pos, score_size;
-	x+=2;
 
 	int left = (int)m_camera.position().x() - m_resX/2;
 	int top = (int)m_camera.position().y() - m_resY/2;
@@ -704,7 +702,6 @@ Player *GameEngine::addPlayer(std::string skin, std::string playerMarker, Team *
 void GameEngine::setHalfLength(uint halfLength)
 {
 	m_halfLength = halfLength;
-	std::cout << "Half Length : " << m_halfLength;
 }
 
 uint GameEngine::halfLength() const
