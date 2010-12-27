@@ -27,7 +27,7 @@ SpriteObject::SpriteObject(SDL_Surface *surf, SDL_Surface *shadow, SDL_Surface *
 	m_surface = surf;
 	m_shadow = shadow;
 	m_overlay = overlay;
-	
+
 	m_position = position;
 	m_offset = offset;
 	m_shadowOffset = shadowOffset;
@@ -56,7 +56,7 @@ void SpriteObject::draw(int left, int top, SDL_Surface *surface)
 	if(SDL_BlitSurface(m_surface, &r, surface, &s) < 0) {
 		std::cerr << "Error - could not draw SpriteObject to screen : " << SDL_GetError() << std::endl;
 	}
-	
+
 }
 
 void SpriteObject::drawShadow(int left, int top, SDL_Surface *surface)
@@ -102,19 +102,19 @@ void SpriteObject::setPosition(const Point3D &pos)
 void SpriteObject::drawOverlay(int left, int top, SDL_Surface *surface)
 {
 	SDL_Rect r, s;
-	
+
 	if(surface==NULL) return;
 	if(m_overlay==NULL) return;
-	
+
 	r.x = 0;
 	r.y = 0;
 	r.w = m_overlay->w;
 	r.h = m_overlay->h;
-	
+
 	s.x = (int)(m_position.x() - left + m_overlayOffset.x);
 	s.y = (int)(m_position.y() - top + m_overlayOffset.y - m_position.z());
-	
-	// if overlay is off-screen, then draw it at the closest point on-screen that there is.	
+
+	// if overlay is off-screen, then draw it at the closest point on-screen that there is.
 	if(s.x<0) s.x = 0;
 	if(s.x + r.w > surface->w) s.x = surface->w - r.w;
 	if(s.y<0) s.y = 0;

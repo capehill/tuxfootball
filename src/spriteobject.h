@@ -28,7 +28,7 @@ class SpriteObject {
 public:
 	SpriteObject(SDL_Surface *surf, SDL_Surface *shadow, SDL_Surface *overlay,
 				Point3D position, SDL_Rect offset, SDL_Rect shadowOffset, SDL_Rect overlayOffset);
-	~SpriteObject();	
+	~SpriteObject();
 	void setSurface(SDL_Surface *surf);
 	void setOverlaySurface(SDL_Surface *surf);
 	void setShadowSurface(SDL_Surface *surf);
