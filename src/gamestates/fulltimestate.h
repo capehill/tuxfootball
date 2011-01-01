@@ -22,6 +22,8 @@
 
 class GameEngine;
 
+/** State that controls full time, deciding whether to go into extra time or
+ * end the match. */
 class FullTimeState : public StateBase {
 public:
 	FullTimeState(GameEngine &engine);
@@ -38,4 +40,4 @@ public:
 private:
 	GameEngine &m_engine;
 };
-#endif /* TUXFOOTBALL_GAMEENGINE */
+#endif /* TUXFOOTBALL_FULLTIMESTATE */
