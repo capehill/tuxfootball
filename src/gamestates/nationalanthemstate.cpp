@@ -58,3 +58,8 @@ void NationalAnthemState::updateLoop()
 		m_engine.setTimer(GameEngine::Stop);
 	}
 }
+
+bool NationalAnthemState::isGameInProgress()
+{
+	return false;
+}

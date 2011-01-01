@@ -153,12 +153,10 @@ private: // attributes
 
 	std::vector<StateBase *> m_gameStates;
 
+	/* The current gamestate we are in */
 	GameState m_currentState;
 	SubMode m_subMode;
 	bool m_subModeHome;
-	/** True if we are playing a match, rather than in half time, or penalty shootout.
-	 *  If this is true, we take account of corners and submodes. */
-	bool m_gameInProgress;
 	/** Used for timings such as referee whistle, half length, etc.*/
 	uint m_timer;
 	TimerState m_timerState;
@@ -216,6 +214,9 @@ private: // methods
 	bool finished();
 	void updateKeyboard();
 	void setBallPreparedPosition(Point3D pos);
+	/** Returns true if we are playing a match, rather than in half time, or penalty shootout.
+	 *  If this is true, we take account of corners and submodes. */
+	bool isGameInProgress();
 };
 
 #endif /* TUXFOOTBALL_GAMEENGINE */

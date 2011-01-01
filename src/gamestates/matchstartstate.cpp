@@ -52,3 +52,8 @@ void MatchStartState::leaveState()
 void MatchStartState::updateLoop()
 {
 }
+
+bool MatchStartState::isGameInProgress()
+{
+	return false;
+}

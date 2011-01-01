@@ -54,3 +54,8 @@ void FirstHalfState::updateLoop()
 		m_engine.setTimer(GameEngine::Stop);
 	}
 }
+
+bool FirstHalfState::isGameInProgress()
+{
+	return true;
+}

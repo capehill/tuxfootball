@@ -63,3 +63,8 @@ void ExtraTimeSecondHalfState::updateLoop()
 		m_engine.playSound(GameEngine::RefWhistleEnd);
 	}
 }
+
+bool ExtraTimeSecondHalfState::isGameInProgress()
+{
+	return true;
+}

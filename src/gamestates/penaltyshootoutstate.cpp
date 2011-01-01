@@ -48,3 +48,8 @@ void PenaltyShootoutState::leaveState()
 void PenaltyShootoutState::updateLoop()
 {
 }
+
+bool PenaltyShootoutState::isGameInProgress()
+{
+	return false;
+}

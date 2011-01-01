@@ -48,3 +48,8 @@ void ExtraTimeState::leaveState()
 void ExtraTimeState::updateLoop()
 {
 }
+
+bool ExtraTimeState::isGameInProgress()
+{
+	return false;
+}

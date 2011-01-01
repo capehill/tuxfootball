@@ -70,3 +70,7 @@ void VideoMenuState::initialiseVideoMenu()
 	m_engine.setLogo("graphics/tuxfootball.png");
 }
 
+bool VideoMenuState::isGameInProgress()
+{
+	return false;
+}

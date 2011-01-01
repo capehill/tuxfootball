@@ -48,3 +48,8 @@ void MatchAbortedState::leaveState()
 void MatchAbortedState::updateLoop()
 {
 }
+
+bool MatchAbortedState::isGameInProgress()
+{
+	return false;
+}

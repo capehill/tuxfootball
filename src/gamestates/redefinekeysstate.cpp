@@ -78,3 +78,7 @@ void RedefineKeysState::initialiseRedefineMenu()
 	m_engine.setLogo("graphics/tuxfootball.png");
 }
 
+bool RedefineKeysState::isGameInProgress()
+{
+	return false;
+}

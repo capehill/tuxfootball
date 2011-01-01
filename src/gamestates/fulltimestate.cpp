@@ -64,3 +64,8 @@ void FullTimeState::updateLoop()
 		m_engine.setTimer(GameEngine::Stop);
 	}
 }
+
+bool FullTimeState::isGameInProgress()
+{
+	return false;
+}

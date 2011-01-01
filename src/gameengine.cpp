@@ -297,7 +297,7 @@ void GameEngine::iterateEngine()
 
 	m_camera.update();
 
-	if(m_gameInProgress) {
+	if(isGameInProgress()) {
 		switch(m_subMode) {
 			case InPlay :
 				if(m_pitch->crossesSideLine(Segment(m_ball->lastPosition(), m_ball->position()))) {
@@ -383,7 +383,7 @@ void GameEngine::drawFrame()
 	m_renderer->update();
 	m_renderer->draw(left, top);
 
-	if(m_gameInProgress) {
+	if(isGameInProgress()) {
 
 		//
 		// Draw Score background
@@ -509,24 +509,20 @@ uint GameEngine::timer() const
 
 void GameEngine::setState(GameState state)
 {
+	// First leave the current gamestate (if any)
 	if((m_currentState >= 0) && (m_currentState < (int) m_gameStates.size()))
 	{
+		std::cout << "Leaving gamestate " << m_currentState << std::endl;
 		m_gameStates[m_currentState]->leaveState();
 	}
+	// Now remember the new gamestate and enter it (if any)
 	m_currentState=state;
 	if((m_currentState >= 0) && (m_currentState < (int) m_gameStates.size()))
 	{
+		std::cout << "Entering gamestate " << m_currentState << std::endl;
 		m_gameStates[m_currentState]->enterState();
 	}
 
-	if((m_currentState==FirstHalf) || (m_currentState==SecondHalf) ||
-	   (m_currentState==ExtraTimeFirstHalf) || (m_currentState==ExtraTimeSecondHalf)) {
-		m_gameInProgress = true;
-	} else {
-		m_gameInProgress = false;
-	}
-
-	std::cout << "New state is " << m_currentState << std::endl;
 }
 
 void GameEngine::updateKeyboard()
@@ -801,4 +797,12 @@ void GameEngine::setFullScreen(bool fullscreen)
 bool GameEngine::fullScreen() const
 {
 	return m_fullscreen;
+}
+
+bool GameEngine::isGameInProgress()
+{
+	if(m_currentState >= 0) {
+		return m_gameStates[m_currentState]->isGameInProgress();
+	}
+	return false;
 }

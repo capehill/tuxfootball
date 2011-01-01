@@ -36,5 +36,8 @@ public:
 
 	/** The main logic for the state should be in updateLoop. */
 	virtual void updateLoop() = 0;
+
+	/** Returns true, if the gamestate is a 'in game' gamestate */
+	virtual bool isGameInProgress() = 0;
 };
 #endif /* TUXFOOTBALL_STATEBASE */
