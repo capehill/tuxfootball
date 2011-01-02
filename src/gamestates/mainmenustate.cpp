@@ -66,7 +66,7 @@ void MainMenuState::updateLoop()
 
 	if(menu) {
 		if(menu->selectionMade()) {
-			if(menu->cancelled()) {
+			if(menu->cancelled() || (menu->selected()->text() == _("Exit"))) {
 				std::cout << "menu cancelled" << std::endl;
 				m_engine.setFinished(true);
 			} else if(menu->selected()->text() == _("Play Game!")) {
