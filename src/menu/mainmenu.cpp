@@ -1,26 +1,29 @@
 /***************************************************************************
-                          mainmenu.cpp  - Defines the main menu
-                             -------------------
-    begin                : 18.04.2003
-    copyright            : (C) 2003 by Jason Wood
-    email                : jasonwood@blueyonder.co.uk
- ***************************************************************************/
-
-/***************************************************************************
+ *   Copyright (C) 2003-2010 by Tux Football development team              *
+ *   Authors: Jason Wood <jasonwood@blueyonder.co.uk>                      *
+ *            Christoph Brill <egore911@egore911.de>                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "mainmenu.h"
-#include "elements/menulabel.h"
-#include "elements/menubutton.h"
-#include "elements/menuoptionlist.h"
-#include "controller.h"
-#include "gameengine.h"
 
 #include <iostream>
 #ifdef HAVE_GETTEXT
@@ -29,6 +32,12 @@
 #else
 #define _(String) (String)
 #endif
+
+#include "elements/menulabel.h"
+#include "elements/menubutton.h"
+#include "elements/menuoptionlist.h"
+#include "controller.h"
+#include "gameengine.h"
 
 MainMenu::MainMenu(GameEngine *gameEngine, Controller *home, Controller *away, SDL_Surface *screen, std::string name) :
 				Menu(screen, name),
@@ -48,7 +57,7 @@ MainMenu::MainMenu(GameEngine *gameEngine, Controller *home, Controller *away, S
 	MenuOptionList *who = new MenuOptionList(this, _("Players :"), "players");
 	who->addOption(_("Player V Computer"), 1);
 	who->addOption(_("Player V Player"), 3);
-	who->addOption(_("Computer V Computer"), 0);	
+	who->addOption(_("Computer V Computer"), 0);
 	addItem(who);
 	addItem(new MenuButton(this, _("Video Settings"), "video"));
 	addItem(new MenuButton(this, _("Redefine Keys"), "redefine"));
@@ -68,7 +77,7 @@ MainMenu::~MainMenu()
 
 	item = menuItem("players");
 	if(item) {
-		int value = item->currentOptionValue();		
+		int value = item->currentOptionValue();
 		m_home->setCPU( (value & 1) == 0);
 		m_away->setCPU( (value & 2) == 0);
 	} else {
