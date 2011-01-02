@@ -238,6 +238,7 @@ void GameEngine::gameLoop()
 	m_camera.setPosition(Point3D(m_pitch->width()/2, m_pitch->height()-m_screen->h));
 
 	m_finished = false;
+	// Let's start with the title screen
 	setState(TitleScreen);
 	initialiseMatch();
 

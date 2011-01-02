@@ -144,6 +144,7 @@ public:
 	/** Returns the specified controller */
 	Controller *controller(ControllerType controller);
 
+	/* Reset the field and scores to the defaults */
 	void initialiseMatch();
 
 	void setFullScreen(bool fullscreen);

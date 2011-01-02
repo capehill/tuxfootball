@@ -28,13 +28,16 @@ public:
 	StateBase();
 	virtual ~StateBase();
 
-	/** Called when the state is entered. Occurs before the update loop method is called. */
+	/** Called when the state is entered. Occurs before the update loop
+	 * method is called. */
 	virtual void enterState() = 0;
 
-	/** Called when leaving the state, after the last updateLoop has finished. */
+	/** Called when leaving the state, after the last updateLoop has
+	 * finished. */
 	virtual void leaveState() = 0;
 
-	/** The main logic for the state should be in updateLoop. */
+	/** The main logic for the state should be in updateLoop. It's the
+	 * first method to be called each loop iteration. */
 	virtual void updateLoop() = 0;
 
 	/** Returns true, if the gamestate is a 'in game' gamestate */
