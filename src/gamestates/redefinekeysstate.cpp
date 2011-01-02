@@ -32,8 +32,9 @@
 #endif
 
 #include "redefinekeysstate.h"
+
+#include "menu/redefinekeysmenu.h"
 #include "gameengine.h"
-#include "redefinekeysmenu.h"
 
 RedefineKeysState::RedefineKeysState(GameEngine &engine) :
 			m_engine(engine)

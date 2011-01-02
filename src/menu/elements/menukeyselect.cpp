@@ -16,8 +16,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "menu.h"
 #include "menukeyselect.h"
+
+#include "menu/menu.h"
 #include "SFont.h"
 #include <iostream>
 

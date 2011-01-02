@@ -15,10 +15,11 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "menubutton.h"
+
 #include <iostream>
 
-#include "menu.h"
-#include "menubutton.h"
+#include "menu/menu.h"
 #include "Font.hpp"
 
 MenuButton::MenuButton(Menu *menu, std::string name, std::string identifier) :

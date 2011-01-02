@@ -32,8 +32,9 @@
 #endif
 
 #include "mainmenustate.h"
+
 #include "gameengine.h"
-#include "mainmenu.h"
+#include "menu/mainmenu.h"
 
 MainMenuState::MainMenuState(GameEngine &engine) :
 			m_engine(engine)

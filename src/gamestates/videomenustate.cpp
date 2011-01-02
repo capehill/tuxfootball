@@ -25,9 +25,9 @@
 	
 #include "videomenustate.h"
 
-#include "videosettingsmenu.h"
+#include "menu/videosettingsmenu.h"
 #include "gameengine.h"
-#include "mainmenu.h"
+#include "menu/mainmenu.h"
 
 VideoMenuState::VideoMenuState(GameEngine &engine) :
 			m_engine(engine)

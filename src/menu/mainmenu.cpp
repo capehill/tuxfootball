@@ -16,9 +16,9 @@
  ***************************************************************************/
 
 #include "mainmenu.h"
-#include "menulabel.h"
-#include "menubutton.h"
-#include "menuoptionlist.h"
+#include "elements/menulabel.h"
+#include "elements/menubutton.h"
+#include "elements/menuoptionlist.h"
 #include "controller.h"
 #include "gameengine.h"
 

@@ -21,7 +21,7 @@
 #include <string>
 #include <list>
 
-#include "menuitem.h"
+#include "elements/menuitem.h"
 
 #include "SDL.h"
 #include "SDL_mixer.h"

@@ -28,9 +28,9 @@
 #endif
 
 #include "redefinekeysmenu.h"
-#include "menulabel.h"
-#include "menubutton.h"
-#include "menukeyselect.h"
+#include "elements/menulabel.h"
+#include "elements/menubutton.h"
+#include "elements/menukeyselect.h"
 #include "controller.h"
 
 RedefineKeysMenu::RedefineKeysMenu(Controller *home, Controller *away, SDL_Surface *screen, std::string name) :

@@ -17,8 +17,9 @@
  ***************************************************************************/
 
 #include "videosettingsmenu.h"
-#include "menubutton.h"
-#include "menuoptionlist.h"
+
+#include "elements/menubutton.h"
+#include "elements/menuoptionlist.h"
 
 VideoSettingsMenu::VideoSettingsMenu(bool currentMode, SDL_Surface *screen, std::string name) :
 							Menu(screen, name),

@@ -52,6 +52,24 @@ tuxfootball_SOURCES = \
 	gamestates/secondhalfstate.h \
 	gamestates/statebase.h \
 	gamestates/videomenustate.h \
+	menu/elements/menubutton.cpp \
+	menu/elements/menuitem.cpp \
+	menu/elements/menukeyselect.cpp \
+	menu/elements/menulabel.cpp \
+	menu/elements/menuoptionlist.cpp \
+	menu/elements/menubutton.h \
+	menu/elements/menuitem.h \
+	menu/elements/menukeyselect.h \
+	menu/elements/menulabel.h \
+	menu/elements/menuoptionlist.h \
+	menu/mainmenu.cpp \
+	menu/menu.cpp \
+	menu/redefinekeysmenu.cpp \
+	menu/videosettingsmenu.cpp \
+	menu/mainmenu.h \
+	menu/menu.h \
+	menu/redefinekeysmenu.h \
+	menu/videosettingsmenu.h \
 	ball.cpp \
 	body.cpp \
 	camera.cpp \
@@ -60,19 +78,11 @@ tuxfootball_SOURCES = \
 	gameengine.cpp \
 	graphics.cpp \
 	main.cpp \
-	mainmenu.cpp \
 	matrix.cpp \
-	menu.cpp \
-	menubutton.cpp \
-	menuitem.cpp \
-	menukeyselect.cpp \
-	menulabel.cpp \
-	menuoptionlist.cpp \
 	pitch.cpp \
 	player.cpp \
 	point3d.cpp \
 	rect.cpp \
-	redefinekeysmenu.cpp \
 	segment.cpp \
 	soundmanager.cpp \
 	spriteobject.cpp \
@@ -80,7 +90,6 @@ tuxfootball_SOURCES = \
 	surfacemanager.cpp \
 	team.cpp \
 	tilemap.cpp \
-	videosettingsmenu.cpp \
 	SFont.c \
 	ball.h \
 	body.h \
@@ -91,19 +100,11 @@ tuxfootball_SOURCES = \
 	fontmanager.h \
 	gameengine.h \
 	graphics.h \
-	mainmenu.h \
 	matrix.h \
-	menu.h \
-	menubutton.h \
-	menuitem.h \
-	menukeyselect.h \
-	menulabel.h \
-	menuoptionlist.h \
 	pitch.h \
 	player.h \
 	point3d.h \
 	rect.h \
-	redefinekeysmenu.h \
 	segment.h \
 	SFont.h \
 	soundmanager.h \
@@ -112,7 +113,6 @@ tuxfootball_SOURCES = \
 	surfacemanager.h \
 	team.h \
 	tilemap.h \
-	videosettingsmenu.h \
 	resourcemanager.cpp \
 	resourcemanager.h
 
