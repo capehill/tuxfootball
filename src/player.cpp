@@ -207,7 +207,12 @@ void Player::loadSpriteSurfaces(std::string skin, std::string playerMarker)
 		m_active = SurfaceManager::instance()->load(m_renderer->screen()->format, playerMarker, true, false);
 	} else {
 		std::cerr << "Error - cannot load Player Sprite surfaces, problem with renderer" << std::endl;
-		m_walk = m_stand = m_run = m_tackle = NULL;
+		m_walk = 0;
+		m_stand = 0;
+		m_run = 0;
+		m_tackle = 0;
+		m_header = 0;
+		m_active = 0;
 	}
 }
 
