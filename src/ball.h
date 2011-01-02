@@ -20,15 +20,14 @@
 #define TUXFOOTBALL_BALL
 
 #include "body.h"
-#include "point3d.h"
-#include "SDL.h"
-#include "SDL_mixer.h"
-#include "spriteobject.h"
-#include "graphics.h"
-#include "pitch.h"
 
+class Graphics;
+class Pitch;
 class Player;
+class SpriteObject;
+struct Mix_Chunk;
 
+/** Contains all functioanlity related to the football. */
 class Ball : public Body {
 public:
 	Ball(Graphics *renderer, Pitch *pitch);
@@ -42,11 +41,11 @@ public:
 	Point3D calculateReqVelocity(double z, Point3D end);
 private:
 	Pitch *m_pitch;
+	Graphics *m_renderer;
 	Point3D m_lastPosition;
 	SDL_Surface *m_football;
 	SDL_Surface *m_shadow;
 	SpriteObject *m_object;
-	Graphics *m_renderer;
 	static double bounceFactor;
 	
 	Point3D m_kickVel;

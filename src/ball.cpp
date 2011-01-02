@@ -1,43 +1,53 @@
 /***************************************************************************
-                          ball.cpp  - Contains all functioanlity related
-									  to the football.
-                             -------------------
-    begin                : 18.04.2003
-    copyright            : (C) 2003 by Jason Wood
-    email                : jasonwood@blueyonder.co.uk
- ***************************************************************************/
-
-/***************************************************************************
+ *   Copyright (C) 2003-2010 by Tux Football development team              *
+ *   Authors: Jason Wood <jasonwood@blueyonder.co.uk>                      *
+ *            Christoph Brill <egore911@egore911.de>                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "segment.h"
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "ball.h"
+
+#include <stdlib.h>
+#include <cmath>
+#include <iostream>
+#include <SDL.h>
+#include <SDL_mixer.h>
+
+#include "spriteobject.h"
+#include "graphics.h"
+#include "segment.h"
 #include "pitch.h"
 #include "resources/surfacemanager.h"
 #include "resources/soundmanager.h"
 #include "gameengine.h"
 #include "rect.h"
-
-#include <stdlib.h>
-#include <cmath>
-
-#include <iostream>
+#include "point3d.h"
 
 double Ball::bounceFactor = 0.6;
 
 Ball::Ball(Graphics *renderer, Pitch *pitch) :
-	Body(Point3D(0, 0, 300), Point3D(0, 0, 0), Rect()),
-	m_lastPosition(position())
+	Body(Point3D(0, 0, 300), Point3D(0, 0, 0), Rect()), m_lastPosition(position()),
+	m_pitch(pitch), m_renderer(renderer)
 {
-	m_renderer = renderer;
-	m_pitch = pitch;
-	
+
 	if(m_renderer && m_renderer->screen()) {
 		m_football = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/football.png", true, false);
 		m_shadow = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/footballshadow.png", true, false);
@@ -76,9 +86,9 @@ void Ball::move()
 {
 	m_lastPosition = position();
 	accelerate(Point3D(0, 0, Pitch::gravity));
-	
+
 	Point3D before = position();
-	
+
 	Body::move();
 
 	if(position().z() < 0) {
@@ -94,44 +104,44 @@ void Ball::move()
 	}
 
 	Point3D top, bot;
-	
+
 	bool goalPostHit = false;
-	
+
 	//
 	// Goal Post collision detection code.
 	//
-	
+
 	top = bot = m_pitch->goalPost(true, true);
 	top.setZ(m_pitch->goalHeight());
 	if(m_pitch->closestPointLineSegments(	Segment(before, position()),
 						Segment(bot, top)) < 256) goalPostHit = true;
-	
+
 	top = bot = m_pitch->goalPost(true, false);
-        top.setZ(m_pitch->goalHeight());
+	top.setZ(m_pitch->goalHeight());
 	if(m_pitch->closestPointLineSegments(	Segment(before, position()),
 						Segment(bot, top)) < 256) goalPostHit = true;
-	
+
 	top = bot = m_pitch->goalPost(false, true);
-        top.setZ(m_pitch->goalHeight());
+	top.setZ(m_pitch->goalHeight());
 	if(m_pitch->closestPointLineSegments(	Segment(before, position()),
 						Segment(bot, top)) < 256) goalPostHit = true;
-	
+
 	top = bot = m_pitch->goalPost(false, false);
-        top.setZ(m_pitch->goalHeight());
+	top.setZ(m_pitch->goalHeight());
 	if(m_pitch->closestPointLineSegments(	Segment(before, position()),
 						Segment(bot, top)) < 256) goalPostHit = true;
 
 	//
 	// Goal Cross bar collision detection code.
-	//	
-	
+	//
+
 	top = m_pitch->goalPost(false, true);
 	bot = m_pitch->goalPost(true, true);
 	top.setZ(m_pitch->goalHeight());
 	bot.setZ(m_pitch->goalHeight());
 	if(m_pitch->closestPointLineSegments(	Segment(before, position()),
 						Segment(bot, top)) < 256) goalPostHit = true;
-	
+
 	top = m_pitch->goalPost(false, false);
 	bot = m_pitch->goalPost(true, false);
 	top.setZ(m_pitch->goalHeight());
@@ -145,7 +155,7 @@ void Ball::move()
 		Body::move();
 		setVelocity(velocity() * 0.7);
 	}
-	
+
 	m_object->setPosition(position());
 }
 
@@ -200,13 +210,13 @@ Point3D Ball::calculateReqVelocity(double z, Point3D end)
 	double h = m_pitch->friction();	// this is the friction when the ball is rolling rather than bouncing.
 	double g = -Pitch::gravity;
 	double b = bounceFactor;
-	
+
 	int n = (int)(log (g/z) / log(b));
 	if(z<=0) {
 		n = 0;
 	}
 
-	//	double u = (s*g*(1-f*b)) / (2*z*(1-pow(f, n-1)*pow(b, n-1)));
+	// double u = (s*g*(1-f*b)) / (2*z*(1-pow(f, n-1)*pow(b, n-1)));
 	double u = s / ( (2*z/g)*(1-pow(f, n-1)*pow(b, n-1))/(1-f*b) + (pow(h, n)/(1-h)));
 
 	Point3D ret = ((end-position()).normalise())*u;
