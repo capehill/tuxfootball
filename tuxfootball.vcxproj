@@ -101,11 +101,14 @@
     <ClCompile Include="src\menu\menu.cpp" />
     <ClCompile Include="src\menu\redefinekeysmenu.cpp" />
     <ClCompile Include="src\menu\videosettingsmenu.cpp" />
+    <ClCompile Include="src\resources\fontmanager.cpp" />
+    <ClCompile Include="src\resources\resourcemanager.cpp" />
+    <ClCompile Include="src\resources\soundmanager.cpp" />
+    <ClCompile Include="src\resources\surfacemanager.cpp" />
     <ClCompile Include="src\ball.cpp" />
     <ClCompile Include="src\body.cpp" />
     <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\controller.cpp" />
-    <ClCompile Include="src\fontmanager.cpp" />
     <ClCompile Include="src\gameengine.cpp" />
     <ClCompile Include="src\graphics.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -114,13 +117,10 @@
     <ClCompile Include="src\player.cpp" />
     <ClCompile Include="src\point3d.cpp" />
     <ClCompile Include="src\rect.cpp" />
-    <ClCompile Include="src\resourcemanager.cpp" />
     <ClCompile Include="src\segment.cpp" />
     <ClCompile Include="src\SFont.c" />
-    <ClCompile Include="src\soundmanager.cpp" />
     <ClCompile Include="src\spriteobject.cpp" />
     <ClCompile Include="src\spritesequence.cpp" />
-    <ClCompile Include="src\surfacemanager.cpp" />
     <ClCompile Include="src\team.cpp" />
     <ClCompile Include="src\tilemap.cpp" />
   </ItemGroup>
@@ -150,6 +150,10 @@
     <ClInclude Include="src\menu\menu.h" />
     <ClInclude Include="src\menu\redefinekeysmenu.h" />
     <ClInclude Include="src\menu\videosettingsmenu.h" />
+    <ClInclude Include="src\resources\fontmanager.h" />
+    <ClInclude Include="src\resources\resourcemanager.h" />
+    <ClInclude Include="src\resources\soundmanager.h" />
+    <ClInclude Include="src\resources\surfacemanager.h" />
     <ClInclude Include="src\ball.h" />
     <ClInclude Include="src\body.h" />
     <ClInclude Include="src\camera.h" />
@@ -157,7 +161,6 @@
     <ClInclude Include="src\controller.h" />
     <ClInclude Include="src\firsthalfstate.h" />
     <ClInclude Include="src\Font.hpp" />
-    <ClInclude Include="src\fontmanager.h" />
     <ClInclude Include="src\gameengine.h" />
     <ClInclude Include="src\graphics.h" />
     <ClInclude Include="src\matrix.h" />
@@ -165,13 +168,10 @@
     <ClInclude Include="src\player.h" />
     <ClInclude Include="src\point3d.h" />
     <ClInclude Include="src\rect.h" />
-    <ClInclude Include="src\resourcemanager.h" />
     <ClInclude Include="src\segment.h" />
     <ClInclude Include="src\SFont.h" />
-    <ClInclude Include="src\soundmanager.h" />
     <ClInclude Include="src\spriteobject.h" />
     <ClInclude Include="src\spritesequence.h" />
-    <ClInclude Include="src\surfacemanager.h" />
     <ClInclude Include="src\team.h" />
     <ClInclude Include="src\tilemap.h" />
   </ItemGroup>

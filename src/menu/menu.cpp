@@ -27,9 +27,9 @@
 
 #include <iostream>
 
-#include "fontmanager.h"
-#include "surfacemanager.h"
-#include "soundmanager.h"
+#include "resources/fontmanager.h"
+#include "resources/surfacemanager.h"
+#include "resources/soundmanager.h"
 #include "Font.hpp"
 
 Menu::Menu(SDL_Surface *screen, std::string name)

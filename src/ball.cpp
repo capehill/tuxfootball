@@ -19,8 +19,8 @@
 #include "segment.h"
 #include "ball.h"
 #include "pitch.h"
-#include "surfacemanager.h"
-#include "soundmanager.h"
+#include "resources/surfacemanager.h"
+#include "resources/soundmanager.h"
 #include "gameengine.h"
 #include "rect.h"
 

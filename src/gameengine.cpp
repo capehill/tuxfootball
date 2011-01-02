@@ -28,9 +28,9 @@
 #endif
 
 #include "gameengine.h"
-#include "surfacemanager.h"
-#include "fontmanager.h"
-#include "soundmanager.h"
+#include "resources/surfacemanager.h"
+#include "resources/fontmanager.h"
+#include "resources/soundmanager.h"
 #include "Font.hpp"
 #include "controller.h"
 

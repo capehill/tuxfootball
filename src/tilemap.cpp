@@ -26,7 +26,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include "surfacemanager.h"
+#include "resources/surfacemanager.h"
 #include "const.h"
 
 TileMap::TileMap(SDL_Surface *screen, std::string path)

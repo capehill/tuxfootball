@@ -21,7 +21,7 @@
 #include <cmath>
 
 #include "player.h"
-#include "surfacemanager.h"
+#include "resources/surfacemanager.h"
 #include "matrix.h"
 #include "rect.h"
 

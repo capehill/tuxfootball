@@ -70,11 +70,18 @@ tuxfootball_SOURCES = \
 	menu/menu.h \
 	menu/redefinekeysmenu.h \
 	menu/videosettingsmenu.h \
+	resources/fontmanager.cpp \
+	resources/fontmanager.h \
+	resources/soundmanager.cpp \
+	resources/soundmanager.h \
+	resources/surfacemanager.cpp \
+	resources/surfacemanager.h \
+	resources/resourcemanager.cpp \
+	resources/resourcemanager.h \
 	ball.cpp \
 	body.cpp \
 	camera.cpp \
 	controller.cpp \
-	fontmanager.cpp \
 	gameengine.cpp \
 	graphics.cpp \
 	main.cpp \
@@ -84,10 +91,8 @@ tuxfootball_SOURCES = \
 	point3d.cpp \
 	rect.cpp \
 	segment.cpp \
-	soundmanager.cpp \
 	spriteobject.cpp \
 	spritesequence.cpp \
-	surfacemanager.cpp \
 	team.cpp \
 	tilemap.cpp \
 	SFont.c \
@@ -97,7 +102,6 @@ tuxfootball_SOURCES = \
 	const.h \
 	controller.h \
 	Font.hpp \
-	fontmanager.h \
 	gameengine.h \
 	graphics.h \
 	matrix.h \
@@ -107,14 +111,10 @@ tuxfootball_SOURCES = \
 	rect.h \
 	segment.h \
 	SFont.h \
-	soundmanager.h \
 	spriteobject.h \
 	spritesequence.h \
-	surfacemanager.h \
 	team.h \
-	tilemap.h \
-	resourcemanager.cpp \
-	resourcemanager.h
+	tilemap.h
 
 tuxfootball_LDFLAGS = \
 	$(SDL_LIBS)

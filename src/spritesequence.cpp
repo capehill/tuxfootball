@@ -18,7 +18,7 @@
  ***************************************************************************/
 
 #include "spritesequence.h"
-#include "surfacemanager.h"
+#include "resources/surfacemanager.h"
 
 #include <iostream>
 #include <sstream>

@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 #include "pitch.h"
-#include "surfacemanager.h"
+#include "resources/surfacemanager.h"
 #include "tilemap.h"
 
 #include <iostream>
