@@ -65,6 +65,7 @@ Player::Player(Graphics *renderer, std::string skin, std::string playerMarker, P
 	m_renderer = renderer;
 	m_ball = ball;
 	m_team = team;
+	m_goalie = goalie;
 
 	m_commitTime = 0;
 	m_kickCountdown = 0;
@@ -85,7 +86,6 @@ Player::Player(Graphics *renderer, std::string skin, std::string playerMarker, P
 	m_object = new SpriteObject(NULL, NULL, NULL, position(), sr, sh, sa);
 	m_renderer->addSprite(m_object);
 
-	m_goalie = goalie;
 }
 
 Player::~Player()
@@ -194,16 +194,28 @@ void Player::freeReference() {
 void Player::loadSpriteSurfaces(std::string skin, std::string playerMarker)
 {
 	if(m_renderer && m_renderer->screen()) {
+
+		std::string basedir;
+#if 0
+		if(m_goalie) {
+			basedir = "graphics/" + skin + "_goalie";
+		} else {
+#endif
+			basedir = "graphics/" + skin;
+#if 0
+		}
+#endif
+
 		m_walk = new SpriteSequence(m_renderer->screen()->format,
-								"graphics/"+skin+"/walking", "walking", 40, true);
+								basedir+"/walking", "walking", 40, true);
 		m_stand = new SpriteSequence(m_renderer->screen()->format,
-								"graphics/"+skin+"/standing", "standing", 1, true);
+								basedir+"/standing", "standing", 1, true);
 		m_run = new SpriteSequence(m_renderer->screen()->format,
-								"graphics/"+skin+"/running", "running", 40, true);
+								basedir+"/running", "running", 40, true);
 		m_tackle = new SpriteSequence(m_renderer->screen()->format,
-								"graphics/"+skin+"/tackling", "tackling", 25, false);
+								basedir+"/tackling", "tackling", 25, false);
 		m_header = new SpriteSequence(m_renderer->screen()->format,
-								"graphics/"+skin+"/header", "header", 20, false);
+								basedir+"/header", "header", 20, false);
 		m_active = SurfaceManager::instance()->load(m_renderer->screen()->format, playerMarker, true, false);
 	} else {
 		std::cerr << "Error - cannot load Player Sprite surfaces, problem with renderer" << std::endl;
