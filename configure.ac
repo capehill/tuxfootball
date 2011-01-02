@@ -61,6 +61,7 @@ AM_GLIB_GNU_GETTEXT
 AM_PROG_LIBTOOL
 
 AC_CONFIG_FILES([Makefile
+                 tuxfootball.desktop
                  data/Makefile
                  data/graphics/Makefile
                  data/graphics/team1/Makefile

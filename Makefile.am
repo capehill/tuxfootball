@@ -5,6 +5,13 @@ SUBDIRS = src \
 	po \
 	data
 
+desktopdir = $(datadir)/applications
+desktop_in_files = tuxfootball.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+icondir = $(datadir)/icons/hicolor/128x128/apps
+icon_DATA = tuxfootball.png
+
 tuxfootballdocdir = ${prefix}/doc/tuxfootball
 tuxfootballdoc_DATA = \
 	README\
@@ -16,6 +23,8 @@ tuxfootballdoc_DATA = \
 	src/SFont-README
 
 EXTRA_DIST = $(tuxfootballdoc_DATA) \
+	$(icon_DATA) \
+	$(desktop_DATA) \
 	$(data_DATA) \
 	intltool-extract.in \
 	intltool-merge.in \
