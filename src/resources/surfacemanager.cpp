@@ -1,28 +1,34 @@
 /***************************************************************************
-                          surfacemanager.cpp  - Manages surfaces, makes sure
-						  						that they are only loaded once
-												and are deleted when no longer
-												needed.
-                             -------------------
-    begin                : 18.04.2003
-    copyright            : (C) 2003 by Jason Wood
-    email                : jasonwood@blueyonder.co.uk
- ***************************************************************************/
-
-/***************************************************************************
+ *   Copyright (C) 2003-2010 by Tux Football development team              *
+ *   Authors: Jason Wood <jasonwood@blueyonder.co.uk>                      *
+ *            Christoph Brill <egore911@egore911.de>                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "surfacemanager.h"
-#include "SDL_image.h"
+
 #include "const.h"
 
 #include <iostream>
+#include <SDL_image.h>
 
 std::map<std::string, ManagedSurface> SurfaceManager::m_surfaces;
 
@@ -140,22 +146,25 @@ Uint32 SurfaceManager::getPixel(SDL_Surface *surface, int x, int y)
 	Uint32 val;
 	
 	switch(bpp) {
-		case 1	: 	val = *p;
-				break;
-				
-		case 2	: 	val = *(Uint16 *)p;
-				break;
-				
-		case 3	: 	if(SDL_BYTEORDER == SDL_BIG_ENDIAN)
-					val = p[0] << 16 | p[1] << 8 | p[2];
-				else
-					val = p[0] | p[1] << 8 | p[2] << 16;
-				break;
-				
-		case 4	: 	val = *(Uint32 *)p;
-				break;
-				
-		default	:	val = 0;       /* shouldn't happen, but avoids warnings */
+		case 1:
+			val = *p;
+			break;
+		case 2:
+			val = *(Uint16 *)p;
+			break;
+		case 3:
+			if(SDL_BYTEORDER == SDL_BIG_ENDIAN)
+				val = p[0] << 16 | p[1] << 8 | p[2];
+			else
+				val = p[0] | p[1] << 8 | p[2] << 16;
+			break;
+		case 4:
+			val = *(Uint32 *)p;
+			break;
+		default:
+			/* never happens, but avoids warnings */
+			val = 0;
+			break;
 	}
 
 	SDL_UnlockSurface(surface);
