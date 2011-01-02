@@ -22,6 +22,10 @@
 #ifndef TUXFOOTBALL_BODY
 #define TUXFOOTBALL_BODY
 
+#include <SDL.h>
+
+#include "point3d.h"
+
 /* Represents a physical body in the game world. */
 class Body {
 public:
