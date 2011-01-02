@@ -1,25 +1,26 @@
 /***************************************************************************
-                          main.cpp  - Execution starts here.
-                             -------------------
-    begin                : 18.04.2003
-    copyright            : (C) 2003 by Jason Wood
-    email                : jasonwood@blueyonder.co.uk
- ***************************************************************************/
-
-/***************************************************************************
+ *   Copyright (C) 2003-2011 by Tux Football development team              *
+ *   Authors: Jason Wood <jasonwood@blueyonder.co.uk>                      *
+ *            Christoph Brill <egore911@egore911.de>                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-/*
-  $Id: main.cpp,v 1.3 2005/10/26 19:00:54 egore Exp $
-*/
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif
 
 #ifdef HAVE_GETTEXT
@@ -49,6 +50,7 @@ void die(const char *fmt, ...)
   exit(1);
 }
 
+/** Execution starts here. */
 int main(int argc, char *argv[])
 {
 #ifdef HAVE_GETTEXT
@@ -66,11 +68,12 @@ int main(int argc, char *argv[])
 			switch(argv[i][1]) {
 				default:
 				case 'h':
-					printf("\nTux Football [-switch]\n\nswitch can be:\n\n-h\tprint this help\n-w\trun Tux Football in windowed mode\n\n");
+					printf("\nTux Football [-switch]\n\nswitch can be:\n\n-h\tprint this help\n-w\trun Tux Football in windowed mode (default)\n-w\trun Tux Football in fullscreen mode\n\n");
 					return 0;
-				break;
 				case 'w':
 					fullscreen = false;
+				case 'f':
+					fullscreen = true;
 				break;
 			}
 		}
