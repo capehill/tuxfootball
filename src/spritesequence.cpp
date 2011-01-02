@@ -24,64 +24,41 @@
 #include <sstream>
 #include <stdio.h>
 
-SpriteSequence::SpriteSequence(SDL_PixelFormat *format, std::string dirname, std::string animname, int animationFrames, bool repeats, bool newMode)
+SpriteSequence::SpriteSequence(SDL_PixelFormat *format, std::string dirname, std::string animname, int animationFrames, bool repeats)
 {
 	m_format = format;
 	m_repeats = repeats;
 
-	if (!newMode) {
-		std::string basename = dirname + "/" + animname;
-		for(int count=0; count<animationFrames; count++) {
-			Sprite sprite;
-			for(int direction=0; direction<8; direction++) {
-				std::ostringstream ost;
-				ost << ((animationFrames * direction) + count + 1);
+	std::list<std::string> subdirs;
+	subdirs.push_back("s");
+	subdirs.push_back("se");
+	subdirs.push_back("e");
+	subdirs.push_back("ne");
+	subdirs.push_back("n");
+	subdirs.push_back("nw");
+	subdirs.push_back("w");
+	subdirs.push_back("sw");
+	for(int count=0; count<animationFrames; count++) {
+		Sprite sprite;
+		int direction = 0;
+		std::list<std::string>::const_iterator ci = subdirs.begin();
+		for (; ci != subdirs.end(); ++ci) {
+			std::ostringstream ost;
+			ost << (count + 1);
 
-				std::string filename = ost.str();
+			std::string filename = ost.str();
 
-				while(filename.length() < 4) {
-					filename = "0" + filename;
-				}
-
-				filename = basename + filename + ".png";
-
-				sprite.surface[direction] = SurfaceManager::instance()->load(m_format, filename, true, false);
+			while(filename.length() < 4) {
+				filename = "0" + filename;
 			}
-			sprite.duration = 1;
-			m_seq.push_back(sprite);
-		}
-	} else {
-		std::list<std::string> subdirs;
-		subdirs.push_back("s");
-		subdirs.push_back("se");
-		subdirs.push_back("e");
-		subdirs.push_back("ne");
-		subdirs.push_back("n");
-		subdirs.push_back("nw");
-		subdirs.push_back("w");
-		subdirs.push_back("sw");
-		for(int count=0; count<animationFrames; count++) {
-			Sprite sprite;
-			int direction = 0;
-			std::list<std::string>::const_iterator ci = subdirs.begin();
-			for (; ci != subdirs.end(); ++ci) {
-				std::ostringstream ost;
-				ost << (count + 1);
+			filename = dirname + "/" + *ci + "/" + animname + filename + ".png";
 
-				std::string filename = ost.str();
-
-				while(filename.length() < 4) {
-					filename = "0" + filename;
-				}
-				filename = dirname + "/" + *ci + "/" + animname + filename + ".png";
-
-				sprite.surface[direction] = SurfaceManager::instance()->load(m_format, filename, true, false);
-				direction++;
-			}
-			sprite.duration = 1;
-			m_seq.push_back(sprite);
+			sprite.surface[direction] = SurfaceManager::instance()->load(m_format, filename, true, false);
 			direction++;
 		}
+		sprite.duration = 1;
+		m_seq.push_back(sprite);
+		direction++;
 	}
 
 	m_current = m_seq.begin();

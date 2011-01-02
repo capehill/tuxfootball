@@ -195,15 +195,15 @@ void Player::loadSpriteSurfaces(std::string skin, std::string playerMarker)
 {
 	if(m_renderer && m_renderer->screen()) {
 		m_walk = new SpriteSequence(m_renderer->screen()->format,
-								"graphics/"+skin+"/walking", "walking", 40, true, true);
+								"graphics/"+skin+"/walking", "walking", 40, true);
 		m_stand = new SpriteSequence(m_renderer->screen()->format,
-								"graphics/"+skin+"/standing", "standing", 1, true, true);
+								"graphics/"+skin+"/standing", "standing", 1, true);
 		m_run = new SpriteSequence(m_renderer->screen()->format,
-								"graphics/"+skin+"/running", "running", 40, true, true);
+								"graphics/"+skin+"/running", "running", 40, true);
 		m_tackle = new SpriteSequence(m_renderer->screen()->format,
-								"graphics/"+skin+"/tackling", "tackling", 25, false, true);
+								"graphics/"+skin+"/tackling", "tackling", 25, false);
 		m_header = new SpriteSequence(m_renderer->screen()->format,
-								"graphics/"+skin+"/header", "header", 20, false, true);
+								"graphics/"+skin+"/header", "header", 20, false);
 		m_active = SurfaceManager::instance()->load(m_renderer->screen()->format, playerMarker, true, false);
 	} else {
 		std::cerr << "Error - cannot load Player Sprite surfaces, problem with renderer" << std::endl;
