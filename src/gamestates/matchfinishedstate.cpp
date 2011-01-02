@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2003-2010 by Tux Football development team              *
+ *   Copyright (C) 2003-2011 by Tux Football development team              *
  *   Authors: Jason Wood <jasonwood@blueyonder.co.uk>                      *
  *            Christoph Brill <egore911@egore911.de>                       *
  *                                                                         *
