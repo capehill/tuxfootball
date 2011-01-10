@@ -53,3 +53,7 @@ bool ExtraTimeState::isGameInProgress() const
 {
 	return false;
 }
+
+void ExtraTimeState::renderFrame()
+{
+}

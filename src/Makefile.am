@@ -30,6 +30,7 @@ tuxfootball_SOURCES = \
 	gamestates/matchabortedstate.cpp \
 	gamestates/matchfinishedstate.cpp \
 	gamestates/matchstartstate.cpp \
+	gamestates/menustatebase.cpp \
 	gamestates/nationalanthemstate.cpp \
 	gamestates/penaltyshootoutstate.cpp \
 	gamestates/redefinekeysstate.cpp \
@@ -48,6 +49,7 @@ tuxfootball_SOURCES = \
 	gamestates/matchabortedstate.h \
 	gamestates/matchfinishedstate.h \
 	gamestates/matchstartstate.h \
+	gamestates/menustatebase.h \
 	gamestates/nationalanthemstate.h \
 	gamestates/penaltyshootoutstate.h \
 	gamestates/redefinekeysstate.h \

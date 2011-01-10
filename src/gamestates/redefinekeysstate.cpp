@@ -37,7 +37,7 @@
 #include "gameengine.h"
 
 RedefineKeysState::RedefineKeysState(GameEngine &engine) :
-			m_engine(engine)
+			MenuStateBase(engine)
 {
 }
 
@@ -47,7 +47,8 @@ RedefineKeysState::~RedefineKeysState()
 
 void RedefineKeysState::enterState()
 {
-	initialiseRedefineMenu();
+	MenuStateBase::enterState();
+
 	m_engine.setupHalfTime();
 }
 
@@ -68,7 +69,7 @@ void RedefineKeysState::updateLoop()
 	}
 }
 
-void RedefineKeysState::initialiseRedefineMenu()
+void RedefineKeysState::initialiseMenu()
 {
 	
 	Menu *menu = new RedefineKeysMenu(m_engine.controller(GameEngine::HomeController),
@@ -77,9 +78,4 @@ void RedefineKeysState::initialiseRedefineMenu()
 	menu->show();
 	m_engine.setMenu(menu);
 	m_engine.setLogo("graphics/tuxfootball.png");
-}
-
-bool RedefineKeysState::isGameInProgress() const
-{
-	return false;
 }

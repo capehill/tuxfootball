@@ -1,7 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2003-2011 by Tux Football development team              *
- *   Authors: Jason Wood <jasonwood@blueyonder.co.uk>                      *
- *            Christoph Brill <egore911@egore911.de>                       *
+ *   Authors: Christoph Brill <egore911@egore911.de>                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -19,26 +18,40 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef TUXFOOTBALL_EXTRATIMESECONDHALFSTATE
-#define TUXFOOTBALL_EXTRATIMESECONDHALFSTATE
+#ifndef TUXFOOTBALL_MENUSTATEBASE
+#define TUXFOOTBALL_MENUSTATEBASE
 
-#include "ingamestatebase.h"
+#include "statebase.h"
 
 class GameEngine;
+class SFont;
+struct SDL_Surface;
 
-class ExtraTimeSecondHalfState : public IngameStateBase {
+/** \brief This gamestate is the base for all game states used when the player
+ * is "in game".
+ *
+ * Basically this means that
+ * - the score is drawn
+ * - the game time is drawn
+ */
+class MenuStateBase : public StateBase {
 public:
-	ExtraTimeSecondHalfState(GameEngine &engine);
-	virtual ~ExtraTimeSecondHalfState();
+	MenuStateBase(GameEngine &engine);
+	virtual ~MenuStateBase();
 
 	/** Called when the state is entered. Occurs before the update loop method is called. */
 	virtual void enterState();
 
-	/** Called when leaving the state, after the last updateLoop has finished. */
-	virtual void leaveState();
+	/** Returns false, because the gamestate is a 'menu' gamestate */
+	bool isGameInProgress() const;
 
-	/** The main logic for the state should be in updateLoop. */
-	virtual void updateLoop();
+	/** Perform rendering of a single frame for the game state */
+	virtual void renderFrame();
 
+protected:
+	virtual void initialiseMenu() = 0;
+
+	GameEngine &m_engine;
 };
-#endif /* TUXFOOTBALL_EXTRATIMESECONDHALFSTATE */
+
+#endif /* TUXFOOTBALL_MENUSTATEBASE */

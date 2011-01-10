@@ -53,3 +53,7 @@ bool ExtraTimeHalfTimeState::isGameInProgress() const
 {
 	return false;
 }
+
+void ExtraTimeHalfTimeState::renderFrame()
+{
+}

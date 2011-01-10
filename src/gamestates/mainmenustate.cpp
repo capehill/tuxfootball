@@ -37,7 +37,7 @@
 #include "menu/mainmenu.h"
 
 MainMenuState::MainMenuState(GameEngine &engine) :
-			m_engine(engine)
+			MenuStateBase(engine)
 {
 }
 
@@ -47,12 +47,10 @@ MainMenuState::~MainMenuState()
 
 void MainMenuState::enterState()
 {
+	MenuStateBase::enterState();
+
 	m_engine.setCameraFollows(GameEngine::CameraPattern);
-
-	initialiseMainMenu();
-
 	m_engine.setupHalfTime();
-
 	m_engine.setMusic("sound/titlemusic.ogg");
 }
 
@@ -89,7 +87,7 @@ void MainMenuState::updateLoop()
 	}
 }
 
-void MainMenuState::initialiseMainMenu()
+void MainMenuState::initialiseMenu()
 {
 	Menu *menu = new MainMenu(&m_engine, m_engine.controller(GameEngine::HomeController),
 					m_engine.controller(GameEngine::AwayController),
@@ -97,9 +95,4 @@ void MainMenuState::initialiseMainMenu()
 	menu->show();
 	m_engine.setMenu(menu);
 	m_engine.setLogo("graphics/tuxfootball.png");
-}
-
-bool MainMenuState::isGameInProgress() const
-{
-	return false;
 }

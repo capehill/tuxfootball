@@ -57,3 +57,7 @@ bool MatchStartState::isGameInProgress() const
 {
 	return false;
 }
+
+void MatchStartState::renderFrame()
+{
+}

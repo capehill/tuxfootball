@@ -22,12 +22,12 @@
 #ifndef TUXFOOTBALL_MAINMENUSTATE
 #define TUXFOOTBALL_MAINMENUSTATE
 
-#include "statebase.h"
+#include "menustatebase.h"
 
 class GameEngine;
 
 /* State that controls the main menu. */
-class MainMenuState : public StateBase {
+class MainMenuState : public MenuStateBase {
 public:
 	MainMenuState(GameEngine &engine);
 	virtual ~MainMenuState();
@@ -41,11 +41,7 @@ public:
 	/** The main logic for the state should be in updateLoop. */
 	virtual void updateLoop();
 
-	/** Returns true, if the gamestate is a 'in game' gamestate */
-	virtual bool isGameInProgress() const;
-private:
-	void initialiseMainMenu();
-
-	GameEngine &m_engine;
+protected:
+	virtual void initialiseMenu();
 };
 #endif /* TUXFOOTBALL_MAINMENUSTATE */

@@ -29,16 +29,16 @@ class GameEngine;
 class FirstHalfState : public IngameStateBase {
 public:
 	FirstHalfState(GameEngine &engine);
-	~FirstHalfState();
+	virtual ~FirstHalfState();
 
 	/** Called when the state is entered. Occurs before the update loop method is called. */
-	virtual void enterState();
+	void enterState();
 
 	/** Called when leaving the state, after the last updateLoop has finished. */
-	virtual void leaveState();
+	void leaveState();
 
 	/** The main logic for the state should be in updateLoop. */
-	virtual void updateLoop();
+	void updateLoop();
 
 };
 #endif /* TUXFOOTBALL_FIRSTHALFSTATE */

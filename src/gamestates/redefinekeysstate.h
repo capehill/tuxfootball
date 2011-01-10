@@ -22,11 +22,11 @@
 #ifndef TUXFOOTBALL_REDEFINEKEYSSTATE
 #define TUXFOOTBALL_REDEFINEKEYSSTATE
 
-#include "statebase.h"
+#include "menustatebase.h"
 
 class GameEngine;
 
-class RedefineKeysState : public StateBase {
+class RedefineKeysState : public MenuStateBase {
 public:
 	RedefineKeysState(GameEngine &engine);
 	virtual ~RedefineKeysState();
@@ -40,10 +40,7 @@ public:
 	/** The main logic for the state should be in updateLoop. */
 	virtual void updateLoop();
 
-	/** Returns true, if the gamestate is a 'in game' gamestate */
-	virtual bool isGameInProgress() const;
-private:
-	GameEngine &m_engine;
-	void initialiseRedefineMenu();
+protected:
+	void initialiseMenu();
 };
 #endif /* TUXFOOTBALL_REDEFINEKEYSSTATE */

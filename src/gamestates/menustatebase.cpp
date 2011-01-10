@@ -1,7 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2003-2011 by Tux Football development team              *
- *   Authors: Jason Wood <jasonwood@blueyonder.co.uk>                      *
- *            Christoph Brill <egore911@egore911.de>                       *
+ *   Authors: Christoph Brill <egore911@egore911.de>                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -19,26 +18,31 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef TUXFOOTBALL_EXTRATIMESECONDHALFSTATE
-#define TUXFOOTBALL_EXTRATIMESECONDHALFSTATE
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
-#include "ingamestatebase.h"
+#include "menustatebase.h"
 
-class GameEngine;
+MenuStateBase::MenuStateBase(GameEngine &engine) :
+				m_engine(engine)
+{
+}
 
-class ExtraTimeSecondHalfState : public IngameStateBase {
-public:
-	ExtraTimeSecondHalfState(GameEngine &engine);
-	virtual ~ExtraTimeSecondHalfState();
+MenuStateBase::~MenuStateBase()
+{
+}
 
-	/** Called when the state is entered. Occurs before the update loop method is called. */
-	virtual void enterState();
+bool MenuStateBase::isGameInProgress() const
+{
+	return false;
+}
 
-	/** Called when leaving the state, after the last updateLoop has finished. */
-	virtual void leaveState();
+void MenuStateBase::renderFrame()
+{
+}
 
-	/** The main logic for the state should be in updateLoop. */
-	virtual void updateLoop();
-
-};
-#endif /* TUXFOOTBALL_EXTRATIMESECONDHALFSTATE */
+void MenuStateBase::enterState()
+{
+	initialiseMenu();
+}

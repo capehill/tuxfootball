@@ -31,16 +31,16 @@ class GameEngine;
 class ExtraTimeFirstHalfState : public IngameStateBase {
 public:
 	ExtraTimeFirstHalfState(GameEngine &engine);
-	~ExtraTimeFirstHalfState();
+	virtual ~ExtraTimeFirstHalfState();
 
 	/** Called when the state is entered. Occurs before the update loop method is called. */
-	void enterState();
+	virtual void enterState();
 
 	/** Called when leaving the state, after the last updateLoop has finished. */
-	void leaveState();
+	virtual void leaveState();
 
 	/** The main logic for the state should be in updateLoop. */
-	void updateLoop();
+	virtual void updateLoop();
 
 };
 #endif /* TUXFOOTBALL_EXTRATIMEFIRSTHALFSTATE */

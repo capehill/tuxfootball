@@ -53,3 +53,7 @@ bool PenaltyShootoutState::isGameInProgress() const
 {
 	return false;
 }
+
+void PenaltyShootoutState::renderFrame()
+{
+}

@@ -29,7 +29,7 @@ class GameEngine;
 class ExtraTimeHalfTimeState: public StateBase {
 public:
 	ExtraTimeHalfTimeState(GameEngine &engine);
-	~ExtraTimeHalfTimeState();
+	virtual ~ExtraTimeHalfTimeState();
 
 	/** Called when the state is entered. Occurs before the update loop method is called. */
 	virtual void enterState();
@@ -42,6 +42,10 @@ public:
 
 	/** Returns true, if the gamestate is a 'in game' gamestate */
 	virtual bool isGameInProgress() const;
+
+	/** Perform rendering of a single frame for the game state */
+	virtual void renderFrame();
+
 private:
 	GameEngine &m_engine;
 };

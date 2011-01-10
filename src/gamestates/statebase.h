@@ -42,5 +42,8 @@ public:
 
 	/** Returns true, if the gamestate is a 'in game' gamestate */
 	virtual bool isGameInProgress() const = 0;
+
+	/** Perform rendering of a single frame for the game state */
+	virtual void renderFrame() = 0;
 };
 #endif /* TUXFOOTBALL_STATEBASE */

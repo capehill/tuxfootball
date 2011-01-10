@@ -42,6 +42,10 @@ public:
 
 	/** Returns true, if the gamestate is a 'in game' gamestate */
 	virtual bool isGameInProgress() const;
+
+	/** Perform rendering of a single frame for the game state */
+	void renderFrame();
+
 private:
 	GameEngine &m_engine;
 };

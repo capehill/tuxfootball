@@ -69,3 +69,7 @@ bool FullTimeState::isGameInProgress() const
 {
 	return false;
 }
+
+void FullTimeState::renderFrame()
+{
+}

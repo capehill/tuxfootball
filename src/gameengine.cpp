@@ -135,10 +135,8 @@ GameEngine::GameEngine(bool fullscreen) :
 		m_scoreFont = NULL;
 	} else {
 		// Load Fonts
-		std::string str = "graphics/font_yellow.png";
-		m_nameFont = FontManager::instance()->load(m_screen->format, str, false, true);
-		str = "graphics/font_white.png";
-		m_scoreFont = FontManager::instance()->load(m_screen->format, str, false, true);
+		m_nameFont = FontManager::instance()->load(m_screen->format, "graphics/font_yellow.png", false, true);
+		m_scoreFont = FontManager::instance()->load(m_screen->format, "graphics/font_white.png", false, true);
 
 		// Write out text to show our starting progress
 		m_scoreFont->write(m_screen, _("Starting Renderer"), 10, 10);
@@ -197,7 +195,6 @@ GameEngine::GameEngine(bool fullscreen) :
 	m_gameStates.push_back( new MatchAbortedState(*this) );
 	m_gameStates.push_back( new MatchFinishedState(*this) );
 
-	m_score = SurfaceManager::instance()->load(m_screen->format, "graphics/score.png", false, true);
 }
 
 GameEngine::~GameEngine()
@@ -209,8 +206,6 @@ GameEngine::~GameEngine()
 	if(m_homeController) delete m_homeController;
 	if(m_awayController) delete m_awayController;
 	if(m_renderer) delete m_renderer;
-
-	if(m_score) SurfaceManager::instance()->release(m_score);
 
 	if(m_nameFont) FontManager::instance()->release(m_nameFont);
 	if(m_scoreFont) FontManager::instance()->release(m_scoreFont);
@@ -377,7 +372,7 @@ void GameEngine::iterateEngine()
 
 void GameEngine::drawFrame()
 {
-	SDL_Rect r, s, score_pos, score_size;
+	SDL_Rect r, s;
 
 	int left = (int)m_camera.position().x() - m_resX/2;
 	int top = (int)m_camera.position().y() - m_resY/2;
@@ -387,72 +382,7 @@ void GameEngine::drawFrame()
 	m_renderer->update();
 	m_renderer->draw(left, top);
 
-	if(isGameInProgress()) {
-
-		//
-		// Draw Score background
-		//
-		if(m_score) {
-			score_size.x = 0;
-			score_size.y = 0;
-			score_size.w = 298;
-			score_size.h = 28;
-			score_pos.x = m_screen->w - score_size.w - 10;
-			score_pos.y = 10;
-			score_pos.w = 298;
-			score_pos.h = 28;
-			if(SDL_BlitSurface(m_score, &score_size, m_screen, &score_pos) < 0) {
-				std::cerr << "Error - could not blit score : " << SDL_GetError() << std::endl;
-			}
-		}
-
-		//
-		// Draw Score
-		//
-		std::ostringstream homeScoreStr;
-		std::ostringstream awayScoreStr;
-
-		homeScoreStr << m_homeScore;
-		awayScoreStr << m_awayScore;
-
-		m_scoreFont->write(m_screen, homeScoreStr.str().c_str(), m_screen->w-228, 12);
-		m_scoreFont->write(m_screen, "-", m_screen->w-207, 12);
-		m_scoreFont->write(m_screen, awayScoreStr.str().c_str(), m_screen->w-193, 12);
-
-		m_nameFont->write(m_screen, m_homeTeam->shortname().c_str(),
-			  m_screen->w-295, 12);
-		m_nameFont->write(m_screen, m_awayTeam->shortname().c_str(),
-			  m_screen->w-160, 12);
-
-
-		int scoreWidth = m_scoreFont->getTextWidth(homeScoreStr.str().c_str());
-		scoreWidth = (scoreWidth < m_scoreFont->getTextWidth(awayScoreStr.str().c_str())) ? scoreWidth : m_scoreFont->getTextWidth(awayScoreStr.str().c_str());
-		scoreWidth += 20;
-
-		int sm = m_screen->w/2;
-
-		m_scoreFont->write(m_screen, homeScoreStr.str().c_str(), sm - scoreWidth, m_screen->h-34);
-		m_scoreFont->write(m_screen, awayScoreStr.str().c_str(), sm + 20, m_screen->h-34);
-
-		m_nameFont->write(m_screen, m_homeTeam->name().c_str(),
-			  sm - scoreWidth - m_nameFont->getTextWidth(m_homeTeam->name().c_str())-20, m_screen->h-34);
-		m_nameFont->write(m_screen, m_awayTeam->name().c_str(),
-			  sm+scoreWidth+20, m_screen->h-34);
-
-		//
-		// Draw Time
-		//
-		std::ostringstream str3;
-		int minutes = ((2700 * m_timer)/m_halfLength)%60;
-
-		if(minutes<10) {
-			str3 << ((2700 * m_timer)/m_halfLength)/60 << ":0" << ((2700 * m_timer)/m_halfLength)%60;
-		} else {
-			str3 << ((2700 * m_timer)/m_halfLength)/60 << ":" << ((2700 * m_timer)/m_halfLength)%60;
-		}
-
-		m_scoreFont->write(m_screen, str3.str().c_str(), m_screen->w - m_scoreFont->getTextWidth(str3.str().c_str()) - 22, 12);
-	}
+	m_gameStates[m_currentState]->renderFrame();
 
 	//
 	// Draw frames per second
@@ -604,6 +534,7 @@ void GameEngine::setSubMode(SubMode mode, bool home, bool left, const Point3D &p
 		case FreeKick:
 		default :
 			std::cout << "Warning - setSubMode called for mode as yet unwritten" << std::endl;
+			break;
 	}
 
 	m_subModeHome = home;
@@ -674,6 +605,7 @@ void GameEngine::setCameraFollows(CameraFollows follows)
 		break;
 	default :
 		m_camera.setTarget(0);
+		break;
 	}
 }
 

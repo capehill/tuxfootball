@@ -29,7 +29,7 @@ class GameEngine;
 class SecondHalfState : public IngameStateBase {
 public:
 	SecondHalfState(GameEngine &engine);
-	~SecondHalfState();
+	virtual ~SecondHalfState();
 
 	/** Called when the state is entered. Occurs before the update loop method is called. */
 	virtual void enterState();

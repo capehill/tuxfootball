@@ -34,7 +34,7 @@ struct Mix_Chunk;
 class Ball : public Body {
 public:
 	Ball(Graphics *renderer, Pitch *pitch);
-	~Ball();
+	virtual ~Ball();
 	Point3D lastPosition();
 	void move();
 	void kickBall(const Point3D &vel, int priority, Player *kickBy);

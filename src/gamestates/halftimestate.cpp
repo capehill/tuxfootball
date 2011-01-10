@@ -64,3 +64,7 @@ bool HalfTimeState::isGameInProgress() const
 {
 	return false;
 }
+
+void HalfTimeState::renderFrame()
+{
+}

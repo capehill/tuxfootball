@@ -30,7 +30,7 @@
 #include "menu/mainmenu.h"
 
 VideoMenuState::VideoMenuState(GameEngine &engine) :
-			m_engine(engine)
+			MenuStateBase(engine)
 {
 }
 
@@ -40,7 +40,7 @@ VideoMenuState::~VideoMenuState()
 
 void VideoMenuState::enterState()
 {
-	initialiseVideoMenu();
+	MenuStateBase::enterState();
 }
 
 void VideoMenuState::leaveState()
@@ -61,16 +61,11 @@ void VideoMenuState::updateLoop()
 	}
 }
 
-void VideoMenuState::initialiseVideoMenu()
+void VideoMenuState::initialiseMenu()
 {
 	Menu *menu = new VideoSettingsMenu(m_engine.fullScreen(), m_engine.screen(), "Video Settings");
 
 	menu->show();
 	m_engine.setMenu(menu);
 	m_engine.setLogo("graphics/tuxfootball.png");
-}
-
-bool VideoMenuState::isGameInProgress() const
-{
-	return false;
 }

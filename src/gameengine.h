@@ -199,7 +199,6 @@ private: // attributes
 
 	Menu *m_menu;
 	SDL_Surface *m_logo;
-	SDL_Surface *m_score;
 
 	/** Returns the team other than the one specified. E.g. if you pass it the home team, it returns the away team */
 	Team *otherTeam(Team *team);

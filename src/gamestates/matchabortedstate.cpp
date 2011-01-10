@@ -53,3 +53,7 @@ bool MatchAbortedState::isGameInProgress() const
 {
 	return false;
 }
+
+void MatchAbortedState::renderFrame()
+{
+}

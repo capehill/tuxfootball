@@ -24,6 +24,8 @@
 #include "statebase.h"
 
 class GameEngine;
+class SFont;
+struct SDL_Surface;
 
 /** \brief This gamestate is the base for all game states used when the player
  * is "in game".
@@ -40,8 +42,14 @@ public:
 	/** Returns true, because the gamestate is a 'in game' gamestate */
 	virtual bool isGameInProgress() const;
 
+	/** Perform rendering of a single frame for the game state */
+	void renderFrame();
+
 protected:
 	GameEngine &m_engine;
+	SDL_Surface *m_score;
+	SFont* m_nameFont;
+	SFont* m_scoreFont;
 };
 
 #endif /* TUXFOOTBALL_INGAMESTATEBASE */

@@ -63,3 +63,7 @@ bool NationalAnthemState::isGameInProgress() const
 {
 	return false;
 }
+
+void NationalAnthemState::renderFrame()
+{
+}

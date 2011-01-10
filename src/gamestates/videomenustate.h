@@ -22,14 +22,14 @@
 #ifndef TUXFOOTBALL_VIDEOMENUSTATE
 #define TUXFOOTBALL_VIDEOMENUSTATE
 
-#include "statebase.h"
+#include "menustatebase.h"
 
 class GameEngine;
 
-class VideoMenuState : public StateBase {
+class VideoMenuState : public MenuStateBase {
 public:
 	VideoMenuState(GameEngine &engine);
-	~VideoMenuState();
+	virtual ~VideoMenuState();
 
 	/** Called when the state is entered. Occurs before the update loop method is called. */
 	virtual void enterState();
@@ -40,11 +40,7 @@ public:
 	/** The main logic for the state should be in updateLoop. */
 	virtual void updateLoop();
 
-	/** Returns true, if the gamestate is a 'in game' gamestate */
-	virtual bool isGameInProgress() const;
-private:
-	void initialiseVideoMenu();
-
-	GameEngine &m_engine;
+protected:
+	void initialiseMenu();
 };
 #endif /* TUXFOOTBALL_VIDEOMENUSTATE */
