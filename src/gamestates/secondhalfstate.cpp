@@ -57,4 +57,3 @@ void SecondHalfState::updateLoop()
 		m_engine.setTimer(GameEngine::Stop);
 	}								
 }
-

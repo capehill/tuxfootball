@@ -53,7 +53,7 @@ void MatchStartState::updateLoop()
 {
 }
 
-bool MatchStartState::isGameInProgress()
+bool MatchStartState::isGameInProgress() const
 {
 	return false;
 }

@@ -43,7 +43,7 @@ public:
 	virtual void updateLoop();
 
 	/** Returns true, if the gamestate is a 'in game' gamestate */
-	virtual bool isGameInProgress();
+	virtual bool isGameInProgress() const;
 private:
 	GameEngine &m_engine;
 };

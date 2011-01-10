@@ -60,7 +60,7 @@ void HalfTimeState::updateLoop()
 	}								
 }
 
-bool HalfTimeState::isGameInProgress()
+bool HalfTimeState::isGameInProgress() const
 {
 	return false;
 }

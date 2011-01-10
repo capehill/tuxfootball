@@ -99,7 +99,7 @@ void MainMenuState::initialiseMainMenu()
 	m_engine.setLogo("graphics/tuxfootball.png");
 }
 
-bool MainMenuState::isGameInProgress()
+bool MainMenuState::isGameInProgress() const
 {
 	return false;
 }

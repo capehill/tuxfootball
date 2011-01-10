@@ -49,7 +49,7 @@ void MatchFinishedState::updateLoop()
 {
 }
 
-bool MatchFinishedState::isGameInProgress()
+bool MatchFinishedState::isGameInProgress() const
 {
 	return false;
 }

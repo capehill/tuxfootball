@@ -49,7 +49,7 @@ void PenaltyShootoutState::updateLoop()
 {
 }
 
-bool PenaltyShootoutState::isGameInProgress()
+bool PenaltyShootoutState::isGameInProgress() const
 {
 	return false;
 }

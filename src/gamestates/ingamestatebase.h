@@ -25,13 +25,20 @@
 
 class GameEngine;
 
+/** \brief This gamestate is the base for all game states used when the player
+ * is "in game".
+ *
+ * Basically this means that
+ * - the score is drawn
+ * - the game time is drawn
+ */
 class IngameStateBase : public StateBase {
 public:
 	IngameStateBase(GameEngine &engine);
 	virtual ~IngameStateBase();
 
-	/** Returns true, if the gamestate is a 'in game' gamestate */
-	virtual bool isGameInProgress();
+	/** Returns true, because the gamestate is a 'in game' gamestate */
+	virtual bool isGameInProgress() const;
 
 protected:
 	GameEngine &m_engine;

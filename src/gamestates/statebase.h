@@ -41,6 +41,6 @@ public:
 	virtual void updateLoop() = 0;
 
 	/** Returns true, if the gamestate is a 'in game' gamestate */
-	virtual bool isGameInProgress() = 0;
+	virtual bool isGameInProgress() const = 0;
 };
 #endif /* TUXFOOTBALL_STATEBASE */

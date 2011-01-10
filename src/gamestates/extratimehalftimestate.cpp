@@ -49,7 +49,7 @@ void ExtraTimeHalfTimeState::updateLoop()
 {
 }
 
-bool ExtraTimeHalfTimeState::isGameInProgress()
+bool ExtraTimeHalfTimeState::isGameInProgress() const
 {
 	return false;
 }

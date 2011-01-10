@@ -59,7 +59,7 @@ void NationalAnthemState::updateLoop()
 	}
 }
 
-bool NationalAnthemState::isGameInProgress()
+bool NationalAnthemState::isGameInProgress() const
 {
 	return false;
 }

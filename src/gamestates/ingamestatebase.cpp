@@ -35,7 +35,7 @@ IngameStateBase::~IngameStateBase()
 {
 }
 
-bool IngameStateBase::isGameInProgress()
+bool IngameStateBase::isGameInProgress() const
 {
 	return true;
 }

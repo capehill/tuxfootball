@@ -65,7 +65,7 @@ void FullTimeState::updateLoop()
 	}
 }
 
-bool FullTimeState::isGameInProgress()
+bool FullTimeState::isGameInProgress() const
 {
 	return false;
 }
