@@ -1,7 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2003-2011 by Tux Football development team              *
- *   Authors: Jason Wood <jasonwood@blueyonder.co.uk>                      *
- *            Christoph Brill <egore911@egore911.de>                       *
+ *   Authors: Christoph Brill <egore911@egore911.de>                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -19,26 +18,23 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef TUXFOOTBALL_EXTRATIMESECONDHALFSTATE
-#define TUXFOOTBALL_EXTRATIMESECONDHALFSTATE
+#ifndef TUXFOOTBALL_INGAMESTATEBASE
+#define TUXFOOTBALL_INGAMESTATEBASE
 
-#include "ingamestatebase.h"
+#include "statebase.h"
 
 class GameEngine;
 
-class ExtraTimeSecondHalfState : public IngameStateBase {
+class IngameStateBase : public StateBase {
 public:
-	ExtraTimeSecondHalfState(GameEngine &engine);
-	~ExtraTimeSecondHalfState();
+	IngameStateBase(GameEngine &engine);
+	virtual ~IngameStateBase();
 
-	/** Called when the state is entered. Occurs before the update loop method is called. */
-	virtual void enterState();
+	/** Returns true, if the gamestate is a 'in game' gamestate */
+	virtual bool isGameInProgress();
 
-	/** Called when leaving the state, after the last updateLoop has finished. */
-	virtual void leaveState();
-
-	/** The main logic for the state should be in updateLoop. */
-	virtual void updateLoop();
-
+protected:
+	GameEngine &m_engine;
 };
-#endif /* TUXFOOTBALL_EXTRATIMESECONDHALFSTATE */
+
+#endif /* TUXFOOTBALL_INGAMESTATEBASE */

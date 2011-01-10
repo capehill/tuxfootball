@@ -27,8 +27,7 @@
 
 #include "gameengine.h"
 
-ExtraTimeFirstHalfState::ExtraTimeFirstHalfState(GameEngine &engine) :
-				m_engine(engine)
+ExtraTimeFirstHalfState::ExtraTimeFirstHalfState(GameEngine &engine) : IngameStateBase(engine)
 {
 }
 
@@ -56,9 +55,4 @@ void ExtraTimeFirstHalfState::updateLoop()
 		m_engine.playSound(GameEngine::RefWhistleEnd);
 		m_engine.setTimer(GameEngine::Stop);
 	}
-}
-
-bool ExtraTimeFirstHalfState::isGameInProgress()
-{
-	return true;
 }

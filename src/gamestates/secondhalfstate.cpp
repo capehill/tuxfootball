@@ -28,7 +28,7 @@
 #include "gameengine.h"
 
 SecondHalfState::SecondHalfState(GameEngine &engine) :
-			m_engine(engine)
+	IngameStateBase(engine)
 {
 }
 
@@ -58,7 +58,3 @@ void SecondHalfState::updateLoop()
 	}								
 }
 
-bool SecondHalfState::isGameInProgress()
-{
-	return true;
-}

@@ -25,6 +25,7 @@ tuxfootball_SOURCES = \
 	gamestates/firsthalfstate.cpp \
 	gamestates/fulltimestate.cpp \
 	gamestates/halftimestate.cpp \
+	gamestates/ingamestatebase.cpp \
 	gamestates/mainmenustate.cpp \
 	gamestates/matchabortedstate.cpp \
 	gamestates/matchfinishedstate.cpp \
@@ -42,6 +43,7 @@ tuxfootball_SOURCES = \
 	gamestates/firsthalfstate.h \
 	gamestates/fulltimestate.h \
 	gamestates/halftimestate.h \
+	gamestates/ingamestatebase.h \
 	gamestates/mainmenustate.h \
 	gamestates/matchabortedstate.h \
 	gamestates/matchfinishedstate.h \

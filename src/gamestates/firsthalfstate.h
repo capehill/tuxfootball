@@ -22,11 +22,11 @@
 #ifndef TUXFOOTBALL_FIRSTHALFSTATE
 #define TUXFOOTBALL_FIRSTHALFSTATE
 
-#include "statebase.h"
+#include "ingamestatebase.h"
 
 class GameEngine;
 
-class FirstHalfState : public StateBase {
+class FirstHalfState : public IngameStateBase {
 public:
 	FirstHalfState(GameEngine &engine);
 	~FirstHalfState();
@@ -40,9 +40,5 @@ public:
 	/** The main logic for the state should be in updateLoop. */
 	virtual void updateLoop();
 
-	/** Returns true, if the gamestate is a 'in game' gamestate */
-	virtual bool isGameInProgress();
-private:
-	GameEngine &m_engine;
 };
 #endif /* TUXFOOTBALL_FIRSTHALFSTATE */

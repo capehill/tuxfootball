@@ -22,29 +22,25 @@
 #ifndef TUXFOOTBALL_EXTRATIMEFIRSTHALFSTATE
 #define TUXFOOTBALL_EXTRATIMEFIRSTHALFSTATE
 
-#include "statebase.h"
+#include "ingamestatebase.h"
 
 class GameEngine;
 
 /** State that is used when the first half of the game ended and the referee
  * granted overtime. */
-class ExtraTimeFirstHalfState : public StateBase {
+class ExtraTimeFirstHalfState : public IngameStateBase {
 public:
 	ExtraTimeFirstHalfState(GameEngine &engine);
 	~ExtraTimeFirstHalfState();
 
 	/** Called when the state is entered. Occurs before the update loop method is called. */
-	virtual void enterState();
+	void enterState();
 
 	/** Called when leaving the state, after the last updateLoop has finished. */
-	virtual void leaveState();
+	void leaveState();
 
 	/** The main logic for the state should be in updateLoop. */
-	virtual void updateLoop();
+	void updateLoop();
 
-	/** Returns true, if the gamestate is a 'in game' gamestate */
-	virtual bool isGameInProgress();
-private:
-	GameEngine &m_engine;
 };
 #endif /* TUXFOOTBALL_EXTRATIMEFIRSTHALFSTATE */

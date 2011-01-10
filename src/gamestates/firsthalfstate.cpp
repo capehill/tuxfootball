@@ -28,7 +28,7 @@
 #include "gameengine.h"
 
 FirstHalfState::FirstHalfState(GameEngine &engine) :
-		m_engine(engine)
+	IngameStateBase(engine)
 {
 }
 
@@ -53,9 +53,4 @@ void FirstHalfState::updateLoop()
 		m_engine.playSound(GameEngine::RefWhistleTwice);
 		m_engine.setTimer(GameEngine::Stop);
 	}
-}
-
-bool FirstHalfState::isGameInProgress()
-{
-	return true;
 }
