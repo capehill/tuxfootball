@@ -22,6 +22,8 @@
 #ifndef TUXFOOTBALL_STATEBASE
 #define TUXFOOTBALL_STATEBASE
 
+#include <SDL.h>
+
 /** Base class for every game state */
 class StateBase {
 public:
@@ -45,5 +47,8 @@ public:
 
 	/** Perform rendering of a single frame for the game state */
 	virtual void renderFrame() = 0;
+
+	virtual void update(Uint8* keys);
+
 };
 #endif /* TUXFOOTBALL_STATEBASE */

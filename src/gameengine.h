@@ -120,12 +120,7 @@ public:
 	void setFinished(bool finished);
 	bool finished() const;
 
-	void setLogo(std::string logoImage);
-
 	SDL_Surface *screen();
-
-	/** clears the logo, if one exists. It is safe to call this when no logo exists. */
-	void clearLogo();
 
 	void setMusic(std::string musicFile);
 	void setupHalfTime();
@@ -196,9 +191,6 @@ private: // attributes
 	Mix_Music *m_music;
 
 	std::list<PlayerContainer> m_playerList;
-
-	Menu *m_menu;
-	SDL_Surface *m_logo;
 
 	/** Returns the team other than the one specified. E.g. if you pass it the home team, it returns the away team */
 	Team *otherTeam(Team *team);

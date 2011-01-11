@@ -49,8 +49,7 @@ void VideoMenuState::leaveState()
 
 void VideoMenuState::updateLoop()
 {
-	Menu *menu = m_engine.menu();
-	
+	Menu* menu = MenuStateBase::menu();
 	if(menu) {
 		if(menu->selectionMade()) {
 			m_engine.setFullScreen((dynamic_cast<VideoSettingsMenu*>(menu))->currentMode());
@@ -66,6 +65,5 @@ void VideoMenuState::initialiseMenu()
 	Menu *menu = new VideoSettingsMenu(m_engine.fullScreen(), m_engine.screen(), "Video Settings");
 
 	menu->show();
-	m_engine.setMenu(menu);
-	m_engine.setLogo("graphics/tuxfootball.png");
+	setMenu(menu);
 }

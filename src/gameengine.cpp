@@ -171,8 +171,6 @@ GameEngine::GameEngine(bool fullscreen) :
 	m_homeController = new Controller(m_homeTeam, m_awayTeam, SDLK_UP, SDLK_DOWN, SDLK_LEFT, SDLK_RIGHT, SDLK_LSHIFT, SDLK_LCTRL, false, m_ball, m_pitch);
 	m_awayController = new Controller(m_awayTeam, m_homeTeam, SDLK_k, SDLK_j, SDLK_h, SDLK_l, SDLK_f, SDLK_g, true, m_ball, m_pitch);
 
-	m_menu = 0;
-	m_logo = 0;
 	m_halfLength = 6000;
 
 	m_displayFPS = false;
@@ -272,11 +270,6 @@ void GameEngine::iterateEngine()
 {
 	m_gameStates[m_currentState]->updateLoop();
 
-	if((m_menu) && (m_menu->finished())) {
-		delete m_menu;
-		m_menu = 0;
-	}
-
 	m_homeTeam->update();
 	m_awayTeam->update();
 	updateKeyboard();
@@ -372,46 +365,27 @@ void GameEngine::iterateEngine()
 
 void GameEngine::drawFrame()
 {
-	SDL_Rect r, s;
-
 	int left = (int)m_camera.position().x() - m_resX/2;
 	int top = (int)m_camera.position().y() - m_resY/2;
 
+	// First of all draw the pitch
 	m_pitch->draw(left, top);
 
+	// Now render the players
 	m_renderer->update();
 	m_renderer->draw(left, top);
 
+	// Finally render additional information depending on the gamestate
 	m_gameStates[m_currentState]->renderFrame();
 
-	//
-	// Draw frames per second
-	//
+	// Optionally draw frames per second
 	if(m_displayFPS) {
 		std::ostringstream str4;
 		str4 << "FPS : " << m_framesPerSecond;
 		m_scoreFont->write(m_screen, str4.str().c_str(), m_screen->w - 10 - m_scoreFont->getTextWidth(str4.str().c_str()), 40);
 	}
 
-	//
-	// Draw Menu
-	//
-	if(m_menu) m_menu->draw();
-
-	if(m_logo) {
-		s.x = (m_screen->w - m_logo->w) / 2;
-		s.y = 50;
-		r.x = 0;
-		r.y = 0;
-		s.w = r.w = m_logo->w;
-		s.h = r.h = m_logo->h;
-
-
-		if(SDL_BlitSurface(m_logo, &r, m_screen, &s) < 0) {
-			std::cerr << "Error - could not pitch tile : " << SDL_GetError() << std::endl;
-		}
-	}
-
+	// Now put everything on screen
 	SDL_Flip(m_screen);
 }
 
@@ -473,12 +447,14 @@ void GameEngine::updateKeyboard()
 	m_homeController->updateController(keys);
 	m_awayController->updateController(keys);
 
-	if(m_menu) {
-		m_menu->update(keys);
-	}
+	m_gameStates[m_currentState]->update(keys);
 
 	if(keys[m_quitKey]) {
-		quitting = true;
+		if (m_currentState >= 0 && (m_currentState < (int) m_gameStates.size()) && m_currentState == TitleScreen) {
+			m_finished = 1;
+		} else {
+			quitting = true;
+		}
 	} else {
 		if(quitting) {
 			setState(TitleScreen);
@@ -544,29 +520,6 @@ void GameEngine::setBallPreparedPosition(Point3D pos)
 {
 	m_ballPrepared = true;
 	m_ballPreparedPosition = pos;
-}
-
-void GameEngine::setMenu(Menu *menu)
-{
-	if(m_menu) {
-		delete m_menu;
-		m_menu = 0;
-	}
-	m_menu = menu;
-}
-
-void GameEngine::setLogo(std::string logoImage)
-{
-	clearLogo();
-	m_logo = SurfaceManager::instance()->load(m_screen->format, logoImage, false, true);
-}
-
-void GameEngine::clearLogo()
-{
-	if(m_logo) {
-		SurfaceManager::instance()->release(m_logo);
-		m_logo = 0;
-	}
 }
 
 void GameEngine::setMusic(std::string musicFile)
@@ -645,11 +598,6 @@ void GameEngine::setupHalfTime()
 {
 	m_homeTeam->setupHalfTime();
 	m_awayTeam->setupHalfTime();
-}
-
-Menu *GameEngine::menu()
-{
-	return m_menu;
 }
 
 bool GameEngine::finished() const

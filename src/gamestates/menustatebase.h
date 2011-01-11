@@ -23,9 +23,11 @@
 
 #include "statebase.h"
 
+#include <SDL.h>
+
 class GameEngine;
 class SFont;
-struct SDL_Surface;
+class Menu;
 
 /** \brief This gamestate is the base for all game states used when the player
  * is "in game".
@@ -48,10 +50,19 @@ public:
 	/** Perform rendering of a single frame for the game state */
 	virtual void renderFrame();
 
-protected:
-	virtual void initialiseMenu() = 0;
+	void update(Uint8* keys);
 
+protected:
 	GameEngine &m_engine;
+	SDL_Surface *m_logo;
+
+	virtual void initialiseMenu() = 0;
+	/** clears the logo, if one exists. It is safe to call this when no logo exists. */
+	void clearLogo();
+	void setMenu(Menu *menu);
+	Menu* menu();
+private:
+	Menu *m_menu;
 };
 
 #endif /* TUXFOOTBALL_MENUSTATEBASE */

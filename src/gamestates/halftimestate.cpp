@@ -22,29 +22,42 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
-	
+
 #include "halftimestate.h"
 
+#include <iostream>
+
 #include "gameengine.h"
+#include "resources/surfacemanager.h"
 
 HalfTimeState::HalfTimeState(GameEngine &engine) :
-			m_engine(engine)
+			m_engine(engine), m_logo(0)
 {
 }
 
 HalfTimeState::~HalfTimeState()
 {
+	clearLogo();
 }
 
 void HalfTimeState::enterState()
 {
 	m_engine.team(GameEngine::HomeTeam)->setupHalfTime();
 	m_engine.team(GameEngine::AwayTeam)->setupHalfTime();
-	m_engine.setLogo("graphics/halftime.png");
+	m_logo = SurfaceManager::instance()->load(m_engine.screen()->format, "graphics/halftime.png", false, true);
 }
 
 void HalfTimeState::leaveState()
 {
+	clearLogo();
+}
+
+void HalfTimeState::clearLogo()
+{
+	if(m_logo) {
+		SurfaceManager::instance()->release(m_logo);
+		m_logo = 0;
+	}
 }
 
 void HalfTimeState::updateLoop()
@@ -55,7 +68,7 @@ void HalfTimeState::updateLoop()
 		}
 	} else if(m_engine.timer() > 300) {
 		m_engine.setState(GameEngine::SecondHalf);
-		m_engine.clearLogo();
+		clearLogo();
 		m_engine.setTimer(GameEngine::Stop);
 	}								
 }
@@ -67,4 +80,19 @@ bool HalfTimeState::isGameInProgress() const
 
 void HalfTimeState::renderFrame()
 {
+	SDL_Rect r, s;
+
+	if(m_logo) {
+		s.x = (m_engine.screen()->w - m_logo->w) / 2;
+		s.y = 50;
+		r.x = 0;
+		r.y = 0;
+		s.w = r.w = m_logo->w;
+		s.h = r.h = m_logo->h;
+
+
+		if(SDL_BlitSurface(m_logo, &r, m_engine.screen(), &s) < 0) {
+			std::cerr << "Error - could not pitch tile : " << SDL_GetError() << std::endl;
+		}
+	}
 }

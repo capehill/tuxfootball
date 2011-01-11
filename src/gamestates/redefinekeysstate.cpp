@@ -58,8 +58,7 @@ void RedefineKeysState::leaveState()
 
 void RedefineKeysState::updateLoop()
 {
-	Menu *menu = m_engine.menu();
-	
+	Menu* menu = MenuStateBase::menu();
 	if(menu) {
 		if(menu->selectionMade()) {
 			m_engine.setState(GameEngine::TitleScreen);
@@ -76,6 +75,5 @@ void RedefineKeysState::initialiseMenu()
 					 m_engine.controller(GameEngine::AwayController),
 					 m_engine.screen(), _("Redefine Keys"));
 	menu->show();
-	m_engine.setMenu(menu);
-	m_engine.setLogo("graphics/tuxfootball.png");
+	setMenu(menu);
 }
