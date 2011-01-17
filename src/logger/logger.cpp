@@ -22,87 +22,24 @@
 #include <config.h>
 #endif
 
-#include "menustatebase.h"
+#include "logger.h"
 
 #include <iostream>
-#include <SDL.h>
 
-#include "gameengine.h"
-#include "resources/surfacemanager.h"
-#include "menu/menu.h"
-#include "logger/logger.h"
+Logger::LogLevel Logger::m_level = Logger::Info;
 
-MenuStateBase::MenuStateBase(GameEngine &engine) :
-				m_engine(engine), m_logo(0), m_menu(0)
-{
+Logger::LogLevel Logger::level() {
+	return m_level;
 }
 
-MenuStateBase::~MenuStateBase()
-{
-	clearLogo();
-	setMenu(0);
+void Logger::setLevel(LogLevel level) {
+	m_level = level;
 }
 
-bool MenuStateBase::isGameInProgress() const
-{
-	return false;
+void Logger::log(const std::ostringstream& oss) {
+	std::cout << oss.str() << std::endl;
 }
 
-void MenuStateBase::renderFrame()
-{
-	SDL_Rect r, s;
-
-	//
-	// Draw Menu
-	//
-	if(m_menu) m_menu->draw();
-
-	if(m_logo) {
-		s.x = (m_engine.screen()->w - m_logo->w) / 2;
-		s.y = 50;
-		r.x = 0;
-		r.y = 0;
-		s.w = r.w = m_logo->w;
-		s.h = r.h = m_logo->h;
-
-
-		if(SDL_BlitSurface(m_logo, &r, m_engine.screen(), &s) < 0) {
-			ERROR("could not pitch tile : " << SDL_GetError());
-		}
-	}
-}
-
-void MenuStateBase::enterState()
-{
-	initialiseMenu();
-	m_logo = SurfaceManager::instance()->load(m_engine.screen()->format, "graphics/tuxfootball.png", false, true);
-}
-
-void MenuStateBase::clearLogo()
-{
-	if(m_logo) {
-		SurfaceManager::instance()->release(m_logo);
-		m_logo = 0;
-	}
-}
-
-void MenuStateBase::setMenu(Menu *menu)
-{
-	if(m_menu) {
-		delete m_menu;
-		m_menu = 0;
-	}
-	m_menu = menu;
-}
-
-Menu* MenuStateBase::menu()
-{
-	return m_menu;
-}
-
-void MenuStateBase::update(Uint8* keys)
-{
-	if(m_menu) {
-		m_menu->update(keys);
-	}
+void Logger::err(const std::ostringstream& oss) {
+	std::cerr << oss.str() << std::endl;
 }

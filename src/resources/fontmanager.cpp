@@ -29,6 +29,7 @@
 
 #include "surfacemanager.h"
 #include "const.h"
+#include "logger/logger.h"
 
 std::map<std::string, ManagedFont> FontManager::m_fonts;
 
@@ -70,7 +71,7 @@ void FontManager::release(SFont *font)
 		++itt;
 	}
 
-	std::cerr << "Tried to free a font, could not be found." << std::endl;
+	ERROR("Tried to free a font, could not be found.");
 }
 
 SFont *FontManager::add(std::string filename)
@@ -85,7 +86,7 @@ SFont *FontManager::add(SDL_PixelFormat *format, std::string filename, bool colo
 	SFont* font = new SFont(fontSurface);
 	
 	if(!font) {
-		std::cerr << "Tried to add font \"" << filename.c_str() << "\" but failed " << std::endl;
+		ERROR("Tried to add font \"" << filename.c_str() << "\" but failed");
 		return 0;
 	}
 

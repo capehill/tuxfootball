@@ -56,6 +56,8 @@ tuxfootball_SOURCES = \
 	gamestates/secondhalfstate.h \
 	gamestates/statebase.h \
 	gamestates/videomenustate.h \
+	logger/logger.h \
+	logger/logger.cpp \
 	menu/elements/menubutton.cpp \
 	menu/elements/menuitem.cpp \
 	menu/elements/menukeyselect.cpp \

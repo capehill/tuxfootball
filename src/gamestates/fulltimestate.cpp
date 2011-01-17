@@ -29,6 +29,7 @@
 
 #include "gameengine.h"
 #include "resources/surfacemanager.h"
+#include "logger/logger.h"
 
 FullTimeState::FullTimeState(GameEngine &engine) :
 			m_engine(engine), m_logo(0)
@@ -97,7 +98,7 @@ void FullTimeState::renderFrame()
 
 
 		if(SDL_BlitSurface(m_logo, &r, m_engine.screen(), &s) < 0) {
-			std::cerr << "Error - could not pitch tile : " << SDL_GetError() << std::endl;
+			ERROR("could not pitch tile : " << SDL_GetError());
 		}
 	}
 }

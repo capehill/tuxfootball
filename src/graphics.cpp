@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 #include "graphics.h"
+
+#include "logger/logger.h"
+
 #include <iostream>
 
 Graphics::Graphics(SDL_Surface *screen)
@@ -43,7 +46,7 @@ void Graphics::removeSprite(SpriteObject *obj)
 			return;
 		}
 	}
-	std::cerr << "Warning - Graphics::removeSprite() : sprite does not exist" << std::endl;
+	WARN("Graphics::removeSprite() : sprite does not exist");
 }
 
 void Graphics::draw(int left, int top)

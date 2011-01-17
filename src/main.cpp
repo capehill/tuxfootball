@@ -39,6 +39,7 @@
 #endif
 
 #include "gameengine.h"
+#include "logger/logger.h"
 
 void die(const char *fmt, ...)
 {
@@ -53,12 +54,18 @@ void die(const char *fmt, ...)
 /** Execution starts here. */
 int main(int argc, char *argv[])
 {
+#ifdef PACKAGE_VERSION
+	INFO("Starting Tux Football " << PACKAGE_VERSION);
+#else
+	INFO("Starting Tux Football");
+#endif
+
 #ifdef HAVE_GETTEXT
 	bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 #else
-	std::cout << "Gettext support not available due to missing config.h support" << std::endl;
+	INFO("Gettext support not available due to missing config.h support");
 #endif
 
 	bool fullscreen = false;
@@ -72,8 +79,10 @@ int main(int argc, char *argv[])
 					return 0;
 				case 'w':
 					fullscreen = false;
+					break;
 				case 'f':
 					fullscreen = true;
+					break;
 				break;
 			}
 		}

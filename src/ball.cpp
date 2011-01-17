@@ -40,6 +40,7 @@
 #include "gameengine.h"
 #include "rect.h"
 #include "point3d.h"
+#include "logger/logger.h"
 
 double Ball::bounceFactor = 0.6;
 
@@ -52,7 +53,7 @@ Ball::Ball(Graphics *renderer, Pitch *pitch) :
 		m_football = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/football.png", true, false);
 		m_shadow = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/footballshadow.png", true, false);
 	} else {
-		std::cerr << "Error : Screen not defined - cannot initialise ball graphics" << std::endl;
+		ERROR("Screen not defined - cannot initialise ball graphics");
 		m_football = NULL;
 		m_shadow = NULL;
 	}

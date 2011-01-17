@@ -19,6 +19,8 @@
 #include "resources/surfacemanager.h"
 #include "tilemap.h"
 
+#include "logger/logger.h"
+
 #include <iostream>
 
 double Pitch::gravity=-0.06;
@@ -78,7 +80,7 @@ Pitch::Pitch(Graphics *renderer)
 		m_width = 2560;
 		m_height = 4096;
 	} else {
-		std::cerr << "Error - screen not defined at Pitch creation, cannot initialise pitch" << std::endl;
+		ERROR("Error - screen not defined at Pitch creation, cannot initialise pitch");
 	}
 
 /*	m_numScratches = 1000;
@@ -150,7 +152,7 @@ void Pitch::draw(int left, int top)
 			s.y = y;
 
 			if(SDL_BlitSurface(m_surface, &r, m_renderer->screen(), &s) < 0) {
-				std::cerr << "Error - could not pitch tile : " << SDL_GetError() << std::endl;
+				ERROR("could not pitch tile : " << SDL_GetError());
 			}
 
 			y+= m_surface->h;
@@ -169,7 +171,7 @@ void Pitch::draw(int left, int top)
 		r.x = 0;
 		r.y = 0;
 		if(SDL_BlitSurface(m_scratch, &r, m_renderer->screen(), &s) < 0) {
-			std::cerr << "Error - could not draw pitch scratch : " << SDL_GetError() << std::endl;
+			ERROR("could not draw pitch scratch : " << SDL_GetError());
 		}
 	}*/
 }
@@ -380,7 +382,7 @@ bool Pitch::crossesGoalLine(Segment move)
  * true */
 bool Pitch::entersGoal(Segment move)
 {
-	std::cout << "FIXME : Ball going over the goal will stil score a goal at present" << std::endl;
+	WARN("FIXME : Ball going over the goal will stil score a goal at present");
 
 	if(crossesGoalLine(move)) {
 		if ( 	(m_lastIntersection.x() > m_goalBoundLeft) &&

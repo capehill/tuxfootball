@@ -18,8 +18,10 @@
  ***************************************************************************/
 
 #include "spriteobject.h"
-#include <iostream>
 
+#include "logger/logger.h"
+
+#include <iostream>
 
 SpriteObject::SpriteObject(SDL_Surface *surf, SDL_Surface *shadow, SDL_Surface *overlay,
 				Point3D position, SDL_Rect offset, SDL_Rect shadowOffset, SDL_Rect overlayOffset)
@@ -54,7 +56,7 @@ void SpriteObject::draw(int left, int top, SDL_Surface *surface)
 	s.y = (int)(m_position.y() - top + m_offset.y - m_position.z());
 
 	if(SDL_BlitSurface(m_surface, &r, surface, &s) < 0) {
-		std::cerr << "Error - could not draw SpriteObject to screen : " << SDL_GetError() << std::endl;
+		ERROR("could not draw SpriteObject to screen : " << SDL_GetError());
 	}
 
 }
@@ -75,7 +77,7 @@ void SpriteObject::drawShadow(int left, int top, SDL_Surface *surface)
 	s.y = (int)(m_position.y() - top + m_shadowOffset.y - (m_position.z()*0.8));
 
 	if(SDL_BlitSurface(m_shadow, &r, surface, &s) < 0) {
-		std::cerr << "Error - could not blit SpriteObject shadow to screen : " << SDL_GetError() << std::endl;
+		ERROR("could not blit SpriteObject shadow to screen : " << SDL_GetError());
 	}
 }
 
@@ -121,7 +123,7 @@ void SpriteObject::drawOverlay(int left, int top, SDL_Surface *surface)
 	if(s.y + r.h > surface->h) s.y = surface->h - r.h;
 
 	if(SDL_BlitSurface(m_overlay, &r, surface, &s) < 0) {
-		std::cerr << "Error - could not blit SpriteObject overlay to screen : " << SDL_GetError() << std::endl;
+		ERROR("could not blit SpriteObject overlay to screen : " << SDL_GetError());
 	}
 }
 

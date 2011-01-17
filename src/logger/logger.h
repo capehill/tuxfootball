@@ -18,91 +18,34 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
+#ifndef TUXFOOTBALL_LOGGER
+#define TUXFOOTBALL_LOGGER
 
-#include "menustatebase.h"
-
+#include <string>
 #include <iostream>
-#include <SDL.h>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+#include <string>
 
-#include "gameengine.h"
-#include "resources/surfacemanager.h"
-#include "menu/menu.h"
-#include "logger/logger.h"
+class Logger {
+public:
+	enum LogLevel {
+		Debug, Info, Warn, Error
+	};
 
-MenuStateBase::MenuStateBase(GameEngine &engine) :
-				m_engine(engine), m_logo(0), m_menu(0)
-{
-}
+	static LogLevel level();
+	static void setLevel(LogLevel level);
+	static void log(const std::ostringstream& oss);
+	static void err(const std::ostringstream& oss);
 
-MenuStateBase::~MenuStateBase()
-{
-	clearLogo();
-	setMenu(0);
-}
+private:
+	static LogLevel m_level;
+};
 
-bool MenuStateBase::isGameInProgress() const
-{
-	return false;
-}
+#define DEBUG(text) {std::ostringstream oss; if (Logger::Debug >= Logger::level()) Logger::log((std::ostringstream&)(oss << "[DEBUG] " << text));}
+#define INFO(text) {std::ostringstream oss; if (Logger::Info >= Logger::level()) Logger::log((std::ostringstream&)(oss << "[INFO] " << text));}
+#define WARN(text) {std::ostringstream oss; if (Logger::Warn >= Logger::level()) Logger::err((std::ostringstream&)(oss << "[WARN] " << text));}
+#define ERROR(text) {std::ostringstream oss; if (Logger::Error >= Logger::level()) Logger::err((std::ostringstream&)(oss << "[ERROR] " << text));}
 
-void MenuStateBase::renderFrame()
-{
-	SDL_Rect r, s;
-
-	//
-	// Draw Menu
-	//
-	if(m_menu) m_menu->draw();
-
-	if(m_logo) {
-		s.x = (m_engine.screen()->w - m_logo->w) / 2;
-		s.y = 50;
-		r.x = 0;
-		r.y = 0;
-		s.w = r.w = m_logo->w;
-		s.h = r.h = m_logo->h;
-
-
-		if(SDL_BlitSurface(m_logo, &r, m_engine.screen(), &s) < 0) {
-			ERROR("could not pitch tile : " << SDL_GetError());
-		}
-	}
-}
-
-void MenuStateBase::enterState()
-{
-	initialiseMenu();
-	m_logo = SurfaceManager::instance()->load(m_engine.screen()->format, "graphics/tuxfootball.png", false, true);
-}
-
-void MenuStateBase::clearLogo()
-{
-	if(m_logo) {
-		SurfaceManager::instance()->release(m_logo);
-		m_logo = 0;
-	}
-}
-
-void MenuStateBase::setMenu(Menu *menu)
-{
-	if(m_menu) {
-		delete m_menu;
-		m_menu = 0;
-	}
-	m_menu = menu;
-}
-
-Menu* MenuStateBase::menu()
-{
-	return m_menu;
-}
-
-void MenuStateBase::update(Uint8* keys)
-{
-	if(m_menu) {
-		m_menu->update(keys);
-	}
-}
+#endif /* TUXFOOTBALL_LOGGER */

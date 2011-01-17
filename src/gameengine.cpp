@@ -63,6 +63,7 @@
 #include "gamestates/matchfinishedstate.h"
 #include "gamestates/videomenustate.h"
 #include "const.h"
+#include "logger/logger.h"
 
 Player *GameEngine::s_lastTouch=0;
 
@@ -96,7 +97,7 @@ GameEngine::GameEngine(bool fullscreen) :
 
 	// Start audio.
 	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024)==-1) {
-		std::cout << "Warning - audio failed to start : " << Mix_GetError() << std::endl;
+		WARN("audio failed to start : " << Mix_GetError());
 		m_audioOpen = false;
 	} else {
 		m_audioOpen = true;
@@ -125,7 +126,7 @@ GameEngine::GameEngine(bool fullscreen) :
 #endif
 	if(m_screen == NULL) {
 		m_finished = true;
-		std::cerr << "Unable to set " << m_resX << "x" << m_resY << " video: " << SDL_GetError() << std::endl;
+		ERROR("Unable to set " << m_resX << "x" << m_resY << " video: " << SDL_GetError());
 		m_pitch = NULL;
 		m_ball = NULL;
 		m_homeTeam = NULL;
@@ -420,14 +421,14 @@ void GameEngine::setState(GameState state)
 	// First leave the current gamestate (if any)
 	if((m_currentState >= 0) && (m_currentState < (int) m_gameStates.size()))
 	{
-		std::cout << "Leaving gamestate " << m_currentState << std::endl;
+		DEBUG("Leaving gamestate " << m_currentState);
 		m_gameStates[m_currentState]->leaveState();
 	}
 	// Now remember the new gamestate and enter it (if any)
 	m_currentState=state;
 	if((m_currentState >= 0) && (m_currentState < (int) m_gameStates.size()))
 	{
-		std::cout << "Entering gamestate " << m_currentState << std::endl;
+		DEBUG("Entering gamestate " << m_currentState);
 		m_gameStates[m_currentState]->enterState();
 	}
 
@@ -469,17 +470,20 @@ void GameEngine::setSubMode(SubMode mode, bool home, bool left, const Point3D &p
 
 	switch(mode) {
 		case InPlay :
+			DEBUG("Prepare InPlay");
 			m_homeTeam->setControlState(Player::Full);
 			m_awayTeam->setControlState(Player::Full);
 			setTimer(Start);
 			break;
 		case KickOff :
+			DEBUG("Prepare KickOff");
 			m_homeTeam->setupKickoff(home);
 			m_awayTeam->setupKickoff(!home);
 			setTimer(Stop);
 			setBallPreparedPosition(m_pitch->centerSpot());
 			break;
 		case Corner :
+			DEBUG("Prepare Corner");
 			m_homeTeam->setupCorner(left, home);
 			m_awayTeam->setupCorner(left, !home);
 			setTimer(Stop);
@@ -487,7 +491,7 @@ void GameEngine::setSubMode(SubMode mode, bool home, bool left, const Point3D &p
 			playSound(RefWhistleTwice);
 			break;
 		case ThrowIn :
-			std::cout << "Prepare throwin" << std::endl;
+			DEBUG("Prepare ThrowIn");
 			m_homeTeam->setupThrowIn(pos, home);
 			m_awayTeam->setupThrowIn(pos, !home);
 			setTimer(Stop);
@@ -495,7 +499,8 @@ void GameEngine::setSubMode(SubMode mode, bool home, bool left, const Point3D &p
 			playSound(RefWhistleTwice);
 			break;
 		case GoalKick :
-			std::cout << "FIXME : Goal Kicks are always on the floor at present." << std::endl;
+			DEBUG("Prepare GoalKick");
+			WARN("FIXME : Goal Kicks are always on the floor at present.");
 			m_homeTeam->setupGoalKick(home, left, true);
 			m_awayTeam->setupGoalKick(!home, left, true);
 			setTimer(Stop);
@@ -503,13 +508,14 @@ void GameEngine::setSubMode(SubMode mode, bool home, bool left, const Point3D &p
 			playSound(RefWhistleTwice);
 			break;
 		case GoalCelebration :
-			std::cout << "No goal celebration at present, go straight to kick off." << std::endl;
+			DEBUG("Prepare GoalCelebration");
+			WARN("No goal celebration at present, go straight to kick off.");
 			playSound(RefWhistleTwice);
 			break;
 		case Penalty:
 		case FreeKick:
 		default :
-			std::cout << "Warning - setSubMode called for mode as yet unwritten" << std::endl;
+			WARN("Warning - setSubMode called for mode "  << mode << " is yet unwritten ");
 			break;
 	}
 
@@ -539,7 +545,7 @@ void GameEngine::setMusic(std::string musicFile)
 		}
 
 		if(m_music == 0) {
-			std::cout << "Warning - could not load Title music : " << Mix_GetError() << std::endl;
+			WARN("could not load Title music : " << Mix_GetError());
 		} else {
 			Mix_PlayMusic(m_music, -1);
 		}

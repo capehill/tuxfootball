@@ -24,8 +24,8 @@
 #endif
 
 #include "surfacemanager.h"
-
 #include "const.h"
+#include "logger/logger.h"
 
 #include <iostream>
 #include <SDL_image.h>
@@ -66,7 +66,7 @@ void SurfaceManager::release(SDL_Surface *surface)
 		++itt;
 	}
 
-	std::cerr << "Tried to free a surface, could not be found." << std::endl;
+	ERROR("Tried to free a surface, could not be found.");
 }
 
 SDL_Surface *SurfaceManager::add(std::string filename) {
@@ -93,13 +93,13 @@ SDL_Surface *SurfaceManager::add(SDL_PixelFormat *format, std::string filename, 
 		SDL_RWops *rw = SDL_RWFromFile(filename.c_str(), "r");	
 		
 		if(rw==NULL) {
-			std::cerr << "Error - could not open image \"" << filename.c_str() << "\": " << SDL_GetError() << std::endl;
+			ERROR("could not open image \"" << filename.c_str() << "\": " << SDL_GetError());
 			return NULL;
 		}
 
 		surf = IMG_LoadTGA_RW(rw);	
 		if(surf == NULL) {
-			std::cerr << "Error - could not load image : " << SDL_GetError() << std::endl;		
+			ERROR("could not load image : " << SDL_GetError());
 			SDL_RWclose(rw);
 			return NULL;
 		}
@@ -109,12 +109,12 @@ SDL_Surface *SurfaceManager::add(SDL_PixelFormat *format, std::string filename, 
 	if(colorKey) {
 		Uint32 key = getPixel(surf, 0, 0);
 		if(SDL_SetColorKey(surf, SDL_SRCCOLORKEY | SDL_RLEACCEL, key) < 0) {
-			std::cout << "Error - could not apply color key to surface : " << SDL_GetError() << std::endl;
+			ERROR("could not apply color key to surface : " << SDL_GetError());
 		}
 	}
 	if(alpha) {
 		if(SDL_SetAlpha(surf, SDL_SRCALPHA | SDL_RLEACCEL, SDL_ALPHA_OPAQUE) < 0) {
-			std::cout << "Error - could not set Alpha to surface : " << SDL_GetError() << std::endl;
+			ERROR("could not set Alpha to surface : " << SDL_GetError());
 		}
 	}
 
@@ -124,7 +124,7 @@ SDL_Surface *SurfaceManager::add(SDL_PixelFormat *format, std::string filename, 
 		m_surfaces[filename].surface = SDL_DisplayFormat(surf);
 	}
 	if(!m_surfaces[filename].surface) {
-		std::cout << "Error - could not convert surface to Display Format : " << SDL_GetError() << std::endl;
+		ERROR("could not convert surface to Display Format : " << SDL_GetError());
 	}
 	SDL_FreeSurface(surf);
 	
@@ -136,7 +136,7 @@ SDL_Surface *SurfaceManager::add(SDL_PixelFormat *format, std::string filename, 
 Uint32 SurfaceManager::getPixel(SDL_Surface *surface, int x, int y)
 {
 	if( SDL_LockSurface(surface) < 0) {
-		std::cerr << "Cannot lock surface : " << SDL_GetError() << std::endl;
+		ERROR("Cannot lock surface : " << SDL_GetError());
 		return 0;
 	}
 	

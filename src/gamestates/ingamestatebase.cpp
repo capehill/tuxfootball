@@ -30,6 +30,7 @@
 #include "gameengine.h"
 #include "resources/surfacemanager.h"
 #include "resources/fontmanager.h"
+#include "logger/logger.h"
 
 IngameStateBase::IngameStateBase(GameEngine &engine) :
 				m_engine(engine)
@@ -69,7 +70,7 @@ void IngameStateBase::renderFrame()
 		score_pos.w = 298;
 		score_pos.h = 28;
 		if(SDL_BlitSurface(m_score, &score_size, screen, &score_pos) < 0) {
-			std::cerr << "Error - could not blit score : " << SDL_GetError() << std::endl;
+			ERROR("could not blit score : " << SDL_GetError());
 		}
 	}
 

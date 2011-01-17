@@ -25,6 +25,8 @@
 
 #include "soundmanager.h"
 #include "const.h"
+#include "logger/logger.h"
+
 #include <iostream>
 
 std::map<std::string, ManagedSound> SoundManager::m_sounds;
@@ -58,7 +60,7 @@ void SoundManager::release(Mix_Chunk *sound)
 		++itt;
 	}
 	
-	std::cerr << "Tried to free a sound, could not be found." << std::endl;
+	ERROR("Tried to free a sound, could not be found.");
 }
 
 Mix_Chunk *SoundManager::add(std::string filename)
@@ -74,7 +76,7 @@ Mix_Chunk *SoundManager::add(std::string filename)
 	}
 
 	if(!sound) {
-		std::cerr << "Tried to add sound \"" << filename.c_str() << "\" but failed : " << Mix_GetError() << std::endl;
+		ERROR("Tried to add sound \"" << filename.c_str() << "\" but failed : " << Mix_GetError());
 		return 0;
 	}
 

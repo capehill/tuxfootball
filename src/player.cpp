@@ -31,6 +31,8 @@
 
 #include "gameengine.h"
 
+#include "logger/logger.h"
+
 Point3D Player::dirVal[8] = 	{  	Point3D(0,		1, 		0),
 					Point3D(0.707107, 	0.707107, 	0),
 					Point3D(1, 		0,		0),
@@ -218,7 +220,7 @@ void Player::loadSpriteSurfaces(std::string skin, std::string playerMarker)
 								basedir+"/header", "header", 20, false);
 		m_active = SurfaceManager::instance()->load(m_renderer->screen()->format, playerMarker, true, false);
 	} else {
-		std::cerr << "Error - cannot load Player Sprite surfaces, problem with renderer" << std::endl;
+		ERROR("cannot load Player Sprite surfaces, problem with renderer");
 		m_walk = 0;
 		m_stand = 0;
 		m_run = 0;
@@ -270,8 +272,8 @@ bool Player::setMove(Moves move, int variable)
 					v = dirVal[m_direction]*m_runSpeed * 1.4;
 					v.setZ(2);
 				} else {
-					std::cout << "FIXME : pass code passes to players feet where he is now, not where he is " <<
-						"going to be when the ball reaches him" << std::endl;
+					WARN("FIXME : pass code passes to players feet where he is now, not where he is " <<
+						"going to be when the ball reaches him");
 
 					Point3D aimFor = player->position();
 
@@ -307,7 +309,7 @@ bool Player::setMove(Moves move, int variable)
 				m_kickCountdown = 50;
 				break;
 			case FallOver:
-				std::cout << "FIXME : case FallOver not handles in setMove" << std::endl;
+				WARN("FIXME : case FallOver not handles in setMove");
 				break;
 		}
 
@@ -349,7 +351,7 @@ void Player::resetMove()
 				m_run->restartSequence();
 				break;
 		case FallOver:
-				std::cout << "FIXME : case FallOver not handles in resetMove" << std::endl;
+				WARN("FIXME : case FallOver not handles in resetMove");
 				break;
 	}
 }
@@ -375,7 +377,7 @@ void Player::updateMove()
 					break;
 		case FallOver:
 		default:
-					std::cout << "FIXME : case " << m_move << " not handles in updateMove" << std::endl;
+					WARN("FIXME : case " << m_move << " not handles in updateMove");
 					break;
 	}
 }
@@ -410,8 +412,8 @@ bool Player::inPosition()
 void Player::setDirection(int direction)
 {
 	if((direction < 0) || (direction > 7)) {
-		std::cout << "Warning : Player::setDirection passed out of range direction " <<
-			direction << " - ignoring" << std::endl;
+		WARN("Player::setDirection passed out of range direction " <<
+			direction << " - ignoring");
 		return;
 	}
 	double k;
@@ -631,7 +633,7 @@ double Player::moveSpeed(Moves move)
 		case Shoot	:	return m_runSpeed;
 		case Header	:	return m_runSpeed * 2;
 		case FallOver: // TODO
-		default		:	std::cout << "Warning - moveSpeed() asked for unknown move" << std::endl;
+		default		:	WARN("moveSpeed() asked for unknown move");
 					return m_runSpeed;
 	}
 }

@@ -38,6 +38,7 @@
 #include "elements/menuoptionlist.h"
 #include "controller.h"
 #include "gameengine.h"
+#include "logger/logger.h"
 
 MainMenu::MainMenu(GameEngine *gameEngine, Controller *home, Controller *away, SDL_Surface *screen, std::string name) :
 				Menu(screen, name),
@@ -81,7 +82,7 @@ MainMenu::~MainMenu()
 		m_home->setCPU( (value & 1) == 0);
 		m_away->setCPU( (value & 2) == 0);
 	} else {
-		std::cerr << "Error - number of players not defined" << std::endl;
+		ERROR("number of players not defined");
 		m_home->setCPU(true);
 		m_away->setCPU(false);
 	}

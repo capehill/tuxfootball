@@ -28,6 +28,7 @@
 #include <sstream>
 #include "resources/surfacemanager.h"
 #include "const.h"
+#include "logger/logger.h"
 
 TileMap::TileMap(SDL_Surface *screen, std::string path)
 {
@@ -45,15 +46,15 @@ TileMap::TileMap(SDL_Surface *screen, std::string path)
 	}
 
 	if(!tilemap.good()) {
-		std::cout << "Error - tile.map not found in " << path << std::endl;
+		WARN("tile.map not found in " << path);
 		return;
 	}
 
-	std::cout << "FIXME - tilesize fixed at 16X16" << std::endl;
+	WARN("FIXME - tilesize fixed at 16X16");
 	m_tileWidth = 16;
 	m_tileHeight = 16;
 
-	std::cout << "FIXME - tilemap size fixed at 2560 * 4096 for the moment" << std::endl;
+	WARN("FIXME - tilemap size fixed at 2560 * 4096 for the moment");
 	m_tileMapWidth = 2560;
 	m_tileMapHeight = 4096;
 
@@ -132,7 +133,7 @@ void TileMap::draw(int left, int top)
 
 			if(surf) {
 				if(SDL_BlitSurface(surf, &tr, m_screen, &sr) < 0) {
-					std::cerr << "Error - could not pitch tile : " << SDL_GetError() << std::endl;
+					ERROR("could not pitch tile : " << SDL_GetError());
 				}
 			}
 		}

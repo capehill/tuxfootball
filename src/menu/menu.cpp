@@ -31,6 +31,7 @@
 #include "resources/surfacemanager.h"
 #include "resources/soundmanager.h"
 #include "Font.hpp"
+#include "logger/logger.h"
 
 Menu::Menu(SDL_Surface *screen, std::string name)
 {
@@ -212,7 +213,7 @@ void Menu::draw()
 			s.y = y + m_menuBounds.y;
 
 			if(SDL_BlitSurface(m_background, &r, m_screen, &s) < 0) {
-				std::cerr << "Error - could not pitch tile : " << SDL_GetError() << std::endl;
+				ERROR("could not pitch tile : " << SDL_GetError());
 			}
 		}
 	}
@@ -278,13 +279,13 @@ const MenuItem *Menu::menuItem(std::string name)
 	std::list<MenuItemContainer>::iterator itt;
 
 	for(itt = m_itemList.begin(); itt!=m_itemList.end(); ++itt) {
-		std::cout << "checking " << (*(*itt))->identifier() << " against " << name << std::endl;
+		DEBUG("checking " << (*(*itt))->identifier() << " against " << name);
 		if((*(*itt))->identifier().compare(name)==0) {
 			return (*(*itt));
 		}
 	}
 
-	std::cout << "menuItem not found" << std::endl;
+	WARN("menuItem not found");
 	return 0;
 }
 

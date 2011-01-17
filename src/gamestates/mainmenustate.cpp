@@ -35,6 +35,7 @@
 
 #include "gameengine.h"
 #include "menu/mainmenu.h"
+#include "logger/logger.h"
 
 MainMenuState::MainMenuState(GameEngine &engine) :
 			MenuStateBase(engine)
@@ -64,7 +65,7 @@ void MainMenuState::updateLoop()
 	if(menu) {
 		if(menu->selectionMade()) {
 			if(menu->cancelled() || (menu->selected()->text() == _("Exit"))) {
-				std::cout << "menu cancelled" << std::endl;
+				DEBUG("menu cancelled");
 				m_engine.setFinished(true);
 			} else if(menu->selected()->text() == _("Play Game!")) {
 				m_engine.setState(GameEngine::MatchStart);
@@ -73,12 +74,12 @@ void MainMenuState::updateLoop()
 			} else if(menu->selected()->text() == _("Video Settings")) {
 				m_engine.setState(GameEngine::VideoSettingsMenu);
 			} else {
-				std::cout << "unknown menu selection " << menu->selected()->text() << std::endl;
+				WARN("unknown menu selection " << menu->selected()->text());
 				m_engine.setFinished(true);
 			}
 		}
 	} else {
-		std::cout << "menu non-existant" << std::endl;
+		ERROR("menu non-existant, quitting");
 		m_engine.setFinished(true);
 	}
 	if((menu) && (menu->finished())) {
