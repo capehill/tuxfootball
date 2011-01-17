@@ -26,8 +26,8 @@ Team::Team(GameEngine *gameEngine, std::string name, std::string shortname, std:
 {
 	m_name = name;
 	m_shortname = shortname;
-	m_firstPlayer = NULL;
-	m_secondPlayer = NULL;
+	m_firstPlayer = 0;
+	m_secondPlayer = 0;
 
 	m_ball = ball;
 
@@ -42,7 +42,7 @@ Team::Team(GameEngine *gameEngine, std::string name, std::string shortname, std:
 
 	m_pitch = pitch;
 	m_topHalf = topHalf;
-	m_activePlayer = NULL;
+	m_activePlayer = 0;
 
 	setFormation(4, 3, 3);
 	setupNationalAnthem();
@@ -369,7 +369,7 @@ void Team::setActivePlayer(list<PlayerContainer>::iterator player)
 	}
 
 	if( player==m_players.end()) {
-		m_activePlayer = NULL;
+		m_activePlayer = 0;
 	} else {
 		m_activePlayer = (*(*player));
 	}
@@ -464,15 +464,15 @@ Player *Team::calculateClosestPlayers(Point3D point)
 	double flen = 0;
 	double slen = 0;
 
-	m_firstPlayer = NULL;
-	m_secondPlayer = NULL;
+	m_firstPlayer = 0;
+	m_secondPlayer = 0;
 
 	std::list<PlayerContainer>::iterator itt;
 
 	for(itt = m_players.begin(); itt!=m_players.end(); ++itt) {
 		double testlen = (*(*itt))->distanceFrom(point);
 
-		if(m_firstPlayer==NULL) {
+		if(m_firstPlayer==0) {
 			m_firstPlayer = (*(*itt));
 			flen = testlen;
 		} else 	if(testlen < flen) {
@@ -480,7 +480,7 @@ Player *Team::calculateClosestPlayers(Point3D point)
 			slen = flen;
 			m_firstPlayer = (*(*itt));
 			flen = testlen;
-		} else if(m_secondPlayer == NULL) {
+		} else if(m_secondPlayer == 0) {
 			m_secondPlayer = (*(*itt));
 			slen = testlen;
 		} else if(testlen < slen) {

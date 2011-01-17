@@ -54,14 +54,14 @@ Ball::Ball(Graphics *renderer, Pitch *pitch) :
 		m_shadow = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/footballshadow.png", true, false);
 	} else {
 		ERROR("Screen not defined - cannot initialise ball graphics");
-		m_football = NULL;
-		m_shadow = NULL;
+		m_football = 0;
+		m_shadow = 0;
 	}
 
 	SDL_Rect sr = {-4, -9, 0, 0};
 	SDL_Rect sh = {-1, -7, 0, 0};
 	SDL_Rect sa;
-	m_object = new SpriteObject(m_football, m_shadow, NULL,  position(), sr, sh, sa); 
+	m_object = new SpriteObject(m_football, m_shadow, 0,  position(), sr, sh, sa);
 	m_renderer->addSprite(m_object);
 
 	m_kickVel = Point3D();

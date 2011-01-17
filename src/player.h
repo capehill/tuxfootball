@@ -158,7 +158,7 @@ class PlayerContainer {
 public:
 	PlayerContainer()
 	{
-		m_player = NULL;
+		m_player = 0;
 	}
 
 	PlayerContainer(const PlayerContainer &cont) 
@@ -173,14 +173,14 @@ public:
 	}
 	
 	~PlayerContainer() {
-		if(m_player!= NULL) {
+		if(m_player!= 0) {
 			m_player->freeReference();
 		}
 	}
 
 	PlayerContainer &operator=(PlayerContainer &cont) {
 		m_player = *cont;
-		if(m_player!=NULL) {
+		if(m_player!=0) {
 			m_player->addReference();
 		}
 		return *this;

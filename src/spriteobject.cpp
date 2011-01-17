@@ -44,8 +44,8 @@ void SpriteObject::draw(int left, int top, SDL_Surface *surface)
 {
 	SDL_Rect r, s;
 
-	if(surface==NULL) return;
-	if(m_surface==NULL) return;
+	if(surface==0) return;
+	if(m_surface==0) return;
 
 	r.x = 0;
 	r.y = 0;
@@ -65,8 +65,8 @@ void SpriteObject::drawShadow(int left, int top, SDL_Surface *surface)
 {
 	SDL_Rect r, s;
 
-	if(surface==NULL) return;
-	if(m_shadow==NULL) return;
+	if(surface==0) return;
+	if(m_shadow==0) return;
 
 	r.x = 0;
 	r.y = 0;
@@ -105,8 +105,8 @@ void SpriteObject::drawOverlay(int left, int top, SDL_Surface *surface)
 {
 	SDL_Rect r, s;
 
-	if(surface==NULL) return;
-	if(m_overlay==NULL) return;
+	if(surface==0) return;
+	if(m_overlay==0) return;
 
 	r.x = 0;
 	r.y = 0;

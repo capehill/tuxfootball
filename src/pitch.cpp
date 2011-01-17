@@ -65,12 +65,12 @@ Pitch::Pitch(Graphics *renderer)
 		SDL_Rect sh = {0,0,0,0};
 		SDL_Rect so = {0,0,0,0};
 
-		m_goalPostSpriteTop = new SpriteObject(m_goalPostTop, NULL, NULL,
+		m_goalPostSpriteTop = new SpriteObject(m_goalPostTop, 0, 0,
 							Point3D(centerX(), topBound()),
 							sr, sh, so);
 
 		sr.y = -110;
-		m_goalPostSpriteBottom = new SpriteObject(m_goalPostBottom, NULL, NULL,
+		m_goalPostSpriteBottom = new SpriteObject(m_goalPostBottom, 0, 0,
 							Point3D(centerX(), bottomBound()),
 							sr, sh, so);
 
@@ -130,9 +130,9 @@ void Pitch::draw(int left, int top)
 	SDL_Rect r;
 	SDL_Rect s;
 
-	if(m_surface==NULL) return;
-	if(m_renderer==NULL) return;
-	if(m_renderer->screen()==NULL) return;
+	if(m_surface==0) return;
+	if(m_renderer==0) return;
+	if(m_renderer->screen()==0) return;
 
 	//
 	// Draw the pitch tile across the screen.

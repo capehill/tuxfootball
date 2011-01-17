@@ -85,7 +85,7 @@ Player::Player(Graphics *renderer, std::string skin, std::string playerMarker, P
 	SDL_Rect sr = {-32, -54, 0, 0};
 	SDL_Rect sh = {-14, -60, 0, 0};
 	SDL_Rect sa = {-16, -60, 0, 0};
-	m_object = new SpriteObject(NULL, NULL, NULL, position(), sr, sh, sa);
+	m_object = new SpriteObject(0, 0, 0, position(), sr, sh, sa);
 	m_renderer->addSprite(m_object);
 
 }
@@ -177,7 +177,7 @@ void Player::move()
 	if(isActive()) {
 		m_object->setOverlaySurface(m_active);
 	} else {
-		m_object->setOverlaySurface(NULL);
+		m_object->setOverlaySurface(0);
 	}
 
 	m_object->setPosition(position());
@@ -269,7 +269,7 @@ bool Player::setMove(Moves move, int variable)
 
 				player = m_team->findPlayerFromPosition(position(), m_direction);
 
-				if(player==NULL) {
+				if(player==0) {
 					v = dirVal[m_direction]*m_runSpeed * 1.4;
 					v.setZ(2);
 				} else {

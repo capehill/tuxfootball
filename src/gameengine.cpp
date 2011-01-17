@@ -124,16 +124,16 @@ GameEngine::GameEngine(bool fullscreen) :
 #else
 	SDL_WM_SetCaption("tuxfootball", NULL);
 #endif
-	if(m_screen == NULL) {
+	if(m_screen == 0) {
 		m_finished = true;
 		ERROR("Unable to set " << m_resX << "x" << m_resY << " video: " << SDL_GetError());
-		m_pitch = NULL;
-		m_ball = NULL;
-		m_homeTeam = NULL;
-		m_awayTeam = NULL;
-		m_renderer = NULL;
-		m_nameFont = NULL;
-		m_scoreFont = NULL;
+		m_pitch = 0;
+		m_ball = 0;
+		m_homeTeam = 0;
+		m_awayTeam = 0;
+		m_renderer = 0;
+		m_nameFont = 0;
+		m_scoreFont = 0;
 	} else {
 		// Load Fonts
 		m_nameFont = FontManager::instance()->load(m_screen->format, "graphics/font_yellow.png", false, true);

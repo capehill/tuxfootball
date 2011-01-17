@@ -41,9 +41,9 @@ Controller::Controller(Team *team, Team *opponents, SDLKey up, SDLKey down, SDLK
 	m_right = right;
 	m_shoot = shoot;
 	m_pass = pass;
-	m_shootCount=0;
+	m_shootCount = 0;
 	m_canKick = true;
-	m_lastPlayer = NULL;
+	m_lastPlayer = 0;
 	m_isCPU = isCPU;
 	m_ball = ball;
 	m_pitch = pitch;
@@ -106,9 +106,9 @@ void Controller::updateController(Uint8 *keys)
 	//
 	// Apply aftertouch if necessary.
 	//
-	if(m_lastPlayer!=NULL) {
+	if(m_lastPlayer!=0) {
 		if(!m_lastPlayer->applyAftertouch(dir)) {
-			m_lastPlayer = NULL;
+			m_lastPlayer = 0;
 		}
 	}
 	
@@ -171,7 +171,7 @@ void Controller::updateComputer()
 	m_lastPass++;
 	
 	Player *player = m_team->activePlayer();
-	if(player==NULL) return;
+	if(player==0) return;
 	
 	Point3D goalCenter(m_pitch->centerX(),
 				m_team->topHalf() ? m_pitch->bottomBound() : m_pitch->topBound());

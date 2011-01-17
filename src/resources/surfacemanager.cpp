@@ -92,16 +92,16 @@ SDL_Surface *SurfaceManager::add(SDL_PixelFormat *format, std::string filename, 
 	if (!surf) {	
 		SDL_RWops *rw = SDL_RWFromFile(filename.c_str(), "r");	
 		
-		if(rw==NULL) {
+		if(rw==0) {
 			ERROR("could not open image \"" << filename.c_str() << "\": " << SDL_GetError());
-			return NULL;
+			return 0;
 		}
 
 		surf = IMG_LoadTGA_RW(rw);	
-		if(surf == NULL) {
+		if(surf == 0) {
 			ERROR("could not load image : " << SDL_GetError());
 			SDL_RWclose(rw);
-			return NULL;
+			return 0;
 		}
 		SDL_RWclose(rw);
 	}
