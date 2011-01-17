@@ -75,7 +75,7 @@ Player::Player(Graphics *renderer, std::string skin, std::string playerMarker, P
 	m_justTurned = false;
 	m_dribbleTimer = 0;
 
-	loadSpriteSurfaces(skin , playerMarker);
+	loadSpriteSurfaces(skin, playerMarker);
 	m_refCount=0;
 
 	m_direction=0;
@@ -198,6 +198,7 @@ void Player::loadSpriteSurfaces(std::string skin, std::string playerMarker)
 	if(m_renderer && m_renderer->screen()) {
 
 		std::string basedir;
+		WARN("No skin for the keeper yet")
 #if 0
 		if(m_goalie) {
 			basedir = "graphics/" + skin + "_goalie";

@@ -27,6 +27,8 @@
 
 #include "gameengine.h"
 
+#include "logger/logger.h"
+
 PenaltyShootoutState::PenaltyShootoutState(GameEngine &engine) :
 				m_engine(engine)
 {
@@ -38,6 +40,8 @@ PenaltyShootoutState::~PenaltyShootoutState()
 
 void PenaltyShootoutState::enterState()
 {
+	// TODO this is just a shortcut for now
+	WARN("Penalty shootout not implemented")
 	m_engine.setState(GameEngine::Finished);
 }
 

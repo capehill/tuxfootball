@@ -26,7 +26,7 @@
 
 #include "point3d.h"
 
-/* Represents a physical body in the game world. */
+/* Represents a physical body in the game world (e.g. a player or the ball) */
 class Body {
 public:
 	Body();
