@@ -65,7 +65,9 @@ AC_CONFIG_FILES([Makefile
                  data/Makefile
                  data/graphics/Makefile
                  data/graphics/team1/Makefile
+                 data/graphics/team1_goalie/Makefile
                  data/graphics/team2/Makefile
+                 data/graphics/team2_goalie/Makefile
                  po/Makefile.in
                  src/Makefile])
 AC_OUTPUT

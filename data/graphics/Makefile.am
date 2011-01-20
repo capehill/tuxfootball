@@ -602,4 +602,6 @@ EXTRA_DIST = \
 
 SUBDIRS = \
 	team1 \
-	team2
+	team1_goalie \
+	team2 \
+	team2_goalie

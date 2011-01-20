@@ -203,16 +203,11 @@ void Player::loadSpriteSurfaces(std::string skin, std::string playerMarker)
 	if(m_renderer && m_renderer->screen()) {
 
 		std::string basedir;
-		WARN("No skin for the keeper yet")
-#if 0
 		if(m_goalie) {
 			basedir = "graphics/" + skin + "_goalie";
 		} else {
-#endif
 			basedir = "graphics/" + skin;
-#if 0
 		}
-#endif
 
 		m_walk = new SpriteSequence(m_renderer->screen()->format,
 								basedir+"/walking", "walking", 40, true);
