@@ -58,6 +58,7 @@ Ball::Ball(Graphics *renderer, Pitch *pitch) :
 		m_shadow = 0;
 	}
 
+	// Create the sprite for the ball including it's shadow (and no overlay for the ball)
 	SDL_Rect sr = {-4, -9, 0, 0};
 	SDL_Rect sh = {-1, -7, 0, 0};
 	SDL_Rect sa;

@@ -30,17 +30,31 @@
  * and an overlay. */
 class SpriteObject {
 public:
+	/**
+	 * Creates a new sprite.
+	 * \param surf the surface containing sprite itself
+	 * \param shadow the surface containing the sprites shadow
+	 * \param overlay the surface containing an overlay for the sprite
+	 * \param position the sprites position in the game
+	 * \param offset the offset used to draw the sprite to the game surface (only x and y will be used)
+	 * \param shadowOffset the offset used to draw the shadow of the sprite to the game surface (only x and y will be used)
+	 * \param overlayOffset the offset used to draw the sprites overlay to the game surface (only x and y will be used)
+	 */
 	SpriteObject(SDL_Surface *surf, SDL_Surface *shadow, SDL_Surface *overlay,
 				Point3D position, SDL_Rect offset, SDL_Rect shadowOffset, SDL_Rect overlayOffset);
 	~SpriteObject();
+
+	void setPosition(const Point3D &pos);
+	Point3D position();
+
 	void setSurface(SDL_Surface *surf);
 	void setOverlaySurface(SDL_Surface *surf);
 	void setShadowSurface(SDL_Surface *surf);
-	void setPosition(const Point3D &pos);
-	Point3D position();
+
 	void draw(int left, int top, SDL_Surface *surface);
 	void drawShadow(int left, int top, SDL_Surface *surface);
 	void drawOverlay(int left, int top, SDL_Surface *surface);
+
 private:
 	bool m_toDraw;
 	SDL_Surface *m_surface;

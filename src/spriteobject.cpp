@@ -87,26 +87,6 @@ void SpriteObject::drawShadow(int left, int top, SDL_Surface *surface)
 	}
 }
 
-void SpriteObject::setSurface(SDL_Surface *surf)
-{
-	m_surface = surf;
-}
-
-void SpriteObject::setOverlaySurface(SDL_Surface *surf)
-{
-	m_overlay = surf;
-}
-
-void SpriteObject::setShadowSurface(SDL_Surface *surf)
-{
-	m_shadow = surf;
-}
-
-void SpriteObject::setPosition(const Point3D &pos)
-{
-	m_position = pos;
-}
-
 void SpriteObject::drawOverlay(int left, int top, SDL_Surface *surface)
 {
 	SDL_Rect r, s;
@@ -131,6 +111,26 @@ void SpriteObject::drawOverlay(int left, int top, SDL_Surface *surface)
 	if(SDL_BlitSurface(m_overlay, &r, surface, &s) < 0) {
 		ERROR("could not blit SpriteObject overlay to screen : " << SDL_GetError());
 	}
+}
+
+void SpriteObject::setSurface(SDL_Surface *surf)
+{
+	m_surface = surf;
+}
+
+void SpriteObject::setOverlaySurface(SDL_Surface *surf)
+{
+	m_overlay = surf;
+}
+
+void SpriteObject::setShadowSurface(SDL_Surface *surf)
+{
+	m_shadow = surf;
+}
+
+void SpriteObject::setPosition(const Point3D &pos)
+{
+	m_position = pos;
 }
 
 Point3D SpriteObject::position()
