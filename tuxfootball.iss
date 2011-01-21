@@ -30,20 +30,20 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\users\cbrill\Eigene Dateien\source\tuxfootball\tuxfootball-0.3.0\tuxfootball.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\users\cbrill\Eigene Dateien\source\tuxfootball\tuxfootball-0.3.0\data\*"; DestDir: "{app}\data"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\users\cbrill\Eigene Dateien\source\tuxfootball\tuxfootball-0.3.0\jpeg.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\users\cbrill\Eigene Dateien\source\tuxfootball\tuxfootball-0.3.0\libogg-0.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\users\cbrill\Eigene Dateien\source\tuxfootball\tuxfootball-0.3.0\libpng12-0.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\users\cbrill\Eigene Dateien\source\tuxfootball\tuxfootball-0.3.0\libtiff-3.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\users\cbrill\Eigene Dateien\source\tuxfootball\tuxfootball-0.3.0\libvorbis-0.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\users\cbrill\Eigene Dateien\source\tuxfootball\tuxfootball-0.3.0\libvorbisfile-3.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\users\cbrill\Eigene Dateien\source\tuxfootball\tuxfootball-0.3.0\mikmod.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\users\cbrill\Eigene Dateien\source\tuxfootball\tuxfootball-0.3.0\SDL_image.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\users\cbrill\Eigene Dateien\source\tuxfootball\tuxfootball-0.3.0\SDL_mixer.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\users\cbrill\Eigene Dateien\source\tuxfootball\tuxfootball-0.3.0\SDL.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\users\cbrill\Eigene Dateien\source\tuxfootball\tuxfootball-0.3.0\smpeg.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\users\cbrill\Eigene Dateien\source\tuxfootball\tuxfootball-0.3.0\zlib1.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "tuxfootball.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "data\*"; DestDir: "{app}\data"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "jpeg.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "libogg-0.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "libpng12-0.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "libtiff-3.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "libvorbis-0.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "libvorbisfile-3.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "mikmod.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "SDL_image.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "SDL_mixer.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "SDL.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "smpeg.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "zlib1.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
