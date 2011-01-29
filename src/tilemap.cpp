@@ -39,7 +39,6 @@ TileMap::TileMap(SDL_Surface *screen, std::string path)
 	m_screen = screen;
 
 	std::ifstream tilemap;
-	int data_dirs = sizeof(data_dir)/sizeof(std::string);
 	for (int i = 0; i < data_dirs; i++) {
 		std::string datadir = std::string(data_dir[i]);
 		datadir.append("/");

@@ -30,5 +30,6 @@ const std::string data_dir[] = { (std::string(PACKAGE_DATA_DIR)+"/tuxfootball").
 #else
 const std::string data_dir[] = { "./data", "/usr/local/share/tuxfootball" };
 #endif
+const int data_dirs = sizeof(data_dir)/sizeof(std::string);
 
 #endif

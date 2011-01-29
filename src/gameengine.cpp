@@ -535,7 +535,6 @@ void GameEngine::setMusic(std::string musicFile)
 		m_music = 0;
 	}
 	if(m_audioOpen) {
-		int data_dirs = sizeof(data_dir)/sizeof(std::string);
 		for (int i = 0; i < data_dirs; i++) {
 			std::string filename = std::string(data_dir[i]);
 			filename.append("/");
