@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 			switch(argv[i][1]) {
 				default:
 				case 'h':
-					printf("\nTux Football [-switch]\n\nswitch can be:\n\n-h\tprint this help\n-w\trun Tux Football in windowed mode (default)\n-w\trun Tux Football in fullscreen mode\n\n");
+					printf("\nTux Football [-switch]\n\nswitch can be:\n\n-h\tprint this help\n-w\trun Tux Football in windowed mode (default)\n-w\trun Tux Football in fullscreen mode\n-d\tEnable debug logging\n\n");
 					return 0;
 				case 'w':
 					fullscreen = false;
@@ -83,7 +83,9 @@ int main(int argc, char *argv[])
 				case 'f':
 					fullscreen = true;
 					break;
-				break;
+				case 'd':
+					Logger::setLevel(Logger::Debug);
+					break;
 			}
 		}
 	}
