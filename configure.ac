@@ -53,12 +53,14 @@ AC_CHECK_FUNCS([atexit pow sqrt])
 dnl ***************************************************************************
 dnl Internatinalization
 dnl ***************************************************************************
+GETTEXT_PACKAGE=tuxfootball
 AC_CHECK_HEADERS([libintl.h])
-GETTEXT_PACKAGE=AC_PACKAGE_NAME
 AC_SUBST(GETTEXT_PACKAGE)
-AC_DEFINE(GETTEXT_PACKAGE, "AC_PACKAGE_NAME", [foo])
-
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
 AM_GLIB_GNU_GETTEXT
+dnl IT_PROG_INTLTOOL([0.35.0])
+
+
 
 AM_PROG_LIBTOOL
 

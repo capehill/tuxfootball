@@ -120,7 +120,8 @@ tuxfootball_SOURCES = \
 	spriteobject.h \
 	spritesequence.h \
 	team.h \
-	tilemap.h
+	tilemap.h \
+	gettext.h
 
 tuxfootball_LDFLAGS = \
 	$(SDL_LIBS) \

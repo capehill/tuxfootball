@@ -22,18 +22,20 @@ tuxfootballdoc_DATA = \
 	NEWS \
 	src/SFont-README
 
+INTLTOOL_FILES = intltool-extract.in \
+	intltool-merge.in \
+	intltool-update.in
+
 EXTRA_DIST = $(tuxfootballdoc_DATA) \
 	$(icon_DATA) \
 	$(desktop_DATA) \
 	$(data_DATA) \
-	intltool-extract.in \
-	intltool-merge.in \
-	intltool-update.in
+	$(INTLTOOL_FILES)
 
-DISTCLEANFILES = \
-	intltool-extract \
+DISTCLEANFILES = intltool-extract \
 	intltool-merge \
-	intltool-update
+	intltool-update \
+	po/.intltool-merge-cache
 
 dist-hook:
 	@if test -d "$(srcdir)/.git"; \
@@ -48,3 +50,9 @@ dist-hook:
 	else \
 		echo A git clone is required to generate a ChangeLog >&2; \
 	fi
+
+# Remove doc directory on uninstall
+uninstall-local:
+	-rm -r $(tuxfootballdocdir)
+
+ACLOCAL_AMFLAGS = -I m4
