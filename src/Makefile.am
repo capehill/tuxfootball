@@ -123,7 +123,8 @@ tuxfootball_SOURCES = \
 	tilemap.h
 
 tuxfootball_LDFLAGS = \
-	$(SDL_LIBS)
+	$(SDL_LIBS) \
+	$(LTLIBINTL)
 
 tuxfootball_CFLAGS =    \
 	$(SDL_CFLAGS)
@@ -131,3 +132,5 @@ tuxfootball_CFLAGS =    \
 tuxfootball_CXXFLAGS =      \
 	$(SDL_CFLAGS)
 
+localedir = $(datadir)/po
+DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
