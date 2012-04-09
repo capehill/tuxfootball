@@ -1,5 +1,5 @@
 AC_PREREQ([2.67])
-AC_INIT([tuxfootball], [0.3.0], http://tuxfootball.sourceforge.net/)
+AC_INIT([tuxfootball], [0.3.1], http://tuxfootball.sourceforge.net/)
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
 AC_CONFIG_SRCDIR([src/main.cpp])
