@@ -15,7 +15,7 @@ Ubuntu / Debian
 ---------------
 
 initial layout using
-# dh_make -s -n -p tuxfootball_0.3.0 -e egore911@egore911.de -f tuxfootball-0.3.0.tar.gz
+# dh_make -s -n -p tuxfootball_0.3.1 -e egore911@egore911.de -f tuxfootball-0.3.1.tar.gz
 
 debchange to note changes
 
@@ -40,15 +40,15 @@ Install the "codeblocks with mingw package" in wine
 
 Compile using "Release" target
 
-mkdir tuxfootball-0.3.0
-cp bin/Release/tuxfootball.exe tuxfootball-0.3.0
-cp lib/*.dll tuxfootball-0.3.0
-mkdir -p tuxfootball-0.3.0/data/graphics
-cp data/graphics/*.png tuxfootball-0.3.0/data/graphics
-cp -r data/graphics/team1 tuxfootball-0.3.0/data/graphics
-cp -r data/graphics/team2 tuxfootball-0.3.0/data/graphics
-cp -r data/sound tuxfootball-0.3.0/data
-zip -r -9 tuxfootball-0.3.0.zip tuxfootball-0.3.0
+mkdir tuxfootball-0.3.1
+cp bin/Release/tuxfootball.exe tuxfootball-0.3.1
+cp lib/*.dll tuxfootball-0.3.1
+mkdir -p tuxfootball-0.3.1/data/graphics
+cp data/graphics/*.png tuxfootball-0.3.1/data/graphics
+cp -r data/graphics/team1 tuxfootball-0.3.1/data/graphics
+cp -r data/graphics/team2 tuxfootball-0.3.1/data/graphics
+cp -r data/sound tuxfootball-0.3.1/data
+zip -r -9 tuxfootball-0.3.1.zip tuxfootball-0.3.1
 
 Open tuxfootball.iss using InnoSetup
-cp bin/setup.exe tuxfootball-0.3.0.exe
+cp bin/setup.exe tuxfootball-0.3.1.exe

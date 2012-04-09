@@ -7,8 +7,8 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{4F52C42A-023F-4324-B7FC-296C577F75E4}
 AppName=Tux Football
-AppVersion=0.3.0
-;AppVerName=Tux Football 0.3.0
+AppVersion=0.3.1
+;AppVerName=Tux Football 0.3.1
 AppPublisher=Tux Football Team
 AppPublisherURL=http://tuxfootball.sourceforge.net/
 AppSupportURL=http://tuxfootball.sourceforge.net/
