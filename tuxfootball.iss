@@ -32,19 +32,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "tuxfootball.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "data\*"; DestDir: "{app}\data"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "jpeg.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "libogg-0.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "libpng12-0.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "libtiff-3.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "libvorbis-0.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "libvorbisfile-3.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "mikmod.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "SDL_image.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "SDL_mixer.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "SDL.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "smpeg.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "zlib1.dll"; DestDir: "{app}"; Flags: ignoreversion
-; NOTE: Don't use "Flags: ignoreversion" on any shared system files
+Source: "*.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\Tux Football"; Filename: "{app}\tuxfootball.exe"

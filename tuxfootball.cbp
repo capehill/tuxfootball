@@ -41,7 +41,9 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions -mwindows" />
-			<Add directory="lib\SDL" />
+			<Add directory="src" />
+			<Add directory="src\menu" />
+			<Add directory="src\resources" />
 			<Add directory="include\SDL" />
 			<Add directory="Z:\usr\include\SDL" />
 		</Compiler>
@@ -51,9 +53,22 @@
 			<Add library="SDL_mixer" />
 			<Add directory="lib" />
 		</Linker>
+		<Unit filename="src\Font.hpp" />
 		<Unit filename="src\SFont.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="src\SFont.h" />
+		<Unit filename="src\ball.cpp" />
+		<Unit filename="src\ball.h" />
+		<Unit filename="src\body.cpp" />
+		<Unit filename="src\body.h" />
+		<Unit filename="src\camera.cpp" />
+		<Unit filename="src\camera.h" />
+		<Unit filename="src\const.h" />
+		<Unit filename="src\controller.cpp" />
+		<Unit filename="src\controller.h" />
+		<Unit filename="src\gameengine.cpp" />
+		<Unit filename="src\gameengine.h" />
 		<Unit filename="src\gamestates\extratimefirsthalfstate.cpp" />
 		<Unit filename="src\gamestates\extratimefirsthalfstate.h" />
 		<Unit filename="src\gamestates\extratimehalftimestate.cpp" />
@@ -68,8 +83,8 @@
 		<Unit filename="src\gamestates\fulltimestate.h" />
 		<Unit filename="src\gamestates\halftimestate.cpp" />
 		<Unit filename="src\gamestates\halftimestate.h" />
-		<Unit filename="src\gamestates\videomenustate.cpp" />
-		<Unit filename="src\gamestates\videomenustate.h" />
+		<Unit filename="src\gamestates\ingamestatebase.cpp" />
+		<Unit filename="src\gamestates\ingamestatebase.h" />
 		<Unit filename="src\gamestates\mainmenustate.cpp" />
 		<Unit filename="src\gamestates\mainmenustate.h" />
 		<Unit filename="src\gamestates\matchabortedstate.cpp" />
@@ -78,6 +93,8 @@
 		<Unit filename="src\gamestates\matchfinishedstate.h" />
 		<Unit filename="src\gamestates\matchstartstate.cpp" />
 		<Unit filename="src\gamestates\matchstartstate.h" />
+		<Unit filename="src\gamestates\menustatebase.cpp" />
+		<Unit filename="src\gamestates\menustatebase.h" />
 		<Unit filename="src\gamestates\nationalanthemstate.cpp" />
 		<Unit filename="src\gamestates\nationalanthemstate.h" />
 		<Unit filename="src\gamestates\penaltyshootoutstate.cpp" />
@@ -88,6 +105,27 @@
 		<Unit filename="src\gamestates\secondhalfstate.h" />
 		<Unit filename="src\gamestates\statebase.cpp" />
 		<Unit filename="src\gamestates\statebase.h" />
+		<Unit filename="src\gamestates\videomenustate.cpp" />
+		<Unit filename="src\gamestates\videomenustate.h" />
+		<Unit filename="src\gettext.h" />
+		<Unit filename="src\graphics.cpp" />
+		<Unit filename="src\graphics.h" />
+		<Unit filename="src\logger\logger.cpp" />
+		<Unit filename="src\logger\logger.h" />
+		<Unit filename="src\main.cpp" />
+		<Unit filename="src\matrix.cpp" />
+		<Unit filename="src\matrix.h" />
+		<Unit filename="src\menu\elements\menu\elements\menulabel.h" />
+		<Unit filename="src\menu\elements\menubutton.cpp" />
+		<Unit filename="src\menu\elements\menubutton.h" />
+		<Unit filename="src\menu\elements\menuitem.cpp" />
+		<Unit filename="src\menu\elements\menuitem.h" />
+		<Unit filename="src\menu\elements\menukeyselect.cpp" />
+		<Unit filename="src\menu\elements\menukeyselect.h" />
+		<Unit filename="src\menu\elements\menulabel.cpp" />
+		<Unit filename="src\menu\elements\menulabel.h" />
+		<Unit filename="src\menu\elements\menuoptionlist.cpp" />
+		<Unit filename="src\menu\elements\menuoptionlist.h" />
 		<Unit filename="src\menu\mainmenu.cpp" />
 		<Unit filename="src\menu\mainmenu.h" />
 		<Unit filename="src\menu\menu.cpp" />
@@ -96,41 +134,6 @@
 		<Unit filename="src\menu\redefinekeysmenu.h" />
 		<Unit filename="src\menu\videosettingsmenu.cpp" />
 		<Unit filename="src\menu\videosettingsmenu.h" />
-		<Unit filename="src\menu\elements\menubutton.cpp" />
-		<Unit filename="src\menu\elements\menubutton.h" />
-		<Unit filename="src\menu\elements\menuitem.cpp" />
-		<Unit filename="src\menu\elements\menuitem.h" />
-		<Unit filename="src\menu\elements\menukeyselect.cpp" />
-		<Unit filename="src\menu\elements\menukeyselect.h" />
-		<Unit filename="src\menu\elements\menulabel.cpp" />
-		<Unit filename="src\menu\elements\menu\elements\menulabel.h" />
-		<Unit filename="src\menu\elements\menuoptionlist.cpp" />
-		<Unit filename="src\menu\elements\menuoptionlist.h" />
-		<Unit filename="src\resources\fontmanager.cpp" />
-		<Unit filename="src\resources\fontmanager.h" />
-		<Unit filename="src\resources\resourcemanager.cpp" />
-		<Unit filename="src\resources\resourcemanager.h" />
-		<Unit filename="src\resources\soundmanager.cpp" />
-		<Unit filename="src\resources\soundmanager.h" />
-		<Unit filename="src\resources\surfacemanager.cpp" />
-		<Unit filename="src\resources\surfacemanager.h" />
-		<Unit filename="src\SFont.h" />
-		<Unit filename="src\ball.cpp" />
-		<Unit filename="src\ball.h" />
-		<Unit filename="src\body.cpp" />
-		<Unit filename="src\body.h" />
-		<Unit filename="src\camera.cpp" />
-		<Unit filename="src\camera.h" />
-		<Unit filename="src\const.h" />
-		<Unit filename="src\controller.cpp" />
-		<Unit filename="src\controller.h" />
-		<Unit filename="src\gameengine.cpp" />
-		<Unit filename="src\gameengine.h" />
-		<Unit filename="src\graphics.cpp" />
-		<Unit filename="src\graphics.h" />
-		<Unit filename="src\main.cpp" />
-		<Unit filename="src\matrix.cpp" />
-		<Unit filename="src\matrix.h" />
 		<Unit filename="src\pitch.cpp" />
 		<Unit filename="src\pitch.h" />
 		<Unit filename="src\player.cpp" />
@@ -139,6 +142,14 @@
 		<Unit filename="src\point3d.h" />
 		<Unit filename="src\rect.cpp" />
 		<Unit filename="src\rect.h" />
+		<Unit filename="src\resources\fontmanager.cpp" />
+		<Unit filename="src\resources\fontmanager.h" />
+		<Unit filename="src\resources\resourcemanager.cpp" />
+		<Unit filename="src\resources\resourcemanager.h" />
+		<Unit filename="src\resources\soundmanager.cpp" />
+		<Unit filename="src\resources\soundmanager.h" />
+		<Unit filename="src\resources\surfacemanager.cpp" />
+		<Unit filename="src\resources\surfacemanager.h" />
 		<Unit filename="src\segment.cpp" />
 		<Unit filename="src\segment.h" />
 		<Unit filename="src\spriteobject.cpp" />
@@ -152,6 +163,7 @@
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

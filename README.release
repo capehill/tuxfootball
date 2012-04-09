@@ -34,7 +34,7 @@ Download:
 - http://www.libsdl.org/release/SDL-devel-1.2.15-mingw32.tar.gz
 
 Extract DLLs to ./lib
-Extract Includes to ./lib
+Extract Includes to ./include
 
 Install the "codeblocks with mingw package" in wine
 
@@ -45,8 +45,10 @@ cp bin/Release/tuxfootball.exe tuxfootball-0.3.1
 cp lib/*.dll tuxfootball-0.3.1
 mkdir -p tuxfootball-0.3.1/data/graphics
 cp data/graphics/*.png tuxfootball-0.3.1/data/graphics
-cp -r data/graphics/team1 tuxfootball-0.3.1/data/graphics
-cp -r data/graphics/team2 tuxfootball-0.3.1/data/graphics
+cp data/graphics/*.tga tuxfootball-0.3.1/data/graphics
+cp data/graphics/tile.map tuxfootball-0.3.1/data/graphics
+cp -r data/graphics/pitchlines tuxfootball-0.3.1/data/graphics
+cp -r data/graphics/team* tuxfootball-0.3.1/data/graphics
 cp -r data/sound tuxfootball-0.3.1/data
 zip -r -9 tuxfootball-0.3.1.zip tuxfootball-0.3.1
 

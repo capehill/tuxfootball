@@ -28,6 +28,8 @@
 #ifdef HAVE_GETTEXT
 #include "gettext.h"
 #define _(String) gettext (String)
+#else
+#define _(String) (String)
 #endif
 
 #include "gameengine.h"
