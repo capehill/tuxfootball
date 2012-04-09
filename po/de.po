@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxfootball\n"
 "Report-Msgid-Bugs-To: http://tuxfootball.sourceforge.net/\n"
-"POT-Creation-Date: 2012-04-09 15:44+0200\n"
+"POT-Creation-Date: 2012-04-09 15:45+0200\n"
 "PO-Revision-Date: 2010-11-21 20:11+0100\n"
 "Last-Translator: Christoph Brill <egore911@egore911.de>\n"
 "Language-Team: German <egore@users.sourceforge.net>\n"
@@ -37,6 +37,7 @@ msgid "Loading Team 2"
 msgstr "Lade Mannschaft 2"
 
 #: src/gamestates/mainmenustate.cpp:67 src/menu/mainmenu.cpp:65
+#: src/menu/redefinekeysmenu.cpp:58
 msgid "Exit"
 msgstr "Beenden"
 

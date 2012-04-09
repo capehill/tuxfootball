@@ -52,6 +52,7 @@ MenuKeySelect::MenuKeySelect(const MenuKeySelect &item) :
 const MenuKeySelect &MenuKeySelect::operator=(const MenuKeySelect &item)
 {
 	m_name = item.name();
+	return *this;
 }
 
 std::string MenuKeySelect::name() const

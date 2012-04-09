@@ -50,6 +50,7 @@ MenuItem::MenuItem(const MenuItem &item)
 const MenuItem &MenuItem::operator=(const MenuItem &item)
 {
 	m_name = item.name();
+	return *this;
 }
 
 std::string MenuItem::name() const

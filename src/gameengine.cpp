@@ -160,7 +160,7 @@ GameEngine::GameEngine(bool fullscreen) :
 		m_awayTeam = new Team(this, "Red City", "RED", "team2", "graphics/awayplayermarker.png", m_pitch, m_ball, false);
 	}
 
-	SDL_Rect r = {m_resX/2, m_resY/2, m_pitch->width()-(m_resX), m_pitch->height()-(m_resY)};
+	SDL_Rect r = {(Sint16)(m_resX/2), (Sint16)(m_resY/2), (Uint16)(m_pitch->width()-(m_resX)), (Uint16)(m_pitch->height()-(m_resY))};
 	m_camera.setBoundingRect(r);
 	r.x = 0;
 	r.y = 0;

@@ -55,6 +55,7 @@ const MenuOptionList &MenuOptionList::operator=(const MenuOptionList &item)
 	m_name = item.name();
 	m_optionList = item.optionList();
 	m_curOption = m_optionList.begin();
+	return *this;
 }
 
 void MenuOptionList::addOption(std::string option, int value)

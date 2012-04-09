@@ -50,6 +50,7 @@ MenuLabel::MenuLabel(const MenuLabel &item) :
 const MenuLabel &MenuLabel::operator=(const MenuLabel &item)
 {
 	m_name = item.name();
+	return *this;
 }
 
 std::string MenuLabel::name() const

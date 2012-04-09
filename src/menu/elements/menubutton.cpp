@@ -51,6 +51,7 @@ MenuButton::MenuButton(const MenuButton &item) :
 const MenuButton &MenuButton::operator=(const MenuButton &item)
 {
 	m_name = item.name();
+	return *this;
 }
 
 std::string MenuButton::name() const
