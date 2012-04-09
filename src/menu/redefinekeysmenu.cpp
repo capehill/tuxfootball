@@ -24,7 +24,7 @@
 #endif
 
 #ifdef HAVE_GETTEXT
-#include <libintl.h>
+#include "../gettext.h"
 #define _(String) gettext (String)
 #else
 #define _(String) (String)
@@ -41,20 +41,20 @@ RedefineKeysMenu::RedefineKeysMenu(Controller *home, Controller *away, SDL_Surfa
 							m_home(home),
 							m_away(away)
 {
-	addItem(new MenuLabel(this, _("Player 1"), "player1label"));
-	addItem(m_keyHomeUp = new MenuKeySelect(this, home->keyUp(), _("Up"), "p1_up"));
-	addItem(m_keyHomeDown = new MenuKeySelect(this, home->keyDown(), _("Down"), "p1_down"));
-	addItem(m_keyHomeLeft = new MenuKeySelect(this, home->keyLeft(), _("Left"), "p1_left"));
-	addItem(m_keyHomeRight = new MenuKeySelect(this, home->keyRight(), _("Right"), "p1_right"));
-	addItem(m_keyHomePass = new MenuKeySelect(this, home->keyPass(), _("Pass"), "p1_pass"));
-	addItem(m_keyHomeShoot = new MenuKeySelect(this, home->keyShoot(), _("Shoot"), "p1_shoot"));
-	addItem(new MenuLabel(this, _("Player 2"), "player2label"));
-	addItem(m_keyAwayUp = new MenuKeySelect(this, away->keyUp(), _("Up"), "p2_up"));
-	addItem(m_keyAwayDown = new MenuKeySelect(this, away->keyDown(), _("Down"), "p2_down"));
-	addItem(m_keyAwayLeft = new MenuKeySelect(this, away->keyLeft(), _("Left"), "p2_left"));
-	addItem(m_keyAwayRight = new MenuKeySelect(this, away->keyRight(), _("Right"), "p2_right"));
-	addItem(m_keyAwayPass = new MenuKeySelect(this, away->keyPass(), _("Pass"), "p2_pass"));
-	addItem(m_keyAwayShoot = new MenuKeySelect(this, away->keyShoot(), _("Shoot"), "p2_shoot"));
+	addItem(new MenuLabel(this, _("Player 1:"), "player1label"));
+	addItem(m_keyHomeUp = new MenuKeySelect(this, home->keyUp(), _("Up:"), "p1_up"));
+	addItem(m_keyHomeDown = new MenuKeySelect(this, home->keyDown(), _("Down:"), "p1_down"));
+	addItem(m_keyHomeLeft = new MenuKeySelect(this, home->keyLeft(), _("Left:"), "p1_left"));
+	addItem(m_keyHomeRight = new MenuKeySelect(this, home->keyRight(), _("Right:"), "p1_right"));
+	addItem(m_keyHomePass = new MenuKeySelect(this, home->keyPass(), _("Pass:"), "p1_pass"));
+	addItem(m_keyHomeShoot = new MenuKeySelect(this, home->keyShoot(), _("Shoot:"), "p1_shoot"));
+	addItem(new MenuLabel(this, _("Player 2:"), "player2label"));
+	addItem(m_keyAwayUp = new MenuKeySelect(this, away->keyUp(), _("Up:"), "p2_up"));
+	addItem(m_keyAwayDown = new MenuKeySelect(this, away->keyDown(), _("Down:"), "p2_down"));
+	addItem(m_keyAwayLeft = new MenuKeySelect(this, away->keyLeft(), _("Left:"), "p2_left"));
+	addItem(m_keyAwayRight = new MenuKeySelect(this, away->keyRight(), _("Right:"), "p2_right"));
+	addItem(m_keyAwayPass = new MenuKeySelect(this, away->keyPass(), _("Pass:"), "p2_pass"));
+	addItem(m_keyAwayShoot = new MenuKeySelect(this, away->keyShoot(), _("Shoot:"), "p2_shoot"));
 	addItem(new MenuButton(this, _("Exit"), "exit"));
 }
 

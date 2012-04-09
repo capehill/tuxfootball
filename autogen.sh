@@ -57,16 +57,6 @@ fi
   }
 }
 
-(grep "^AM_GLIB_GNU_GETTEXT" $srcdir/configure.ac >/dev/null) && {
-  (grep "sed.*POTFILES" $srcdir/configure.ac) > /dev/null || \
-  (glib-gettextize --version) < /dev/null > /dev/null 2>&1 || {
-    echo
-    echo "**Error**: You must have \`glib' installed."
-    echo "You can get it from: ftp://ftp.gtk.org/pub/gtk"
-    DIE=1
-  }
-}
-
 (automake --version) < /dev/null > /dev/null 2>&1 || {
   echo
   echo "**Error**: You must have \`automake' installed."

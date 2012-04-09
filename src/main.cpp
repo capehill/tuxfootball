@@ -24,8 +24,8 @@
 #endif
 
 #ifdef HAVE_GETTEXT
-#include <libintl.h>
 #include <locale.h>
+#include "gettext.h"
 #endif
 
 #include <iostream>
@@ -60,14 +60,6 @@ int main(int argc, char *argv[])
 	INFO("Starting Tux Football");
 #endif
 
-#ifdef HAVE_GETTEXT
-	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
-	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-	textdomain (GETTEXT_PACKAGE);
-#else
-	INFO("Gettext support not available due to missing config.h support");
-#endif
-
 	bool fullscreen = false;
 	if(argc > 1) // first arg is path - we don't need it for now
 	for(int i = argc-1; i > 0; i--) {
@@ -89,6 +81,16 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
+
+#ifdef HAVE_GETTEXT
+	INFO("Reading locales from " << LOCALEDIR);
+	// Intialize gettext
+	setlocale (LC_ALL, "");
+	bindtextdomain(PACKAGE_NAME, LOCALEDIR);
+	textdomain(PACKAGE_NAME);
+#else
+	DEBUG("Gettext support not available due to missing config.h support");
+#endif
 
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) == -1)
 		die("Couldn't initialize SDL: %s\n", SDL_GetError());

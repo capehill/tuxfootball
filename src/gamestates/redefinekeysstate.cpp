@@ -25,7 +25,7 @@
 
 #include <iostream>
 #ifdef HAVE_GETTEXT
-#include <libintl.h>
+#include "../gettext.h"
 #define _(String) gettext (String)
 #else
 #define _(String) (String)

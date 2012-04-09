@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: tuxfootball\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-21 20:32+0100\n"
+"Report-Msgid-Bugs-To: http://tuxfootball.sourceforge.net/\n"
+"POT-Creation-Date: 2012-04-09 15:44+0200\n"
 "PO-Revision-Date: 2010-11-21 20:11+0100\n"
 "Last-Translator: Christoph Brill <egore911@egore911.de>\n"
 "Language-Team: German <egore@users.sourceforge.net>\n"
@@ -16,84 +16,115 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. Write out text to show our starting progress
-#: ../src/gameengine.cpp:141
+#: src/gameengine.cpp:142
 msgid "Starting Renderer"
 msgstr "Starte Renderer"
 
-#: ../src/gameengine.cpp:145
+#: src/gameengine.cpp:146
 msgid "Loading Pitch"
 msgstr "Lade Pitch"
 
-#: ../src/gameengine.cpp:149
+#: src/gameengine.cpp:150
 msgid "Loading Ball"
 msgstr "Lade Ball"
 
-#: ../src/gameengine.cpp:153
+#: src/gameengine.cpp:154
 msgid "Loading Team 1"
 msgstr "Lade Mannschaft 1"
 
-#: ../src/gameengine.cpp:157
+#: src/gameengine.cpp:158
 msgid "Loading Team 2"
 msgstr "Lade Mannschaft 2"
 
-#: ../src/mainmenu.cpp:39 ../src/mainmenustate.cpp:63
+#: src/gamestates/mainmenustate.cpp:67 src/menu/mainmenu.cpp:65
+msgid "Exit"
+msgstr "Beenden"
+
+#: src/gamestates/mainmenustate.cpp:70 src/menu/mainmenu.cpp:49
 msgid "Play Game!"
 msgstr "Spiel starten"
 
-#: ../src/mainmenu.cpp:40
-msgid "Half Length :"
-msgstr "Halbzeit :"
-
-#: ../src/mainmenu.cpp:41
-msgid "1 minute"
-msgstr "1 Minute"
-
-#: ../src/mainmenu.cpp:42
-msgid "2 minutes"
-msgstr "2 Minuten"
-
-#: ../src/mainmenu.cpp:43
-msgid "5 minutes"
-msgstr "5 Minuten"
-
-#: ../src/mainmenu.cpp:44
-msgid "10 minutes"
-msgstr "10 Minuten"
-
-#: ../src/mainmenu.cpp:45
-msgid "20 minutes"
-msgstr "20 Minuten"
-
-#: ../src/mainmenu.cpp:46
-msgid "45 minutes"
-msgstr "45 Minuten"
-
-#: ../src/mainmenu.cpp:48
-msgid "Players :"
-msgstr "Spieler :"
-
-#: ../src/mainmenu.cpp:49
-msgid "Player V Computer"
-msgstr "Mensch gegen Computer"
-
-#: ../src/mainmenu.cpp:50
-msgid "Player V Player"
-msgstr "Mensch gegen Mensch"
-
-#: ../src/mainmenu.cpp:51
-msgid "Computer V Computer"
-msgstr "Computer gegen Computer"
-
-#: ../src/mainmenu.cpp:53 ../src/mainmenustate.cpp:67
-msgid "Video Settings"
-msgstr "Graphikoptionen"
-
-#: ../src/mainmenu.cpp:54 ../src/mainmenustate.cpp:65
-#: ../src/redefinekeysstate.cpp:67
+#: src/gamestates/mainmenustate.cpp:72 src/gamestates/redefinekeysstate.cpp:76
+#: src/menu/mainmenu.cpp:64
 msgid "Redefine Keys"
 msgstr "Tastenbelegung"
 
-#: ../src/mainmenu.cpp:55
-msgid "Exit"
-msgstr "Beenden"
+#: src/gamestates/mainmenustate.cpp:74 src/menu/mainmenu.cpp:63
+msgid "Video Settings"
+msgstr "Graphikoptionen"
+
+#: src/menu/mainmenu.cpp:50
+msgid "Half Length :"
+msgstr "Halbzeit :"
+
+#: src/menu/mainmenu.cpp:51
+msgid "1 minute"
+msgstr "1 Minute"
+
+#: src/menu/mainmenu.cpp:52
+msgid "2 minutes"
+msgstr "2 Minuten"
+
+#: src/menu/mainmenu.cpp:53
+msgid "5 minutes"
+msgstr "5 Minuten"
+
+#: src/menu/mainmenu.cpp:54
+msgid "10 minutes"
+msgstr "10 Minuten"
+
+#: src/menu/mainmenu.cpp:55
+msgid "20 minutes"
+msgstr "20 Minuten"
+
+#: src/menu/mainmenu.cpp:56
+msgid "45 minutes"
+msgstr "45 Minuten"
+
+#: src/menu/mainmenu.cpp:58
+msgid "Players :"
+msgstr "Spieler :"
+
+#: src/menu/mainmenu.cpp:59
+msgid "Player V Computer"
+msgstr "Mensch gegen Computer"
+
+#: src/menu/mainmenu.cpp:60
+msgid "Player V Player"
+msgstr "Mensch gegen Mensch"
+
+#: src/menu/mainmenu.cpp:61
+msgid "Computer V Computer"
+msgstr "Computer gegen Computer"
+
+#: src/menu/redefinekeysmenu.cpp:44
+msgid "Player 1:"
+msgstr "Spieler 1:"
+
+#: src/menu/redefinekeysmenu.cpp:45 src/menu/redefinekeysmenu.cpp:52
+msgid "Up:"
+msgstr "Hoch:"
+
+#: src/menu/redefinekeysmenu.cpp:46 src/menu/redefinekeysmenu.cpp:53
+msgid "Down:"
+msgstr "Runter:"
+
+#: src/menu/redefinekeysmenu.cpp:47 src/menu/redefinekeysmenu.cpp:54
+msgid "Left:"
+msgstr "Links:"
+
+#: src/menu/redefinekeysmenu.cpp:48 src/menu/redefinekeysmenu.cpp:55
+msgid "Right:"
+msgstr "Rechts:"
+
+#: src/menu/redefinekeysmenu.cpp:49 src/menu/redefinekeysmenu.cpp:56
+msgid "Pass:"
+msgstr "Passen:"
+
+#: src/menu/redefinekeysmenu.cpp:50 src/menu/redefinekeysmenu.cpp:57
+msgid "Shoot:"
+msgstr "Schuss:"
+
+#: src/menu/redefinekeysmenu.cpp:51
+msgid "Player 2:"
+msgstr "Spieler 2:"

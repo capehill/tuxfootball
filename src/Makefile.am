@@ -133,5 +133,5 @@ tuxfootball_CFLAGS =    \
 tuxfootball_CXXFLAGS =      \
 	$(SDL_CFLAGS)
 
-localedir = $(datadir)/po
+localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
