@@ -30,25 +30,26 @@
 
 
 struct ManagedSurface {
-	SDL_Surface *surface;
+	SDL_Texture *surface;
 	int refCount;
 };
 
 /** Manages surfaces, makes sure that they are only loaded once and are deleted
  * when no longer needed. */
-class SurfaceManager : public ResourceManager<SDL_Surface, SurfaceManager> {
+class SurfaceManager : public ResourceManager<SDL_Texture, SurfaceManager> {
 public:
-	virtual SDL_Surface *load(std::string filename);
+	SurfaceManager(SDL_Renderer* renderer);
+	virtual SDL_Texture *load(std::string filename);
 
 	/** If colorKey is true, then the image will use the top-leftmost pixel as the color key. */
-	virtual SDL_Surface *load(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha);
-	virtual void release(SDL_Surface *surface);
+	virtual SDL_Texture *load(std::string filename, bool colorKey, bool alpha);
+	virtual void release(SDL_Texture *surface);
 protected:
-	virtual SDL_Surface *add(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha);
-	virtual SDL_Surface *add(std::string filename);
+	virtual SDL_Texture *add(std::string filename, bool colorKey, bool alpha);
+	virtual SDL_Texture *add(std::string filename);
 private:
 	static std::map<std::string, ManagedSurface> m_surfaces;
-	static Uint32 getPixel(SDL_Surface *surface, int x, int y);
+	static Uint32 getPixel(SDL_Texture *surface, int x, int y);
 };
 
 #endif /* TUXFOOTBALL_SURFACEMANAGER */

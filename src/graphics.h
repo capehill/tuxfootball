@@ -49,16 +49,18 @@ private:
 
 class Graphics {
 public:
-	Graphics(SDL_Surface *screen);
+	Graphics(SDL_Window *screen, SDL_Renderer* renderer);
 	~Graphics();
 	void addSprite(SpriteObject *obj);
 	void removeSprite(SpriteObject *obj);
 	void draw(int left, int top);
 	void update();
-	SDL_Surface *screen();
+	SDL_Window *screen();
+	SDL_Renderer *renderer();
 private:
 	std::list<SpriteContainer> m_sprites;
-	SDL_Surface *m_screenSurface;
+	SDL_Window *m_screen;
+	SDL_Renderer *m_renderer;
 };
 
 #endif

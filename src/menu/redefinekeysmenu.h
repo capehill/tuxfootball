@@ -34,7 +34,7 @@ class MenuKeySelect;
 class RedefineKeysMenu : public Menu
 {
 public:
-	RedefineKeysMenu(Controller *home, Controller *away, SDL_Surface *screen, std::string name);
+	RedefineKeysMenu(Controller *home, Controller *away, SDL_Renderer *renderer, std::string name);
 	~RedefineKeysMenu();
 private:
 	Controller *m_home;

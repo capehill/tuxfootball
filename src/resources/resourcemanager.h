@@ -24,6 +24,7 @@
 
 #include <string>
 #include <map>
+#include <SDL.h>
 
 /** Template class that keeps track of files, loading on demand and making
  * sure they are deleted as needed. */
@@ -31,20 +32,23 @@ template<class T, typename C> class ResourceManager {
 public:
 	virtual T *load(std::string filename) = 0;
 	virtual void release(T *file) = 0;
-	static C* instance () {
+	static C* instance (SDL_Renderer* renderer) {
 		if (!_instance)
-			_instance = new C ();
+			_instance = new C(renderer);
 		return _instance;
 	}
 protected:
 	virtual T *add(std::string filename) = 0;
 
 	static C *_instance;
-	ResourceManager() {};
+	ResourceManager(SDL_Renderer* renderer) {
+		m_renderer = renderer;
+	};
 	ResourceManager(const ResourceManager&);
 	virtual ~ResourceManager() {
 		_instance = 0;
 	}
+	SDL_Renderer* m_renderer;
 private:
 	ResourceManager& operator = (const ResourceManager&);
 };

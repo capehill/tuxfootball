@@ -202,7 +202,7 @@ void MenuOptionList::selectPressed()
 {
 }
 
-void MenuOptionList::update(Uint8 *keys)
+void MenuOptionList::update(const Uint8 *keys)
 {
 	// Does not react to keys
 	(void) keys;

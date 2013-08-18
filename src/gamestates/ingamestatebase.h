@@ -25,7 +25,7 @@
 
 class GameEngine;
 class SFont;
-struct SDL_Surface;
+struct SDL_Texture;
 
 /** \brief This gamestate is the base for all game states used when the player
  * is "in game".
@@ -47,7 +47,7 @@ public:
 
 protected:
 	GameEngine &m_engine;
-	SDL_Surface *m_score;
+	SDL_Texture *m_score;
 	SFont* m_nameFont;
 	SFont* m_scoreFont;
 };

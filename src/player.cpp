@@ -60,7 +60,7 @@ double Player::walkDistance = 5000;
 double Player::runDistance = 20000;
 
 
-Player::Player(Graphics *renderer, std::string skin, std::string playerMarker, Pitch *pitch, Team *team, Ball *ball, bool goalie) :
+Player::Player(Graphics *graphics, std::string skin, std::string playerMarker, Pitch *pitch, Team *team, Ball *ball, bool goalie) :
 	Body(Point3D(512.0, 1024.0, 0.0), Point3D(0.0, 0.0, 0.0), Rect()),
 	m_desiredPosition(Point3D(512.0, 1024.0, 0.0))
 {
@@ -69,7 +69,7 @@ Player::Player(Graphics *renderer, std::string skin, std::string playerMarker, P
 	m_runSpeed = 3.5;
 
 	m_pitch = pitch;
-	m_renderer = renderer;
+	m_graphics = graphics;
 	m_ball = ball;
 	m_team = team;
 	m_goalie = goalie;
@@ -87,11 +87,11 @@ Player::Player(Graphics *renderer, std::string skin, std::string playerMarker, P
 	m_directionCount=0;
 	m_move=Stand;
 
-	SDL_Rect sr = {-32, -54, 0, 0};
-	SDL_Rect sh = {-14, -60, 0, 0};
-	SDL_Rect sa = {-16, -60, 0, 0};
-	m_object = new SpriteObject(0, 0, 0, position(), sr, sh, sa);
-	m_renderer->addSprite(m_object);
+	SDL_Rect offset = {-32, -54, 0, 0};
+	SDL_Rect shadowOffset = {-14, -60, 0, 0};
+	SDL_Rect overlayOffset = {-16, -68, 0, 0};
+	m_object = new SpriteObject(0, 0, 0, position(), offset, shadowOffset, overlayOffset);
+	m_graphics->addSprite(m_object);
 
 }
 
@@ -103,7 +103,7 @@ Player::~Player()
 	delete m_header;
 	delete m_tackle;
 	delete m_object;
-	SurfaceManager::instance()->release(m_active);
+	SurfaceManager::instance(m_graphics->renderer())->release(m_active);
 }
 
 void Player::update()
@@ -200,7 +200,7 @@ void Player::freeReference() {
 
 void Player::loadSpriteSurfaces(std::string skin, std::string playerMarker)
 {
-	if(m_renderer && m_renderer->screen()) {
+	if(m_graphics && m_graphics->renderer()) {
 
 		std::string basedir;
 		if(m_goalie) {
@@ -209,17 +209,12 @@ void Player::loadSpriteSurfaces(std::string skin, std::string playerMarker)
 			basedir = "graphics/" + skin;
 		}
 
-		m_walk = new SpriteSequence(m_renderer->screen()->format,
-								basedir+"/walking", "walking", 40, true);
-		m_stand = new SpriteSequence(m_renderer->screen()->format,
-								basedir+"/standing", "standing", 1, true);
-		m_run = new SpriteSequence(m_renderer->screen()->format,
-								basedir+"/running", "running", 40, true);
-		m_tackle = new SpriteSequence(m_renderer->screen()->format,
-								basedir+"/tackling", "tackling", 25, false);
-		m_header = new SpriteSequence(m_renderer->screen()->format,
-								basedir+"/header", "header", 20, false);
-		m_active = SurfaceManager::instance()->load(m_renderer->screen()->format, playerMarker, true, false);
+		m_walk = new SpriteSequence(m_graphics->renderer(), basedir + "/walking", "walking", 40, true);
+		m_stand = new SpriteSequence(m_graphics->renderer(), basedir + "/standing", "standing", 1, true);
+		m_run = new SpriteSequence(m_graphics->renderer(), basedir + "/running", "running", 40, true);
+		m_tackle = new SpriteSequence(m_graphics->renderer(), basedir + "/tackling", "tackling", 25, false);
+		m_header = new SpriteSequence(m_graphics->renderer(), basedir + "/header", "header", 20, false);
+		m_active = SurfaceManager::instance(m_graphics->renderer())->load(playerMarker, true, false);
 	} else {
 		ERROR("cannot load Player Sprite surfaces, problem with renderer");
 		m_walk = 0;
@@ -383,21 +378,32 @@ void Player::updateMove()
 	}
 }
 
-SDL_Surface *Player::getSurface()
+SDL_Texture *Player::getSurface()
 {
 
 	switch(m_move) {
-		case Stand: 		return m_stand->surface(m_direction);
-		case Limp: 		return m_walk->surface(m_direction);
-		case Walk: 		return m_walk->surface(m_direction);
-		case Run: 		return m_run->surface(m_direction);
+		case Stand:
+			return m_stand->surface(m_direction);
+		case Limp:
+			return m_walk->surface(m_direction);
+		case Walk:
+			return m_walk->surface(m_direction);
+		case Run:
+			return m_run->surface(m_direction);
 		case Tackle:
-		case HeavyTackle:	return m_tackle->surface(m_direction);
-		case Header:		return m_header->surface(m_direction);
-		case Pass:		return m_run->surface(m_direction);
-		case Shoot:		return m_run->surface(m_direction);
-		case FallOver: // TODO
-		default: 		return m_stand->surface(m_direction);
+			// TODO
+		case HeavyTackle:
+			return m_tackle->surface(m_direction);
+		case Header:
+			return m_header->surface(m_direction);
+		case Pass:
+			return m_run->surface(m_direction);
+		case Shoot:
+			return m_run->surface(m_direction);
+		case FallOver:
+			// TODO
+		default:
+			return m_stand->surface(m_direction);
 	}
 }
 

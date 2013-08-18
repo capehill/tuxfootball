@@ -31,16 +31,16 @@
 #include "player.h"
 #include "gameengine.h"
 
-Controller::Controller(Team *team, Team *opponents, SDLKey up, SDLKey down, SDLKey left, SDLKey right, SDLKey shoot, SDLKey pass, bool isCPU, Ball *ball, Pitch *pitch)
+Controller::Controller(Team *team, Team *opponents, SDL_Keycode up, SDL_Keycode down, SDL_Keycode left, SDL_Keycode right, SDL_Keycode shoot, SDL_Keycode pass, bool isCPU, Ball *ball, Pitch *pitch)
 {
 	m_team = team;
 	m_oppTeam = opponents;
-	m_up = up;
-	m_down = down;
-	m_left = left;
-	m_right = right;
-	m_shoot = shoot;
-	m_pass = pass;
+	m_up = SDL_GetScancodeFromKey(up);
+	m_down = SDL_GetScancodeFromKey(down);
+	m_left = SDL_GetScancodeFromKey(left);
+	m_right = SDL_GetScancodeFromKey(right);
+	m_shoot = SDL_GetScancodeFromKey(shoot);
+	m_pass = SDL_GetScancodeFromKey(pass);
 	m_shootCount = 0;
 	m_canKick = true;
 	m_lastPlayer = 0;
@@ -54,7 +54,7 @@ Controller::~Controller()
 {
 }
 
-void Controller::updateController(Uint8 *keys)
+void Controller::updateController(const Uint8 *keys)
 {
 	if(m_isCPU) {
 		updateComputer();
@@ -292,62 +292,62 @@ double Controller::calculateClosestOpponent(Player *player)
 	return -1.0;
 }
 
-SDLKey Controller::keyUp()
+SDL_Keycode Controller::keyUp()
 {
 	return m_up;
 }
 
-SDLKey Controller::keyDown()
+SDL_Keycode Controller::keyDown()
 {
 	return m_down;
 }
 
-SDLKey Controller::keyLeft()	
+SDL_Keycode Controller::keyLeft()	
 {
 	return m_left;
 }
 
-SDLKey Controller::keyRight()
+SDL_Keycode Controller::keyRight()
 {
 	return m_right;
 }
 
-SDLKey Controller::keyPass()
+SDL_Keycode Controller::keyPass()
 {
 	return m_pass;
 }
 
-SDLKey Controller::keyShoot()	
+SDL_Keycode Controller::keyShoot()	
 {
 	return m_shoot;
 }
 
-void Controller::setKeyUp(SDLKey key)
+void Controller::setKeyUp(SDL_Keycode key)
 {
 	m_up = key;
 }
 
-void Controller::setKeyDown(SDLKey key)
+void Controller::setKeyDown(SDL_Keycode key)
 {
 	m_down = key;
 }
 
-void Controller::setKeyLeft(SDLKey key)
+void Controller::setKeyLeft(SDL_Keycode key)
 {
 	m_left = key;
 }
 
-void Controller::setKeyRight(SDLKey key)
+void Controller::setKeyRight(SDL_Keycode key)
 {
 	m_right = key;
 }
 
-void Controller::setKeyPass(SDLKey key)
+void Controller::setKeyPass(SDL_Keycode key)
 {
 	m_pass = key;
 }
 
-void Controller::setKeyShoot(SDLKey key)
+void Controller::setKeyShoot(SDL_Keycode key)
 {
 	m_shoot = key;
 }

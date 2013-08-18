@@ -30,7 +30,7 @@
 #include "menu/menu.h"
 #include "SFont.h"
 
-MenuKeySelect::MenuKeySelect(Menu *menu, SDLKey key, std::string name, std::string identifier) :
+MenuKeySelect::MenuKeySelect(Menu *menu, SDL_Keycode key, std::string name, std::string identifier) :
 				MenuItem(menu, name, identifier)
 {
 	m_key = key;
@@ -105,18 +105,18 @@ void MenuKeySelect::selectPressed()
 	m_menu->grabFocus(this);
 }
 
-void MenuKeySelect::update(Uint8 *keys)
+void MenuKeySelect::update(const Uint8 *keys)
 {
 	for(int count=0; count<SDLK_LAST; count++) {
 		if((m_keystate[count]) && (!keys[count])) {
 			m_menu->grabFocus(0);
-			m_key = (SDLKey)count;
+			m_key = (SDL_Keycode)count;
 		}
 		m_keystate[count] = keys[count];
 	}
 }
 
-SDLKey MenuKeySelect::currentKey()
+SDL_Keycode MenuKeySelect::currentKey()
 {
 	return m_key;
 }

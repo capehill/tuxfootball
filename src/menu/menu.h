@@ -24,11 +24,10 @@
 
 #include <string>
 #include <list>
+#include <SDL.h>
+#include <SDL_mixer.h>
 
 #include "elements/menuitem.h"
-
-#include "SDL.h"
-#include "SDL_mixer.h"
 #include "Font.hpp"
 
 class MenuItem;
@@ -71,14 +70,14 @@ class Menu
 {
 public:
 	enum Position {Centered};
-	Menu(SDL_Surface *screen, std::string name);
+	Menu(SDL_Renderer *renderer, std::string name);
 	virtual ~Menu();
 	void setPosition(Position pos, int x, int y);
 	void addItem(MenuItem *item);
 	void show();
 	void hide();
 	void draw();
-	void update(Uint8 *keys);
+	void update(const Uint8 *keys);
 	void calculateMenuBounds();
 	bool cancelled();
 	bool finished();
@@ -110,9 +109,9 @@ private:
 	SFont *m_activeFont;
 	SFont *m_inactiveFont;
 
-	SDL_Surface *m_screen;
-	SDL_Surface *m_logo;
-	SDL_Surface *m_background;
+	SDL_Renderer *m_renderer;
+	SDL_Texture *m_logo;
+	SDL_Texture *m_background;
 
 	Mix_Chunk *m_beep;
 	Mix_Chunk *m_incrementBeep;

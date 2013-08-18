@@ -120,7 +120,8 @@ public:
 	void setFinished(bool finished);
 	bool finished() const;
 
-	SDL_Surface *screen();
+	SDL_Window *screen();
+	SDL_Renderer *renderer();
 
 	void setMusic(std::string musicFile);
 	void setupHalfTime();
@@ -161,7 +162,8 @@ private: // attributes
 	TimerState m_timerState;
 	int m_frameSpeed;
 	bool m_finished;
-	SDL_Surface *m_screen;
+	SDL_Window *m_screen;
+	SDL_Renderer *m_renderer;
 	Pitch *m_pitch;
 	Team *m_homeTeam;
 	Team *m_awayTeam;
@@ -180,8 +182,8 @@ private: // attributes
 
 	Controller *m_homeController;
 	Controller *m_awayController;
-	SDLKey m_quitKey;
-	Graphics *m_renderer;
+	SDL_Keycode m_quitKey;
+	Graphics *m_graphics;
 	bool m_ballPrepared;
 	Point3D m_ballPreparedPosition;
 

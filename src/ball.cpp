@@ -44,14 +44,14 @@
 
 double Ball::bounceFactor = 0.6;
 
-Ball::Ball(Graphics *renderer, Pitch *pitch) :
+Ball::Ball(Graphics *graphics, Pitch *pitch) :
 	Body(Point3D(0, 0, 300), Point3D(0, 0, 0), Rect()),
-	m_pitch(pitch), m_renderer(renderer), m_lastPosition(position())
+	m_pitch(pitch), m_graphics(graphics), m_lastPosition(position())
 {
 
-	if(m_renderer && m_renderer->screen()) {
-		m_football = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/football.png", true, false);
-		m_shadow = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/footballshadow.png", true, false);
+	if(m_graphics && m_graphics->renderer()) {
+		m_football = SurfaceManager::instance(m_graphics->renderer())->load("graphics/football.png", true, false);
+		m_shadow = SurfaceManager::instance(m_graphics->renderer())->load("graphics/footballshadow.png", true, false);
 	} else {
 		ERROR("Screen not defined - cannot initialise ball graphics");
 		m_football = 0;
@@ -63,25 +63,25 @@ Ball::Ball(Graphics *renderer, Pitch *pitch) :
 	SDL_Rect sh = {-1, -7, 0, 0};
 	SDL_Rect sa;
 	m_object = new SpriteObject(m_football, m_shadow, 0,  position(), sr, sh, sa);
-	m_renderer->addSprite(m_object);
+	m_graphics->addSprite(m_object);
 
 	m_kickVel = Point3D();
 	m_kickPriority = -1;
 	m_kickBy = 0;
 
-	m_bounce = SoundManager::instance()->load("sound/bounce.wav");
-	m_kick = SoundManager::instance()->load("sound/kick.wav");
-	m_rebound = SoundManager::instance()->load("sound/bounce.wav");
+	m_bounce = SoundManager::instance(m_graphics->renderer())->load("sound/bounce.wav");
+	m_kick = SoundManager::instance(m_graphics->renderer())->load("sound/kick.wav");
+	m_rebound = SoundManager::instance(m_graphics->renderer())->load("sound/bounce.wav");
 }
 
 Ball::~Ball()
 {
-	if(m_football) SurfaceManager::instance()->release(m_football);
-	if(m_shadow) SurfaceManager::instance()->release(m_shadow);
+	if(m_football) SurfaceManager::instance(m_graphics->renderer())->release(m_football);
+	if(m_shadow) SurfaceManager::instance(m_graphics->renderer())->release(m_shadow);
 	if(m_object) delete m_object;
-	if(m_bounce) SoundManager::instance()->release(m_bounce);
-	if(m_kick) SoundManager::instance()->release(m_kick);
-	if(m_rebound) SoundManager::instance()->release(m_rebound);
+	if(m_bounce) SoundManager::instance(m_graphics->renderer())->release(m_bounce);
+	if(m_kick) SoundManager::instance(m_graphics->renderer())->release(m_kick);
+	if(m_rebound) SoundManager::instance(m_graphics->renderer())->release(m_rebound);
 }
 
 void Ball::move()

@@ -21,21 +21,17 @@ AC_PROG_RANLIB
 AC_PROG_LIBTOOL
 
 # Checks for libraries.
-PKG_CHECK_MODULES(SDL, [sdl >= 1.2.0])
-AC_SUBST(SDL_CFLAGS)
-AC_SUBST(SDL_LIBS)
+PKG_CHECK_MODULES(SDL2, [sdl2 >= 2.0.0])
+AC_SUBST(SDL2_CFLAGS)
+AC_SUBST(SDL2_LIBS)
 
-AC_CHECK_LIB([SDL_image],
-	[IMG_Load],
-	LIBS="$LIBS -lSDL_image",
-	[AC_MSG_ERROR([*** SDL_image library not found!])]
-)
+PKG_CHECK_MODULES(SDL2_IMAGE, [SDL2_image >= 2.0.0])
+AC_SUBST(SDL2_IMAGE_CFLAGS)
+AC_SUBST(SDL2_IMAGE_LIBS)
 
-AC_CHECK_LIB([SDL_mixer], 
-	[Mix_OpenAudio], 
-	LIBS="$LIBS -lSDL_mixer", 
-	[AC_MSG_ERROR([*** SDL_mixer library not found!])] 
-)
+PKG_CHECK_MODULES(SDL2_MIXER, [SDL2_mixer >= 2.0.0])
+AC_SUBST(SDL2_MIXER_CFLAGS)
+AC_SUBST(SDL2_MIXER_LIBS)
 
 # Checks for header files.
 AC_CHECK_HEADERS([libintl.h locale.h stdlib.h])

@@ -50,23 +50,27 @@ bool MenuStateBase::isGameInProgress() const
 
 void MenuStateBase::renderFrame()
 {
-	SDL_Rect r, s;
+	SDL_Rect srcrect, dstrect;
 
 	//
 	// Draw Menu
 	//
-	if(m_menu) m_menu->draw();
+	if(m_menu)
+		m_menu->draw();
 
 	if(m_logo) {
-		s.x = (m_engine.screen()->w - m_logo->w) / 2;
-		s.y = 50;
-		r.x = 0;
-		r.y = 0;
-		s.w = r.w = m_logo->w;
-		s.h = r.h = m_logo->h;
+		int renderer_width, renderer_height, logo_width, logo_height;
+		SDL_GetRendererOutputSize(m_engine.renderer(), &renderer_width, &renderer_height);
+		SDL_QueryTexture(m_logo, NULL, NULL, &logo_width, &logo_height);
 
+		dstrect.x = (renderer_width - logo_width) / 2;
+		dstrect.y = 50;
+		srcrect.x = 0;
+		srcrect.y = 0;
+		dstrect.w = srcrect.w = logo_width;
+		dstrect.h = srcrect.h = logo_height;
 
-		if(SDL_BlitSurface(m_logo, &r, m_engine.screen(), &s) < 0) {
+		if(SDL_RenderCopy(m_engine.renderer(), m_logo, &srcrect, &dstrect) < 0) {
 			ERROR("could not pitch tile : " << SDL_GetError());
 		}
 	}
@@ -75,13 +79,13 @@ void MenuStateBase::renderFrame()
 void MenuStateBase::enterState()
 {
 	initialiseMenu();
-	m_logo = SurfaceManager::instance()->load(m_engine.screen()->format, "graphics/tuxfootball.png", false, true);
+	m_logo = SurfaceManager::instance(m_engine.renderer())->load("graphics/tuxfootball.png", false, true);
 }
 
 void MenuStateBase::clearLogo()
 {
 	if(m_logo) {
-		SurfaceManager::instance()->release(m_logo);
+		SurfaceManager::instance(m_engine.renderer())->release(m_logo);
 		m_logo = 0;
 	}
 }
@@ -100,7 +104,7 @@ Menu* MenuStateBase::menu()
 	return m_menu;
 }
 
-void MenuStateBase::update(Uint8* keys)
+void MenuStateBase::update(const Uint8* keys)
 {
 	if(m_menu) {
 		m_menu->update(keys);

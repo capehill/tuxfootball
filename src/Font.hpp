@@ -21,6 +21,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <string>
 #include <stdexcept>
+#include <SDL.h>
+
 #include "SFont.h"
 
 /** A thin c++ wrapper around my custom SFont version */
@@ -35,15 +37,15 @@ public:
 	int getTextWidth(const std::string& text) const
 	{ return getTextWidth(text.c_str()); }
 
-	void write(SDL_Surface* surface, const char* text, int x, int y) const
+	void write(SDL_Renderer* surface, const char* text, int x, int y) const
 	{ SFont_Write(surface, font, x, y, text); }
 	
-	void write(SDL_Surface* surface, const std::string& text, int x, int y) const
+	void write(SDL_Renderer* surface, const std::string& text, int x, int y) const
 	{ SFont_Write(surface, font, x, y, text.c_str()); }
 
-	SFont(SDL_Surface* surface)
+	SFont(SDL_Renderer* renderer, SDL_Surface* surface)
 	{
-		font = SFont_InitFont(surface);
+		font = SFont_InitFont(renderer, surface);
 		if(!font)
 			throw std::runtime_error("Couldn't initialize font.");
 	}

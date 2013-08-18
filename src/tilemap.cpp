@@ -34,9 +34,10 @@
 #include "const.h"
 #include "logger/logger.h"
 
-TileMap::TileMap(SDL_Surface *screen, std::string path)
+TileMap::TileMap(SDL_Window *screen, SDL_Renderer *renderer, std::string path)
 {
 	m_screen = screen;
+	m_renderer = renderer;
 
 	std::ifstream tilemap;
 	for (int i = 0; i < data_dirs; i++) {
@@ -66,6 +67,7 @@ TileMap::TileMap(SDL_Surface *screen, std::string path)
 
 	m_tileSurfaces.resize(m_numTilesWidth * m_numTilesHeight);
 
+	SurfaceManager *surfaceManager = SurfaceManager::instance(m_renderer);
 	for(int y = 0; y<m_numTilesHeight; y++) {
 		for(int x = 0; x<m_numTilesWidth; x++) {
 			char next;
@@ -88,7 +90,7 @@ TileMap::TileMap(SDL_Surface *screen, std::string path)
 			} else {
 				std::ostringstream file;
 				file << path << "/tile" << word.str() << ".png";
-				setTileSurface(x, y,  SurfaceManager::instance()->load(screen->format, file.str(), false, true));
+				setTileSurface(x, y,  surfaceManager->load(file.str(), false, true));
 			}
 		}
 	}
@@ -98,10 +100,11 @@ TileMap::TileMap(SDL_Surface *screen, std::string path)
 
 TileMap::~TileMap()
 {
-	std::vector<SDL_Surface *>::iterator itt = m_tileSurfaces.begin();
+	std::vector<SDL_Texture *>::iterator itt = m_tileSurfaces.begin();
 
+	SurfaceManager *surfaceManager = SurfaceManager::instance(m_renderer);
 	while(itt != m_tileSurfaces.end()) {
-		if(*itt) SurfaceManager::instance()->release(*itt);
+		if(*itt) surfaceManager->release(*itt);
 
 		++itt;
 	}
@@ -109,33 +112,32 @@ TileMap::~TileMap()
 
 void TileMap::draw(int left, int top)
 {
-	SDL_Rect tr;
-	SDL_Rect sr;
+	SDL_Rect srcrect;
+	SDL_Rect dstrect;
 
-	tr.x = 0;
-	tr.y = 0;
-	sr.w = tr.w = m_tileWidth;
-	sr.w = tr.h = m_tileHeight;
+	srcrect.x = 0;
+	srcrect.y = 0;
+	dstrect.w = srcrect.w = m_tileWidth;
+	dstrect.h = srcrect.h = m_tileHeight;
 
-	int tx, ty;
 
-	int ex = ((left+m_screen->w) / m_tileWidth) + 1;
-	int ey = ((top+m_screen->h) / m_tileHeight) + 1;
-	SDL_Surface *surf;
+	int renderer_width, renderer_height;
+	SDL_GetRendererOutputSize(m_renderer, &renderer_width, &renderer_height);
 
-	ty = top / m_tileHeight;
+	int ex = ((left+renderer_width) / m_tileWidth) + 1;
+	int ey = ((top+renderer_height) / m_tileHeight) + 1;
+	SDL_Texture *surf;
 
-	for(;ty < ey; ty++) {
-		tx = left / m_tileWidth;
 
-		for(; tx < ex; tx++) {
+	for(int ty = top / m_tileHeight; ty < ey; ty++) {
+		for(int tx = left / m_tileWidth; tx < ex; tx++) {
 			surf = tileSurface(tx, ty);
 
-			sr.x = (tx*m_tileWidth) - left;
-			sr.y = (ty*m_tileHeight) - top;
+			dstrect.x = (tx*m_tileWidth) - left;
+			dstrect.y = (ty*m_tileHeight) - top;
 
 			if(surf) {
-				if(SDL_BlitSurface(surf, &tr, m_screen, &sr) < 0) {
+				if(SDL_RenderCopy(m_renderer, surf, &srcrect, &dstrect) < 0) {
 					ERROR("could not pitch tile : " << SDL_GetError());
 				}
 			}
@@ -143,7 +145,7 @@ void TileMap::draw(int left, int top)
 	}
 }
 
-SDL_Surface *TileMap::tileSurface(int x, int y)
+SDL_Texture *TileMap::tileSurface(int x, int y)
 {
 	if(x<0) return 0;
 	if(y<0) return 0;
@@ -153,7 +155,7 @@ SDL_Surface *TileMap::tileSurface(int x, int y)
 	return m_tileSurfaces[x + y*m_numTilesWidth];
 }
 
-void TileMap::setTileSurface(int x, int y, SDL_Surface *surface)
+void TileMap::setTileSurface(int x, int y, SDL_Texture *surface)
 {
 	if(x<0) return;
 	if(x>=m_numTilesWidth) return;

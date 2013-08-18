@@ -48,7 +48,7 @@ public:
 	/** Perform rendering of a single frame for the game state */
 	virtual void renderFrame() = 0;
 
-	virtual void update(Uint8* keys);
+	virtual void update(const Uint8* keys);
 
 };
 #endif /* TUXFOOTBALL_STATEBASE */

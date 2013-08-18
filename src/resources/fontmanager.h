@@ -39,11 +39,12 @@ struct ManagedFont {
  * when no longer needed. */
 class FontManager : public ResourceManager<SFont, FontManager> {
 public:
+	FontManager(SDL_Renderer* renderer);
 	virtual SFont *load(std::string filename);
-	virtual SFont *load(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha);
+	virtual SFont *load(std::string filename, bool colorKey, bool alpha);
 	virtual void release(SFont *font);
 protected:
-	virtual SFont *add(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha);
+	virtual SFont *add(std::string filename, bool colorKey, bool alpha);
 	virtual SFont *add(std::string filename);
 private:
 	static std::map<std::string, ManagedFont> m_fonts;

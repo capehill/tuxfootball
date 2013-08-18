@@ -40,8 +40,8 @@
 #include "gameengine.h"
 #include "logger/logger.h"
 
-MainMenu::MainMenu(GameEngine *gameEngine, Controller *home, Controller *away, SDL_Surface *screen, std::string name) :
-				Menu(screen, name),
+MainMenu::MainMenu(GameEngine *gameEngine, Controller *home, Controller *away, SDL_Renderer *renderer, std::string name) :
+				Menu(renderer, name),
 				m_gameEngine(gameEngine),
 				m_home(home),
 				m_away(away)

@@ -28,12 +28,15 @@
 #include <list>
 #include <SDL.h>
 
+// FIXME
+#define SDLK_LAST (SDLK_SLEEP + 1)
+
 class Menu;
 
 /** A menu item that remembers a key press and allows it to be redefined. */
 class MenuKeySelect : public MenuItem {
 public:
-	MenuKeySelect(Menu *menu, SDLKey key, std::string name, std::string identifier);
+	MenuKeySelect(Menu *menu, SDL_Keycode key, std::string name, std::string identifier);
 	~MenuKeySelect();
 	MenuKeySelect(const MenuKeySelect &item);
 	const MenuKeySelect &operator=(const MenuKeySelect &item);
@@ -49,13 +52,13 @@ public:
 	void leftPressed();
 	void rightPressed();
 	void selectPressed();
-	void update(Uint8 *keys);
-	SDLKey currentKey();
+	virtual void update(const Uint8 *keys);
+	SDL_Keycode currentKey();
 private:
 	Uint8 m_keystate[SDLK_LAST];
 	std::string m_name;
 	std::string m_identifier;
-	SDLKey m_key;
+	SDL_Keycode m_key;
 };
 
 #endif /* TUXFOOTBALL_MENUKEYSELECT */

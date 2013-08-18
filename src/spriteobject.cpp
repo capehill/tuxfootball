@@ -29,7 +29,7 @@
 
 #include "logger/logger.h"
 
-SpriteObject::SpriteObject(SDL_Surface *surf, SDL_Surface *shadow, SDL_Surface *overlay,
+SpriteObject::SpriteObject(SDL_Texture *surf, SDL_Texture *shadow, SDL_Texture *overlay,
 				Point3D position, SDL_Rect offset, SDL_Rect shadowOffset, SDL_Rect overlayOffset)
 {
 	m_surface = surf;
@@ -46,84 +46,94 @@ SpriteObject::~SpriteObject()
 {
 }
 
-void SpriteObject::draw(int left, int top, SDL_Surface *surface)
+void SpriteObject::draw(int left, int top, SDL_Renderer *renderer)
 {
-	SDL_Rect r, s;
+	SDL_Rect srcrect, dstrect;
 
-	if(surface==0) return;
-	if(m_surface==0) return;
+	if (renderer==0 || m_surface==0)
+		return;
 
-	r.x = 0;
-	r.y = 0;
-	r.w = m_surface->w;
-	r.h = m_surface->h;
+	int sufrace_width, surface_height;
+	SDL_QueryTexture(m_surface, NULL, NULL, &sufrace_width, &surface_height);
 
-	s.x = (int)(m_position.x() - left + m_offset.x);
-	s.y = (int)(m_position.y() - top + m_offset.y - m_position.z());
+	srcrect.x = 0;
+	srcrect.y = 0;
+	srcrect.w = dstrect.w = sufrace_width;
+	srcrect.h = dstrect.h = surface_height;
 
-	if(SDL_BlitSurface(m_surface, &r, surface, &s) < 0) {
+	dstrect.x = (int)(m_position.x() - left + m_offset.x);
+	dstrect.y = (int)(m_position.y() - top + m_offset.y - m_position.z());
+
+	if(SDL_RenderCopy(renderer, m_surface, &srcrect, &dstrect) < 0) {
 		ERROR("could not draw SpriteObject to screen : " << SDL_GetError());
 	}
 
 }
 
-void SpriteObject::drawShadow(int left, int top, SDL_Surface *surface)
+void SpriteObject::drawShadow(int left, int top, SDL_Renderer *renderer)
 {
-	SDL_Rect r, s;
+	SDL_Rect srcrect, dstrect;
 
-	if(surface==0) return;
-	if(m_shadow==0) return;
+	if (renderer==0 || m_shadow==0)
+		return;
 
-	r.x = 0;
-	r.y = 0;
-	r.w = m_shadow->w;
-	r.h = m_shadow->h;
+	int shadow_width, shadow_height;
+	SDL_QueryTexture(m_shadow, NULL, NULL, &shadow_width, &shadow_height);
 
-	s.x = (int)(m_position.x() - left + m_shadowOffset.x + m_position.z());
-	s.y = (int)(m_position.y() - top + m_shadowOffset.y - (m_position.z()*0.8));
+	srcrect.x = 0;
+	srcrect.y = 0;
+	srcrect.w = dstrect.w = shadow_width;
+	srcrect.h = dstrect.h = shadow_height;
 
-	if(SDL_BlitSurface(m_shadow, &r, surface, &s) < 0) {
+	dstrect.x = (int)(m_position.x() - left + m_shadowOffset.x + m_position.z());
+	dstrect.y = (int)(m_position.y() - top + m_shadowOffset.y - (m_position.z()*0.8));
+
+	if(SDL_RenderCopy(renderer, m_shadow, &srcrect, &dstrect) < 0) {
 		ERROR("could not blit SpriteObject shadow to screen : " << SDL_GetError());
 	}
 }
 
-void SpriteObject::drawOverlay(int left, int top, SDL_Surface *surface)
+void SpriteObject::drawOverlay(int left, int top, SDL_Renderer *renderer)
 {
-	SDL_Rect r, s;
+	SDL_Rect srcrect, dstrect;
 
-	if(surface==0) return;
-	if(m_overlay==0) return;
+	if (renderer==0 || m_overlay==0)
+		return;
 
-	r.x = 0;
-	r.y = 0;
-	r.w = m_overlay->w;
-	r.h = m_overlay->h;
+	int overlay_width, overlay_height, renderer_width, renderer_height;
+	SDL_QueryTexture(m_overlay, NULL, NULL, &overlay_width, &overlay_height);
+	SDL_GetRendererOutputSize(renderer, &renderer_width, &renderer_height);
 
-	s.x = (int)(m_position.x() - left + m_overlayOffset.x);
-	s.y = (int)(m_position.y() - top + m_overlayOffset.y - m_position.z());
+	srcrect.x = 0;
+	srcrect.y = 0;
+	srcrect.w = dstrect.w = overlay_width;
+	srcrect.h = dstrect.h = overlay_height;
+
+	dstrect.x = (int)(m_position.x() - left + m_overlayOffset.x);
+	dstrect.y = (int)(m_position.y() - top + m_overlayOffset.y - m_position.z());
 
 	// if overlay is off-screen, then draw it at the closest point on-screen that there is.
-	if(s.x<0) s.x = 0;
-	if(s.x + r.w > surface->w) s.x = surface->w - r.w;
-	if(s.y<0) s.y = 0;
-	if(s.y + r.h > surface->h) s.y = surface->h - r.h;
+	if(dstrect.x<0) dstrect.x = 0;
+	if(dstrect.x + srcrect.w > renderer_width) dstrect.x = renderer_width - srcrect.w;
+	if(dstrect.y<0) dstrect.y = 0;
+	if(dstrect.y + srcrect.h > renderer_height) dstrect.y = renderer_height - srcrect.h;
 
-	if(SDL_BlitSurface(m_overlay, &r, surface, &s) < 0) {
+	if(SDL_RenderCopy(renderer, m_overlay, &srcrect, &dstrect) < 0) {
 		ERROR("could not blit SpriteObject overlay to screen : " << SDL_GetError());
 	}
 }
 
-void SpriteObject::setSurface(SDL_Surface *surf)
+void SpriteObject::setSurface(SDL_Texture *surf)
 {
 	m_surface = surf;
 }
 
-void SpriteObject::setOverlaySurface(SDL_Surface *surf)
+void SpriteObject::setOverlaySurface(SDL_Texture *surf)
 {
 	m_overlay = surf;
 }
 
-void SpriteObject::setShadowSurface(SDL_Surface *surf)
+void SpriteObject::setShadowSurface(SDL_Texture *surf)
 {
 	m_shadow = surf;
 }

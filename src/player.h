@@ -134,11 +134,11 @@ private:
 	static double walkDistance;
 	static double runDistance;
 	static double moveSlowdown;
-	SDL_Surface *m_active;
+	SDL_Texture *m_active;
 	SpriteObject *m_object;
 	bool m_isActive;
 	ControlState m_controlState;
-	Graphics *m_renderer;
+	Graphics *m_graphics;
 	Ball *m_ball;
 	Team *m_team;
 	Pitch *m_pitch;
@@ -150,7 +150,7 @@ private: // methods
 	void loadSpriteSurfaces(std::string skin, std::string playerMarker);
 	void resetMove();
 	void updateMove();
-	SDL_Surface *getSurface();
+	SDL_Texture *getSurface();
 	bool justTurned();
 	int currentKickPriority();
 	void tryTrapBall();

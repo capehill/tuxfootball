@@ -33,7 +33,7 @@ class MenuOptionList;
 class VideoSettingsMenu : public Menu
 {
 public:	
-	VideoSettingsMenu(bool currentMode, SDL_Surface *screen, std::string name);
+	VideoSettingsMenu(bool currentMode, SDL_Renderer *renderer, std::string name);
 	~VideoSettingsMenu();
 
 	bool	currentMode() const;

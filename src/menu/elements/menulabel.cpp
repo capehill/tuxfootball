@@ -105,7 +105,7 @@ void MenuLabel::selectPressed()
 {
 }
 
-void MenuLabel::update(Uint8 *keys)
+void MenuLabel::update(const Uint8 *keys)
 {
 	// Does not react to keys
 	(void) keys;
@@ -116,9 +116,9 @@ int MenuLabel::height()
 	return 40;
 }
 
-void MenuLabel::draw(SFont* font, int x, int y, int wid, SDL_Surface *screen)
+void MenuLabel::draw(SFont* font, int x, int y, int wid, SDL_Renderer *renderer)
 {
 	int midX = x + (wid/2);
 
-	font->write(screen, text().c_str(), midX - (width(font)/2), y+10);
+	font->write(renderer, text().c_str(), midX - (width(font)/2), y+10);
 }

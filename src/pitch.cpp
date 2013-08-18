@@ -33,7 +33,7 @@
 
 double Pitch::gravity=-0.06;
 
-Pitch::Pitch(Graphics *renderer)
+Pitch::Pitch(Graphics *graphics)
 {
 	m_bound.x = 200;
 	m_bound.w = 2160;
@@ -59,15 +59,15 @@ Pitch::Pitch(Graphics *renderer)
 
 	m_circleRadius = 300.0;
 
-	m_renderer = renderer;
+	m_graphics = graphics;
 
-	if(m_renderer && (m_renderer->screen())) {
-		m_pitchLines = new TileMap(m_renderer->screen(), "graphics/pitchlines");
+	if(m_graphics && (m_graphics->renderer())) {
+		m_pitchLines = new TileMap(m_graphics->screen(), m_graphics->renderer(), "graphics/pitchlines");
 
-		m_surface = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/pitchtile.png", false, false);
-		m_goalPostTop = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/goalposttop.tga", true, false);
-		m_goalPostBottom = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/goalpostbottom.tga", true, false);
-		m_scratch = SurfaceManager::instance()->load(m_renderer->screen()->format, "graphics/scratch.png", true, false);
+		m_surface = SurfaceManager::instance(m_graphics->renderer())->load("graphics/pitchtile.png", false, false);
+		m_goalPostTop = SurfaceManager::instance(m_graphics->renderer())->load("graphics/goalposttop.tga", true, false);
+		m_goalPostBottom = SurfaceManager::instance(m_graphics->renderer())->load("graphics/goalpostbottom.tga", true, false);
+		m_scratch = SurfaceManager::instance(m_graphics->renderer())->load("graphics/scratch.png", true, false);
 
 		SDL_Rect sr = {-256, -150, 0, 0};
 		SDL_Rect sh = {0,0,0,0};
@@ -82,8 +82,8 @@ Pitch::Pitch(Graphics *renderer)
 							Point3D(centerX(), bottomBound()),
 							sr, sh, so);
 
-		m_renderer->addSprite(m_goalPostSpriteTop);
-		m_renderer->addSprite(m_goalPostSpriteBottom);
+		m_graphics->addSprite(m_goalPostSpriteTop);
+		m_graphics->addSprite(m_goalPostSpriteBottom);
 
 		m_width = 2560;
 		m_height = 4096;
@@ -101,17 +101,17 @@ Pitch::Pitch(Graphics *renderer)
 
 Pitch::~Pitch()
 {
-	SurfaceManager::instance()->release(m_surface);
+	SurfaceManager::instance(m_graphics->renderer())->release(m_surface);
 
-	m_renderer->removeSprite(m_goalPostSpriteTop);
-	m_renderer->removeSprite(m_goalPostSpriteBottom);
+	m_graphics->removeSprite(m_goalPostSpriteTop);
+	m_graphics->removeSprite(m_goalPostSpriteBottom);
 
 	delete m_goalPostSpriteTop;
 	delete m_goalPostSpriteBottom;
 
-	SurfaceManager::instance()->release(m_goalPostTop);
-	SurfaceManager::instance()->release(m_goalPostBottom);
-	SurfaceManager::instance()->release(m_scratch);
+	SurfaceManager::instance(m_graphics->renderer())->release(m_goalPostTop);
+	SurfaceManager::instance(m_graphics->renderer())->release(m_goalPostBottom);
+	SurfaceManager::instance(m_graphics->renderer())->release(m_scratch);
 }
 
 bool Pitch::inBounds(int x, int y)
@@ -135,38 +135,41 @@ int Pitch::height()
 
 void Pitch::draw(int left, int top)
 {
-	SDL_Rect r;
-	SDL_Rect s;
+	SDL_Rect srcrect, dstrect;
 
 	if(m_surface==0) return;
-	if(m_renderer==0) return;
-	if(m_renderer->screen()==0) return;
+	if(m_graphics==0) return;
+	if(m_graphics->screen()==0) return;
 
 	//
 	// Draw the pitch tile across the screen.
 	//
 
-	int x=(left/m_surface->w)*m_surface->w - left;
+	int renderer_width, renderer_height, surface_width, surface_height;
+	SDL_GetRendererOutputSize(m_graphics->renderer(), &renderer_width, &renderer_height);
+	SDL_QueryTexture(m_surface, NULL, NULL, &surface_width, &surface_height);
 
-	while(x< m_renderer->screen()->w) {
-		int y= (top / m_surface->h) * m_surface->h - top;
+	int x=(left/surface_width)*surface_width - left;
 
-		while(y < m_renderer->screen()->w) {
-			r.x = 0;
-			r.y = 0;
-			r.w = m_surface->w;
-			r.h = m_surface->h;
-			s.x = x;
-			s.y = y;
+	while(x< renderer_width) {
+		int y= (top / surface_height) * surface_height - top;
 
-			if(SDL_BlitSurface(m_surface, &r, m_renderer->screen(), &s) < 0) {
+		while(y < renderer_width) {
+			srcrect.x = 0;
+			srcrect.y = 0;
+			srcrect.w = dstrect.w = surface_width;
+			srcrect.h = dstrect.h = surface_height;
+			dstrect.x = x;
+			dstrect.y = y;
+
+			if(SDL_RenderCopy(m_graphics->renderer(), m_surface, &srcrect, &dstrect) < 0) {
 				ERROR("could not pitch tile : " << SDL_GetError());
 			}
 
-			y+= m_surface->h;
+			y+= surface_height;
 		}
 
-		x += m_surface->w;
+		x += surface_width;
 	}
 
 	m_pitchLines->draw(left, top);
@@ -178,7 +181,7 @@ void Pitch::draw(int left, int top)
 		s.h = r.h = m_scratch->h;
 		r.x = 0;
 		r.y = 0;
-		if(SDL_BlitSurface(m_scratch, &r, m_renderer->screen(), &s) < 0) {
+		if(SDL_BlitSurface(m_scratch, &r, m_graphics->screen(), &s) < 0) {
 			ERROR("could not draw pitch scratch : " << SDL_GetError());
 		}
 	}*/

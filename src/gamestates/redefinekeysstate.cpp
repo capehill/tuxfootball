@@ -73,7 +73,7 @@ void RedefineKeysState::initialiseMenu()
 	
 	Menu *menu = new RedefineKeysMenu(m_engine.controller(GameEngine::HomeController),
 					 m_engine.controller(GameEngine::AwayController),
-					 m_engine.screen(), _("Redefine Keys"));
+					 m_engine.renderer(), _("Redefine Keys"));
 	menu->show();
 	setMenu(menu);
 }

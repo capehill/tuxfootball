@@ -40,26 +40,26 @@ public:
 	 * \param shadowOffset the offset used to draw the shadow of the sprite to the game surface (only x and y will be used)
 	 * \param overlayOffset the offset used to draw the sprites overlay to the game surface (only x and y will be used)
 	 */
-	SpriteObject(SDL_Surface *surf, SDL_Surface *shadow, SDL_Surface *overlay,
+	SpriteObject(SDL_Texture *surf, SDL_Texture *shadow, SDL_Texture *overlay,
 				Point3D position, SDL_Rect offset, SDL_Rect shadowOffset, SDL_Rect overlayOffset);
 	~SpriteObject();
 
 	void setPosition(const Point3D &pos);
 	Point3D position();
 
-	void setSurface(SDL_Surface *surf);
-	void setOverlaySurface(SDL_Surface *surf);
-	void setShadowSurface(SDL_Surface *surf);
+	void setSurface(SDL_Texture *surf);
+	void setOverlaySurface(SDL_Texture *surf);
+	void setShadowSurface(SDL_Texture *surf);
 
-	void draw(int left, int top, SDL_Surface *surface);
-	void drawShadow(int left, int top, SDL_Surface *surface);
-	void drawOverlay(int left, int top, SDL_Surface *surface);
+	void draw(int left, int top, SDL_Renderer *renderer);
+	void drawShadow(int left, int top, SDL_Renderer *renderer);
+	void drawOverlay(int left, int top, SDL_Renderer *renderer);
 
 private:
 	bool m_toDraw;
-	SDL_Surface *m_surface;
-	SDL_Surface *m_shadow;
-	SDL_Surface *m_overlay;
+	SDL_Texture *m_surface;
+	SDL_Texture *m_shadow;
+	SDL_Texture *m_overlay;
 	Point3D m_position;
 	SDL_Rect m_offset;
 	SDL_Rect m_shadowOffset;

@@ -50,11 +50,11 @@ public:
 	/** Perform rendering of a single frame for the game state */
 	virtual void renderFrame();
 
-	void update(Uint8* keys);
+	virtual void update(const Uint8* keys);
 
 protected:
 	GameEngine &m_engine;
-	SDL_Surface *m_logo;
+	SDL_Texture *m_logo;
 
 	virtual void initialiseMenu() = 0;
 	/** clears the logo, if one exists. It is safe to call this when no logo exists. */

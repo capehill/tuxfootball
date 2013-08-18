@@ -32,7 +32,7 @@
  * for instance, with pitch lines. */
 class TileMap {
 public:
-	TileMap(SDL_Surface *screen, std::string path);
+	TileMap(SDL_Window *screen, SDL_Renderer *renderer, std::string path);
 	~TileMap();
 
 	void draw(int left, int top);	
@@ -43,11 +43,12 @@ private:
 	int m_tileMapHeight;
 	int m_numTilesWidth;
 	int m_numTilesHeight;	
-	std::vector<SDL_Surface *> m_tileSurfaces;
-	SDL_Surface *m_screen;
+	std::vector<SDL_Texture *> m_tileSurfaces;
+	SDL_Window *m_screen;
+	SDL_Renderer *m_renderer;
 	
-	SDL_Surface *tileSurface(int x, int y);	
-	void setTileSurface(int x, int y, SDL_Surface *surface);
+	SDL_Texture *tileSurface(int x, int y);	
+	void setTileSurface(int x, int y, SDL_Texture *surface);
 	bool isWhiteSpace(char val);
 };
 

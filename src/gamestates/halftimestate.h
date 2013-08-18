@@ -25,7 +25,7 @@
 #include "statebase.h"
 
 class GameEngine;
-struct SDL_Surface;
+struct SDL_Texture;
 
 class HalfTimeState : public StateBase {
 public:
@@ -49,7 +49,7 @@ public:
 
 private:
 	GameEngine &m_engine;
-	SDL_Surface *m_logo;
+	SDL_Texture *m_logo;
 
 	/** clears the logo, if one exists. It is safe to call this when no logo exists. */
 	void clearLogo();

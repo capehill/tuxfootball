@@ -62,7 +62,7 @@ void VideoMenuState::updateLoop()
 
 void VideoMenuState::initialiseMenu()
 {
-	Menu *menu = new VideoSettingsMenu(m_engine.fullScreen(), m_engine.screen(), "Video Settings");
+	Menu *menu = new VideoSettingsMenu(m_engine.fullScreen(), m_engine.renderer(), "Video Settings");
 
 	menu->show();
 	setMenu(menu);

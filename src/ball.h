@@ -44,10 +44,10 @@ public:
 	Point3D calculateReqVelocity(double z, Point3D end);
 private:
 	Pitch *m_pitch;
-	Graphics *m_renderer;
+	Graphics *m_graphics;
 	Point3D m_lastPosition;
-	SDL_Surface *m_football;
-	SDL_Surface *m_shadow;
+	SDL_Texture *m_football;
+	SDL_Texture *m_shadow;
 	SpriteObject *m_object;
 	static double bounceFactor;
 	

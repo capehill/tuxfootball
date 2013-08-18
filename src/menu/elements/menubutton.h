@@ -47,7 +47,7 @@ public:
 	void leftPressed();
 	void rightPressed();
 	void selectPressed();
-	void update(Uint8 *keys);
+	virtual void update(const Uint8 *keys);
 private:
 	std::string m_name;
 	std::string m_identifier;

@@ -107,7 +107,7 @@ void MenuButton::selectPressed()
 	m_menu->setFinished();
 }
 
-void MenuButton::update(Uint8 *keys)
+void MenuButton::update(const Uint8 *keys)
 {
 	// Does not react to keys
 	(void) keys;

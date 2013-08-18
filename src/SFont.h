@@ -47,6 +47,7 @@ extern "C" {
 /* and call InitFont( YourFont ); */
 typedef struct {
 	SDL_Surface *Surface;
+    SDL_Texture *Texture;
 	int CharPos[512];
 	int MaxPos;
 } SFont_Font;
@@ -54,7 +55,7 @@ typedef struct {
 /* Initializes the font */
 /* Font: this contains the suface with the font. */
 /*       The Surface must be loaded before calling this function */
-SFont_Font* SFont_InitFont (SDL_Surface *Font);
+SFont_Font* SFont_InitFont (SDL_Renderer* Renderer, SDL_Surface *Font);
 
 /* Frees the font */
 /* Font: The font to free */
@@ -64,7 +65,7 @@ void SFont_FreeFont(SFont_Font* Font);
 /* Blits a string to a surface */
 /* Destination: the suface you want to blit to */
 /* text: a string containing the text you want to blit. */
-void SFont_Write(SDL_Surface *Surface, const SFont_Font *Font, int x, int y,
+void SFont_Write(SDL_Renderer *Surface, const SFont_Font *Font, int x, int y,
 				 const char *text);
 
 /* Returns the width of "text" in pixels */

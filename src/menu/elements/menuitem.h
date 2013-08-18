@@ -51,8 +51,8 @@ public:
 	virtual void leftPressed() = 0;
 	virtual void rightPressed() = 0;
 	virtual void selectPressed() = 0;
-	virtual void update(Uint8 *keys) = 0;
-	virtual void draw(SFont* font, int x, int y, int wid, SDL_Surface *screen);
+	virtual void update(const Uint8 *keys) = 0;
+	virtual void draw(SFont* font, int x, int y, int wid, SDL_Renderer *renderer);
 private: // methods
 	std::string calculateTextString(std::string option) const;
 private: // attributes

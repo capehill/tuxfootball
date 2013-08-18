@@ -35,7 +35,7 @@ class TileMap;
 /** Encapsulates everything to do with the pitch. */
 class Pitch {
 public:
-	Pitch(Graphics *renderer);
+	Pitch(Graphics *graphics);
 	~Pitch();
 	/** Returns true if the point given is on the pitch, false otherwise */
 	bool inBounds(int x, int y);
@@ -89,9 +89,9 @@ public:
 private:
 	int m_width, m_height;
 	SDL_Rect m_bound;
-	SDL_Surface *m_surface;
+	SDL_Texture *m_surface;
 	TileMap *m_pitchLines;
-	Graphics *m_renderer;
+	Graphics *m_graphics;
 
 	double m_goalBoundLeft;
 	double m_goalBoundRight;
@@ -107,9 +107,9 @@ private:
 	double m_penaltySpotTop;
 	double m_penaltySpotBottom;
 	double m_circleRadius;
-	SDL_Surface *m_goalPostTop;
-	SDL_Surface *m_goalPostBottom;
-	SDL_Surface *m_scratch;
+	SDL_Texture *m_goalPostTop;
+	SDL_Texture *m_goalPostBottom;
+	SDL_Texture *m_scratch;
 
 /*	int m_numScratches;
 	int *m_scratchList;

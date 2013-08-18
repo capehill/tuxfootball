@@ -35,16 +35,16 @@
 IngameStateBase::IngameStateBase(GameEngine &engine) :
 				m_engine(engine)
 {
-	m_score = SurfaceManager::instance()->load(engine.screen()->format, "graphics/score.png", false, true);
-	m_nameFont = FontManager::instance()->load(engine.screen()->format, "graphics/font_yellow.png", false, true);
-	m_scoreFont = FontManager::instance()->load(engine.screen()->format, "graphics/font_white.png", false, true);
+	m_score = SurfaceManager::instance(m_engine.renderer())->load("graphics/score.png", false, true);
+	m_nameFont = FontManager::instance(m_engine.renderer())->load("graphics/font_yellow.png", false, true);
+	m_scoreFont = FontManager::instance(m_engine.renderer())->load("graphics/font_white.png", false, true);
 }
 
 IngameStateBase::~IngameStateBase()
 {
-	if(m_score) SurfaceManager::instance()->release(m_score);
-	if(m_nameFont) FontManager::instance()->release(m_nameFont);
-	if(m_scoreFont) FontManager::instance()->release(m_scoreFont);
+	if(m_score) SurfaceManager::instance(m_engine.renderer())->release(m_score);
+	if(m_nameFont) FontManager::instance(m_engine.renderer())->release(m_nameFont);
+	if(m_scoreFont) FontManager::instance(m_engine.renderer())->release(m_scoreFont);
 }
 
 bool IngameStateBase::isGameInProgress() const
@@ -56,7 +56,10 @@ void IngameStateBase::renderFrame()
 {
 	SDL_Rect score_pos, score_size;
 
-	SDL_Surface* screen = m_engine.screen();
+	SDL_Renderer* renderer = m_engine.renderer();
+	int renderer_width, renderer_height;
+	SDL_GetRendererOutputSize(renderer, &renderer_width, &renderer_height);
+
 	//
 	// Draw Score background
 	//
@@ -65,11 +68,11 @@ void IngameStateBase::renderFrame()
 		score_size.y = 0;
 		score_size.w = 298;
 		score_size.h = 28;
-		score_pos.x = screen->w - score_size.w - 10;
+		score_pos.x = renderer_width - score_size.w - 10;
 		score_pos.y = 10;
 		score_pos.w = 298;
 		score_pos.h = 28;
-		if(SDL_BlitSurface(m_score, &score_size, screen, &score_pos) < 0) {
+		if(SDL_RenderCopy(renderer, m_score, &score_size, &score_pos) < 0) {
 			ERROR("could not blit score : " << SDL_GetError());
 		}
 	}
@@ -83,31 +86,27 @@ void IngameStateBase::renderFrame()
 	homeScoreStr << m_engine.score(GameEngine::HomeTeam);
 	awayScoreStr << m_engine.score(GameEngine::AwayTeam);
 
-	m_scoreFont->write(screen, homeScoreStr.str().c_str(), screen->w-228, 12);
-	m_scoreFont->write(screen, "-", screen->w-207, 12);
-	m_scoreFont->write(screen, awayScoreStr.str().c_str(), screen->w-193, 12);
+	m_scoreFont->write(renderer, homeScoreStr.str().c_str(), renderer_width-228, 12);
+	m_scoreFont->write(renderer, "-", renderer_width-207, 12);
+	m_scoreFont->write(renderer, awayScoreStr.str().c_str(), renderer_width-193, 12);
 
 	Team* homeTeam = m_engine.team(GameEngine::HomeTeam);
 	Team* awayTeam = m_engine.team(GameEngine::AwayTeam);
-	m_nameFont->write(screen, homeTeam->shortname().c_str(),
-		  screen->w-295, 12);
-	m_nameFont->write(screen, awayTeam->shortname().c_str(),
-		  screen->w-160, 12);
+	m_nameFont->write(renderer, homeTeam->shortname().c_str(), renderer_width-295, 12);
+	m_nameFont->write(renderer, awayTeam->shortname().c_str(), renderer_width-160, 12);
 
 
 	int scoreWidth = m_scoreFont->getTextWidth(homeScoreStr.str().c_str());
 	scoreWidth = (scoreWidth < m_scoreFont->getTextWidth(awayScoreStr.str().c_str())) ? scoreWidth : m_scoreFont->getTextWidth(awayScoreStr.str().c_str());
 	scoreWidth += 20;
 
-	int sm = screen->w/2;
+	int sm = renderer_width/2;
 
-	m_scoreFont->write(screen, homeScoreStr.str().c_str(), sm - scoreWidth, screen->h-34);
-	m_scoreFont->write(screen, awayScoreStr.str().c_str(), sm + 20, screen->h-34);
+	m_scoreFont->write(renderer, homeScoreStr.str().c_str(), sm - scoreWidth, renderer_height-34);
+	m_scoreFont->write(renderer, awayScoreStr.str().c_str(), sm + 20, renderer_height-34);
 
-	m_nameFont->write(screen, homeTeam->name().c_str(),
-		  sm - scoreWidth - m_nameFont->getTextWidth(homeTeam->name().c_str())-20, screen->h-34);
-	m_nameFont->write(screen, awayTeam->name().c_str(),
-		  sm+scoreWidth+20, screen->h-34);
+	m_nameFont->write(renderer, homeTeam->name().c_str(), sm - scoreWidth - m_nameFont->getTextWidth(homeTeam->name().c_str())-20, renderer_height-34);
+	m_nameFont->write(renderer, awayTeam->name().c_str(), sm+scoreWidth+20, renderer_height-34);
 
 	//
 	// Draw Time
@@ -123,5 +122,5 @@ void IngameStateBase::renderFrame()
 		str3 << ((2700 * timer)/halfLength)/60 << ":" << ((2700 * timer)/halfLength)%60;
 	}
 
-	m_scoreFont->write(screen, str3.str().c_str(), screen->w - m_scoreFont->getTextWidth(str3.str().c_str()) - 22, 12);
+	m_scoreFont->write(renderer, str3.str().c_str(), renderer_width - m_scoreFont->getTextWidth(str3.str().c_str()) - 22, 12);
 }

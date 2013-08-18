@@ -29,9 +29,10 @@
 
 #include "logger/logger.h"
 
-Graphics::Graphics(SDL_Surface *screen)
+Graphics::Graphics(SDL_Window *screen, SDL_Renderer* renderer)
 {
-	m_screenSurface = screen;
+	m_screen = screen;
+	m_renderer = renderer;
 }
 
 Graphics::~Graphics()
@@ -61,13 +62,13 @@ void Graphics::draw(int left, int top)
 	std::list<SpriteContainer>::iterator itt;
 
 	for(itt=m_sprites.begin(); itt!=m_sprites.end(); ++itt) {
-		(*(*itt))->drawShadow(left, top, m_screenSurface);
+		(*(*itt))->drawShadow(left, top, m_renderer);
 	}
 	for(itt=m_sprites.begin(); itt!=m_sprites.end(); ++itt) {
-		(*(*itt))->draw(left, top, m_screenSurface);
+		(*(*itt))->draw(left, top, m_renderer);
 	}
 	for(itt=m_sprites.begin(); itt!=m_sprites.end(); ++itt) {
-		(*(*itt))->drawOverlay(left, top, m_screenSurface);
+		(*(*itt))->drawOverlay(left, top, m_renderer);
 	}
 }
 
@@ -76,7 +77,10 @@ void Graphics::update()
 	m_sprites.sort();
 }
 
+SDL_Window *Graphics::screen() {
+	return m_screen;
+}
 
-SDL_Surface *Graphics::screen() {
-	return m_screenSurface;
+SDL_Renderer *Graphics::renderer() {
+	return m_renderer;
 }

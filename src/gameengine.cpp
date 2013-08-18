@@ -104,63 +104,88 @@ GameEngine::GameEngine(bool fullscreen) :
 		m_audioOpen = true;
 	}
 
-	m_sounds.push_back(SoundManager::instance()->load("sound/refwhistlelong.wav"));
-	m_sounds.push_back(SoundManager::instance()->load("sound/refwhistleshort.wav"));
-	m_sounds.push_back(SoundManager::instance()->load("sound/refwhistletwice.wav"));
-	m_sounds.push_back(SoundManager::instance()->load("sound/refwhistleend.wav"));
-	m_sounds.push_back(SoundManager::instance()->load("sound/crowdcheer.wav"));
-	m_sounds.push_back(SoundManager::instance()->load("sound/crowdboo.wav"));
-	m_sounds.push_back(SoundManager::instance()->load("sound/crowdooh.wav"));
+	m_sounds.push_back(SoundManager::instance(m_renderer)->load("sound/refwhistlelong.wav"));
+	m_sounds.push_back(SoundManager::instance(m_renderer)->load("sound/refwhistleshort.wav"));
+	m_sounds.push_back(SoundManager::instance(m_renderer)->load("sound/refwhistletwice.wav"));
+	m_sounds.push_back(SoundManager::instance(m_renderer)->load("sound/refwhistleend.wav"));
+	m_sounds.push_back(SoundManager::instance(m_renderer)->load("sound/crowdcheer.wav"));
+	m_sounds.push_back(SoundManager::instance(m_renderer)->load("sound/crowdboo.wav"));
+	m_sounds.push_back(SoundManager::instance(m_renderer)->load("sound/crowdooh.wav"));
 
 	m_quitKey = SDLK_ESCAPE;
 
 	m_resX = 800;
 	m_resY = 600;
 
-	uint sdl_flags = SDL_SWSURFACE;
-	if (m_fullscreen) sdl_flags |= SDL_FULLSCREEN;
-	m_screen = SDL_SetVideoMode(m_resX, m_resY, 32, sdl_flags);
-#ifdef HAVE_CONFIG_H
-	SDL_WM_SetCaption(PACKAGE_STRING, NULL);
-#else
-	SDL_WM_SetCaption("tuxfootball", NULL);
-#endif
-	if(m_screen == 0) {
+	uint sdl_flags = 0;
+	if (m_fullscreen) sdl_flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+	m_screen = SDL_CreateWindow("tuxfootball", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_resX, m_resY, sdl_flags);
+	if (!m_screen) {
 		m_finished = true;
-		ERROR("Unable to set " << m_resX << "x" << m_resY << " video: " << SDL_GetError());
+
+		m_nameFont = 0;
+		m_scoreFont = 0;
+
+		m_graphics = 0;
 		m_pitch = 0;
 		m_ball = 0;
 		m_homeTeam = 0;
 		m_awayTeam = 0;
-		m_renderer = 0;
+
+		ERROR("SDL_CreateWindow failed (" << m_resX << "x" << m_resY << "): " << SDL_GetError());
+
+		return;
+	}
+
+	m_renderer = SDL_CreateRenderer(m_screen, -1, SDL_RENDERER_ACCELERATED);
+
+	if (!m_screen) {
+		m_finished = true;
+
 		m_nameFont = 0;
 		m_scoreFont = 0;
-	} else {
-		// Load Fonts
-		m_nameFont = FontManager::instance()->load(m_screen->format, "graphics/font_yellow.png", false, true);
-		m_scoreFont = FontManager::instance()->load(m_screen->format, "graphics/font_white.png", false, true);
 
-		// Write out text to show our starting progress
-		m_scoreFont->write(m_screen, _("Starting Renderer"), 10, 10);
-		SDL_Flip(m_screen);
-		m_renderer = new Graphics(m_screen);
+		m_graphics = 0;
+		m_pitch = 0;
+		m_ball = 0;
+		m_homeTeam = 0;
+		m_awayTeam = 0;
 
-		m_scoreFont->write(m_screen, _("Loading Pitch"), 10, 40);
-		SDL_Flip(m_screen);
-		m_pitch = new Pitch(m_renderer);
+		ERROR("SDL_CreateRenderer failed: " << SDL_GetError());
 
-		m_scoreFont->write(m_screen, _("Loading Ball"), 10, 70);
-		SDL_Flip(m_screen);
-		m_ball = new Ball(m_renderer, m_pitch);
-
-		m_scoreFont->write(m_screen, _("Loading Team 1"), 10, 100);
-		SDL_Flip(m_screen);
-		m_homeTeam = new Team(this, "Blue Utd.", "BLU", "team1", "graphics/homeplayermarker.png", m_pitch, m_ball, true);
-
-		m_scoreFont->write(m_screen, _("Loading Team 2"), 10, 130);
-		SDL_Flip(m_screen);
-		m_awayTeam = new Team(this, "Red City", "RED", "team2", "graphics/awayplayermarker.png", m_pitch, m_ball, false);
+		return;
 	}
+
+	SDL_RendererInfo renderer_info;
+	SDL_GetRendererInfo(m_renderer, &renderer_info);
+	INFO("Rendering using " << renderer_info.name);
+
+	// Load Fonts
+	m_nameFont = FontManager::instance(m_renderer)->load("graphics/font_yellow.png", false, true);
+	m_scoreFont = FontManager::instance(m_renderer)->load("graphics/font_white.png", false, true);
+
+	SDL_RenderClear(m_renderer);
+
+	// Write out text to show our starting progress
+	m_scoreFont->write(m_renderer, _("Starting Renderer"), 10, 10);
+	SDL_RenderPresent(m_renderer);
+	m_graphics = new Graphics(m_screen, m_renderer);
+
+	m_scoreFont->write(m_renderer, _("Loading Pitch"), 10, 40);
+	SDL_RenderPresent(m_renderer);
+	m_pitch = new Pitch(m_graphics);
+
+	m_scoreFont->write(m_renderer, _("Loading Ball"), 10, 70);
+	SDL_RenderPresent(m_renderer);
+	m_ball = new Ball(m_graphics, m_pitch);
+
+	m_scoreFont->write(m_renderer, _("Loading Team 1"), 10, 100);
+	SDL_RenderPresent(m_renderer);
+	m_homeTeam = new Team(this, "Blue Utd.", "BLU", "team1", "graphics/homeplayermarker.png", m_pitch, m_ball, true);
+
+	m_scoreFont->write(m_renderer, _("Loading Team 2"), 10, 130);
+	SDL_RenderPresent(m_renderer);
+	m_awayTeam = new Team(this, "Red City", "RED", "team2", "graphics/awayplayermarker.png", m_pitch, m_ball, false);
 
 	SDL_Rect r = {(Sint16)(m_resX/2), (Sint16)(m_resY/2), (Uint16)(m_pitch->width()-(m_resX)), (Uint16)(m_pitch->height()-(m_resY))};
 	m_camera.setBoundingRect(r);
@@ -205,15 +230,15 @@ GameEngine::~GameEngine()
 
 	if(m_homeController) delete m_homeController;
 	if(m_awayController) delete m_awayController;
-	if(m_renderer) delete m_renderer;
+	if(m_graphics) delete m_graphics;
 
-	if(m_nameFont) FontManager::instance()->release(m_nameFont);
-	if(m_scoreFont) FontManager::instance()->release(m_scoreFont);
+	if(m_nameFont) FontManager::instance(m_renderer)->release(m_nameFont);
+	if(m_scoreFont) FontManager::instance(m_renderer)->release(m_scoreFont);
 
 	std::vector<Mix_Chunk *>::iterator it = m_sounds.begin();
 	while(it != m_sounds.end())
 	{
-		if(*it) SoundManager::instance()->release((*it));
+		if(*it) SoundManager::instance(m_renderer)->release((*it));
 		++it;
 	}
 
@@ -225,6 +250,9 @@ GameEngine::~GameEngine()
 		delete(*itt);
 		++itt;
 	}
+
+	SDL_DestroyRenderer(m_renderer);
+	SDL_DestroyWindow(m_screen);
 }
 
 void GameEngine::gameLoop()
@@ -233,7 +261,9 @@ void GameEngine::gameLoop()
 	m_music = 0;
 
 	int nextTime = SDL_GetTicks();
-	m_camera.setPosition(Point3D(m_pitch->width()/2, m_pitch->height()-m_screen->h));
+	int renderer_width, renderer_height;
+	SDL_GetRendererOutputSize(m_renderer, &renderer_width, &renderer_height);
+	m_camera.setPosition(Point3D(m_pitch->width()/2, m_pitch->height()-renderer_height));
 
 	m_finished = false;
 	// Let's start with the title screen
@@ -367,6 +397,7 @@ void GameEngine::iterateEngine()
 
 void GameEngine::drawFrame()
 {
+	SDL_RenderClear(m_renderer);
 	int left = (int)m_camera.position().x() - m_resX/2;
 	int top = (int)m_camera.position().y() - m_resY/2;
 
@@ -374,8 +405,8 @@ void GameEngine::drawFrame()
 	m_pitch->draw(left, top);
 
 	// Now render the players
-	m_renderer->update();
-	m_renderer->draw(left, top);
+	m_graphics->update();
+	m_graphics->draw(left, top);
 
 	// Finally render additional information depending on the gamestate
 	m_gameStates[m_currentState]->renderFrame();
@@ -384,11 +415,13 @@ void GameEngine::drawFrame()
 	if(m_displayFPS) {
 		std::ostringstream str4;
 		str4 << "FPS : " << m_framesPerSecond;
-		m_scoreFont->write(m_screen, str4.str().c_str(), m_screen->w - 10 - m_scoreFont->getTextWidth(str4.str().c_str()), 40);
+		int renderer_width, renderer_height;
+		SDL_GetRendererOutputSize(m_renderer, &renderer_width, &renderer_height);
+		m_scoreFont->write(m_renderer, str4.str().c_str(), renderer_width - 10 - m_scoreFont->getTextWidth(str4.str().c_str()), 40);
 	}
 
 	// Now put everything on screen
-	SDL_Flip(m_screen);
+	SDL_RenderPresent(m_renderer);
 }
 
 bool GameEngine::finished()
@@ -444,7 +477,7 @@ void GameEngine::updateKeyboard()
 		if(event.type == SDL_QUIT) m_finished = 1;
 	}
 
-	Uint8 *keys = SDL_GetKeyState(NULL);
+	const Uint8 *keys = SDL_GetKeyboardState(NULL);
 
 	m_homeController->updateController(keys);
 	m_awayController->updateController(keys);
@@ -583,7 +616,7 @@ void GameEngine::initialiseMatch()
 
 Player *GameEngine::addPlayer(std::string skin, std::string playerMarker, Team *team, bool goalkeeper)
 {
-	Player *p = new Player(m_renderer, skin, playerMarker, m_pitch, team, m_ball, goalkeeper);
+	Player *p = new Player(m_graphics, skin, playerMarker, m_pitch, team, m_ball, goalkeeper);
 
 	m_playerList.push_back(PlayerContainer(p));
 
@@ -628,9 +661,14 @@ Controller *GameEngine::controller(ControllerType controller)
 	}
 }
 
-SDL_Surface *GameEngine::screen()
+SDL_Window *GameEngine::screen()
 {
 	return m_screen;
+}
+
+SDL_Renderer *GameEngine::renderer()
+{
+	return m_renderer;
 }
 
 Team *GameEngine::team(TeamTypes team)
@@ -678,10 +716,11 @@ uint GameEngine::score(TeamTypes team) const
 
 void GameEngine::setFullScreen(bool fullscreen)
 {
-	bool old = m_fullscreen;
 	m_fullscreen = fullscreen;
-	if (old != m_fullscreen)
-	SDL_WM_ToggleFullScreen(m_screen);
+	if (fullscreen)
+		SDL_SetWindowFullscreen(m_screen, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	else
+		SDL_SetWindowFullscreen(m_screen, 0);
 }
 
 bool GameEngine::fullScreen() const

@@ -24,6 +24,7 @@
 #endif
 
 #include "statebase.h"
+#include "logger/logger.h"
 
 StateBase::StateBase()
 {
@@ -33,6 +34,6 @@ StateBase::~StateBase()
 {
 }
 
-void StateBase::update(Uint8 *keys)
+void StateBase::update(const Uint8 *keys)
 {
 }

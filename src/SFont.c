@@ -65,7 +65,7 @@ static Uint32 GetPixel(SDL_Surface *Surface, Sint32 X, Sint32 Y)
    return -1;
 }
 
-SFont_Font* SFont_InitFont(SDL_Surface* Surface)
+SFont_Font* SFont_InitFont(SDL_Renderer* Renderer, SDL_Surface* Surface)
 {
     int x = 0, i = 0;
     Uint32 pixel;
@@ -73,28 +73,29 @@ SFont_Font* SFont_InitFont(SDL_Surface* Surface)
     Uint32 pink;
 
     if (Surface == NULL)
-	return NULL;
+        return NULL;
 
     Font = (SFont_Font *) malloc(sizeof(SFont_Font));
     Font->Surface = Surface;
+    Font->Texture = SDL_CreateTextureFromSurface(Renderer, Surface);
 
     SDL_LockSurface(Surface);
 
     pink = SDL_MapRGB(Surface->format, 255, 0, 255);
     while (x < Surface->w) {
-	if (GetPixel(Surface, x, 0) == pink) {
-    	    Font->CharPos[i++]=x;
-    	    while((x < Surface->w) && (GetPixel(Surface, x, 0)== pink))
-		x++;
-	    Font->CharPos[i++]=x;
-	}
-	x++;
+        if (GetPixel(Surface, x, 0) == pink) {
+            Font->CharPos[i++]=x;
+            while((x < Surface->w) && (GetPixel(Surface, x, 0)== pink))
+                x++;
+            Font->CharPos[i++]=x;
+        }
+        x++;
     }
     Font->MaxPos = x-1;
 
     pixel = GetPixel(Surface, 0, Surface->h-1);
     SDL_UnlockSurface(Surface);
-    SDL_SetColorKey(Surface, SDL_SRCCOLORKEY, pixel);
+    SDL_SetColorKey(Surface, SDL_TRUE, pixel);
 
     return Font;
 }
@@ -105,39 +106,41 @@ void SFont_FreeFont(SFont_Font* FontInfo)
     free(FontInfo);
 }
 
-void SFont_Write(SDL_Surface *Surface, const SFont_Font *Font,
-		 int x, int y, const char *text)
+void SFont_Write(SDL_Renderer *Renderer, const SFont_Font *Font,
+                 int x, int y, const char *text)
 {
     const char* c;
     int charoffset;
     SDL_Rect srcrect, dstrect;
 
     if(text == NULL)
-	return;
+        return;
 
     /* these values won't change in the loop */
     srcrect.y = 1;
     dstrect.y = y;
     srcrect.h = dstrect.h = Font->Surface->h - 1;
 
-    for(c = text; *c != '\0' && x <= Surface->w ; c++) {
-	charoffset = ((int) (*c - 33)) * 2 + 1;
-	/* skip spaces and nonprintable characters */
-	if (*c == ' ' || charoffset < 0 || charoffset > Font->MaxPos) {
-	    x += Font->CharPos[2]-Font->CharPos[1];
-	    continue;
-	}
+    int renderer_width, renderer_height;
+    SDL_GetRendererOutputSize(Renderer, &renderer_width, &renderer_height);
 
-	srcrect.w = dstrect.w =
-	    (Font->CharPos[charoffset+2] + Font->CharPos[charoffset+1])/2 -
-	    (Font->CharPos[charoffset] + Font->CharPos[charoffset-1])/2;
-	srcrect.x = (Font->CharPos[charoffset]+Font->CharPos[charoffset-1])/2;
-	dstrect.x = x - (float)(Font->CharPos[charoffset]
-			      - Font->CharPos[charoffset-1])/2;
+    for(c = text; *c != '\0' && x <= renderer_width ; c++) {
+        charoffset = ((int) (*c - 33)) * 2 + 1;
+        /* skip spaces and nonprintable characters */
+        if (*c == ' ' || charoffset < 0 || charoffset > Font->MaxPos) {
+            x += Font->CharPos[2] - Font->CharPos[1];
+            continue;
+        }
 
-	SDL_BlitSurface(Font->Surface, &srcrect, Surface, &dstrect);
+        srcrect.w = dstrect.w =
+            (Font->CharPos[charoffset+2] + Font->CharPos[charoffset+1])/2 -
+            (Font->CharPos[charoffset] + Font->CharPos[charoffset-1])/2;
+        srcrect.x = (Font->CharPos[charoffset]+Font->CharPos[charoffset-1])/2;
+        dstrect.x = x - (float)(Font->CharPos[charoffset] - Font->CharPos[charoffset-1])/2;
 
-	x += Font->CharPos[charoffset+1] - Font->CharPos[charoffset];
+        SDL_RenderCopy(Renderer, Font->Texture, &srcrect, &dstrect);
+
+        x += Font->CharPos[charoffset+1] - Font->CharPos[charoffset];
     }
 }
 
@@ -148,17 +151,17 @@ int SFont_TextWidth(const SFont_Font *Font, const char *text)
     int width = 0;
 
     if(text == NULL)
-	return 0;
+        return 0;
 
     for(c = text; *c != '\0'; c++) {
-	charoffset = ((int) *c - 33) * 2 + 1;
-	/* skip spaces and nonprintable characters */
+        charoffset = ((int) *c - 33) * 2 + 1;
+        /* skip spaces and nonprintable characters */
         if (*c == ' ' || charoffset < 0 || charoffset > Font->MaxPos) {
             width += Font->CharPos[2]-Font->CharPos[1];
-	    continue;
-	}
+            continue;
+        }
 
-	width += Font->CharPos[charoffset+1] - Font->CharPos[charoffset];
+        width += Font->CharPos[charoffset+1] - Font->CharPos[charoffset];
     }
 
     return width;
@@ -170,9 +173,9 @@ int SFont_TextHeight(const SFont_Font* Font)
 }
 
 void SFont_WriteCenter(SDL_Surface *Surface, const SFont_Font *Font,
-		       int y, const char *text)
+                       int y, const char *text)
 {
     SFont_Write(Surface, Font, Surface->w/2 - SFont_TextWidth(Font, text)/2,
-	    	y, text);
+                    y, text);
 }
 

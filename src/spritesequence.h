@@ -28,7 +28,7 @@
 #include "SDL.h"
 
 struct Sprite {
-	SDL_Surface *surface[8];
+	SDL_Texture *surface[8];
 	int duration;
 };
 
@@ -36,9 +36,9 @@ struct Sprite {
  * an animation. */
 class SpriteSequence {
 public:
-	SpriteSequence(SDL_PixelFormat *format, std::string dirname, std::string animname, int animationFrames, bool repeats);
+	SpriteSequence(SDL_Renderer *renderer, std::string dirname, std::string animname, int animationFrames, bool repeats);
 	~SpriteSequence();
-	SDL_Surface *surface(int direction);
+	SDL_Texture *surface(int direction);
 	void updateSequence();
 	void restartSequence();
 private:
@@ -47,6 +47,7 @@ private:
 	std::list<Sprite>::iterator m_current;
 	int m_spriteTime;
 	bool m_repeats;
+	SDL_Renderer *m_renderer;
 };
 
 #endif /* TUXFOOTBALL_SPRITESEQUENECE */

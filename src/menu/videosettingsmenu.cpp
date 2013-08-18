@@ -28,8 +28,8 @@
 #include "elements/menubutton.h"
 #include "elements/menuoptionlist.h"
 
-VideoSettingsMenu::VideoSettingsMenu(bool currentMode, SDL_Surface *screen, std::string name) :
-							Menu(screen, name),
+VideoSettingsMenu::VideoSettingsMenu(bool currentMode, SDL_Renderer *renderer, std::string name) :
+							Menu(renderer, name),
 							m_fullscreen(currentMode)
 {
 	addItem(m_modes = new MenuOptionList(this, "Video mode", "videomode"));

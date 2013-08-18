@@ -124,14 +124,20 @@ tuxfootball_SOURCES = \
 	gettext.h
 
 tuxfootball_LDFLAGS = \
-	$(SDL_LIBS) \
+	$(SDL2_LIBS) \
+	$(SDL2_IMAGE_LIBS) \
+	$(SDL2_MIXER_LIBS) \
 	$(LTLIBINTL)
 
-tuxfootball_CFLAGS =    \
-	$(SDL_CFLAGS)
+tuxfootball_CFLAGS = \
+	$(SDL2_CFLAGS) \
+	$(SDL2_IMAGE_CFLAGS) \
+	$(SDL2_MIXER_CFLAGS)
 
-tuxfootball_CXXFLAGS =      \
-	$(SDL_CFLAGS)
+tuxfootball_CXXFLAGS = \
+	$(SDL2_CFLAGS) \
+	$(SDL2_IMAGE_CFLAGS) \
+	$(SDL2_MIXER_CFLAGS)
 
 localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@

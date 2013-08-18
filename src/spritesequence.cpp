@@ -31,9 +31,9 @@
 
 #include "resources/surfacemanager.h"
 
-SpriteSequence::SpriteSequence(SDL_PixelFormat *format, std::string dirname, std::string animname, int animationFrames, bool repeats)
+SpriteSequence::SpriteSequence(SDL_Renderer *renderer, std::string dirname, std::string animname, int animationFrames, bool repeats)
 {
-	m_format = format;
+	m_renderer = renderer;
 	m_repeats = repeats;
 
 	std::list<std::string> subdirs;
@@ -60,7 +60,7 @@ SpriteSequence::SpriteSequence(SDL_PixelFormat *format, std::string dirname, std
 			}
 			filename = dirname + "/" + *ci + "/" + animname + filename + ".png";
 
-			sprite.surface[direction] = SurfaceManager::instance()->load(m_format, filename, true, false);
+			sprite.surface[direction] = SurfaceManager::instance(m_renderer)->load(filename, true, false);
 			direction++;
 		}
 		sprite.duration = 1;
@@ -76,15 +76,16 @@ SpriteSequence::~SpriteSequence()
 {
 	std::list<Sprite>::iterator itt;
 
+	SurfaceManager* surfaceManager = SurfaceManager::instance(m_renderer);
 	for(itt = m_seq.begin(); itt!=m_seq.end(); ++itt) {
 		for(int count = 0; count<8; count++) {
-			SurfaceManager::instance()->release((*itt).surface[count]);
+			surfaceManager->release((*itt).surface[count]);
 		}
 	}
 }
 
 
-SDL_Surface *SpriteSequence::surface(int currentDirection)
+SDL_Texture *SpriteSequence::surface(int currentDirection)
 {
 	return (*m_current).surface[currentDirection];
 }

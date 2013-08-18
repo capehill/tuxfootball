@@ -32,22 +32,22 @@ class Team;
 /** Player and CPU control. */
 class Controller {
 public:
-	Controller(Team *team, Team *opp, SDLKey up, SDLKey down, SDLKey left, SDLKey right, SDLKey shoot, SDLKey pass, bool isCPU, Ball *ball, Pitch *pitch);
+	Controller(Team *team, Team *opp, SDL_Keycode up, SDL_Keycode down, SDL_Keycode left, SDL_Keycode right, SDL_Keycode shoot, SDL_Keycode pass, bool isCPU, Ball *ball, Pitch *pitch);
 	~Controller();
-	void updateController(Uint8 *keys);
+	void updateController(const Uint8 *keys);
 	void updateComputer();
-	SDLKey keyUp();
-	SDLKey keyDown();
-	SDLKey keyLeft();
-	SDLKey keyRight();
-	SDLKey keyPass();
-	SDLKey keyShoot();
-	void setKeyUp(SDLKey key);
-	void setKeyDown(SDLKey key);
-	void setKeyLeft(SDLKey key);
-	void setKeyRight(SDLKey key);
-	void setKeyPass(SDLKey key);
-	void setKeyShoot(SDLKey key);
+	SDL_Keycode keyUp();
+	SDL_Keycode keyDown();
+	SDL_Keycode keyLeft();
+	SDL_Keycode keyRight();
+	SDL_Keycode keyPass();
+	SDL_Keycode keyShoot();
+	void setKeyUp(SDL_Keycode key);
+	void setKeyDown(SDL_Keycode key);
+	void setKeyLeft(SDL_Keycode key);
+	void setKeyRight(SDL_Keycode key);
+	void setKeyPass(SDL_Keycode key);
+	void setKeyShoot(SDL_Keycode key);
 	void setCPU(bool cpu);
 private:
 	int m_shootCount;
@@ -55,12 +55,12 @@ private:
 	Player *m_lastPlayer;
 	Team *m_team;
 	Team *m_oppTeam;
-	SDLKey m_up;
-	SDLKey m_down;
-	SDLKey m_left;
-	SDLKey m_right;
-	SDLKey m_shoot;
-	SDLKey m_pass;
+	SDL_Keycode m_up;
+	SDL_Keycode m_down;
+	SDL_Keycode m_left;
+	SDL_Keycode m_right;
+	SDL_Keycode m_shoot;
+	SDL_Keycode m_pass;
 	bool m_isCPU;
 	Ball *m_ball;
 	Pitch *m_pitch;

@@ -35,7 +35,7 @@ class GameEngine;
 class MainMenu : public Menu
 {
 public:
-	MainMenu(GameEngine *gameEngine, Controller *home, Controller *away,  SDL_Surface *screen, std::string name);
+	MainMenu(GameEngine *gameEngine, Controller *home, Controller *away, SDL_Renderer *renderer, std::string name);
 	~MainMenu();
 private:
 	GameEngine *m_gameEngine;

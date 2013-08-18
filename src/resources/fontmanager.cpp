@@ -26,6 +26,8 @@
 #include "fontmanager.h"
 
 #include <iostream>
+#include <SDL_image.h>
+
 
 #include "surfacemanager.h"
 #include "const.h"
@@ -33,16 +35,23 @@
 
 std::map<std::string, ManagedFont> FontManager::m_fonts;
 
-SFont *FontManager::load(std::string filename)
-{
-	// FIXME: Dummy, we need the SDL_PixelFormat
-	return 0;
+FontManager::FontManager(SDL_Renderer* renderer) : ResourceManager(renderer) {
 }
 
-SFont *FontManager::load(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha)
+SFont *FontManager::load(std::string filename)
 {
 	if(m_fonts[filename].refCount == 0) {
-		return add(format, filename, colorKey, alpha);
+		return add(filename);
+	} else {
+		m_fonts[filename].refCount++;
+		return m_fonts[filename].font;
+	}
+}
+
+SFont *FontManager::load(std::string filename, bool colorKey, bool alpha)
+{
+	if(m_fonts[filename].refCount == 0) {
+		return add(filename, colorKey, alpha);
 	} else {
 		m_fonts[filename].refCount++;
 		return m_fonts[filename].font;
@@ -62,7 +71,7 @@ void FontManager::release(SFont *font)
 				// NOTE: This only works because we changed SFont_FreeFont NOT
 				// to release the surface
 				delete ((*itt).second.font);
-				SurfaceManager::instance()->release((*itt).second.surface);
+				SDL_FreeSurface((*itt).second.surface);
 				m_fonts.erase(itt);
 			}
 			return;
@@ -76,14 +85,57 @@ void FontManager::release(SFont *font)
 
 SFont *FontManager::add(std::string filename)
 {
-	// FIXME: Dummy, we need the SDL_PixelFormat
-	return 0;
+	// Try and load any image format. If that fails, Crash 'n burn :-)
+
+	SDL_Surface *fontSurface = 0;
+	int data_dirs = sizeof(data_dir)/sizeof(std::string);
+	for (int i = 0; i < data_dirs; i++) {
+		std::string imgfile = std::string(data_dir[i]);
+		imgfile.append("/");
+		imgfile.append(filename.c_str());
+		fontSurface = IMG_Load(imgfile.c_str());
+		if (fontSurface) break;
+	}
+
+	if (!fontSurface) {	
+		ERROR("could not load image : " << SDL_GetError());
+		return 0;
+	}
+
+	SFont* font = new SFont(m_renderer, fontSurface);
+	
+	if(!font) {
+		ERROR("Tried to add font \"" << filename.c_str() << "\" but failed");
+		return 0;
+	}
+
+	m_fonts[filename].font = font;
+	m_fonts[filename].refCount = 1;
+	m_fonts[filename].surface = fontSurface;
+
+	return m_fonts[filename].font;
 }
 
-SFont *FontManager::add(SDL_PixelFormat *format, std::string filename, bool colorKey, bool alpha)
+SFont *FontManager::add(std::string filename, bool colorKey, bool alpha)
 {
-	SDL_Surface* fontSurface = SurfaceManager::instance()->load(format, filename, colorKey, alpha);
-	SFont* font = new SFont(fontSurface);
+	// Try and load any image format. If that fails, Crash 'n burn :-)
+
+	SDL_Surface *fontSurface = 0;
+	int data_dirs = sizeof(data_dir)/sizeof(std::string);
+	for (int i = 0; i < data_dirs; i++) {
+		std::string imgfile = std::string(data_dir[i]);
+		imgfile.append("/");
+		imgfile.append(filename.c_str());
+		fontSurface = IMG_Load(imgfile.c_str());
+		if (fontSurface) break;
+	}
+
+	if (!fontSurface) {	
+		ERROR("could not load image : " << SDL_GetError());
+		return 0;
+	}
+
+	SFont* font = new SFont(m_renderer, fontSurface);
 	
 	if(!font) {
 		ERROR("Tried to add font \"" << filename.c_str() << "\" but failed");

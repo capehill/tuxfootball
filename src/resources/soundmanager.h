@@ -35,6 +35,7 @@ struct ManagedSound {
 
 class SoundManager : public ResourceManager<Mix_Chunk, SoundManager> {
 public:
+	SoundManager(SDL_Renderer* renderer);
 	virtual Mix_Chunk *load(std::string filename);
 	virtual void release(Mix_Chunk *file);
 protected:

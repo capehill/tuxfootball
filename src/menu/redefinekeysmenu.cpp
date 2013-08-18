@@ -36,8 +36,8 @@
 #include "elements/menukeyselect.h"
 #include "controller.h"
 
-RedefineKeysMenu::RedefineKeysMenu(Controller *home, Controller *away, SDL_Surface *screen, std::string name) :
-							Menu(screen, name),
+RedefineKeysMenu::RedefineKeysMenu(Controller *home, Controller *away, SDL_Renderer *renderer, std::string name) :
+							Menu(renderer, name),
 							m_home(home),
 							m_away(away)
 {

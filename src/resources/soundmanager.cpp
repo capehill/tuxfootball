@@ -31,6 +31,9 @@
 
 std::map<std::string, ManagedSound> SoundManager::m_sounds;
 
+SoundManager::SoundManager(SDL_Renderer* renderer) : ResourceManager(renderer) {
+}
+
 Mix_Chunk *SoundManager::load(std::string filename)
 {
 	if(m_sounds[filename].refCount == 0) {

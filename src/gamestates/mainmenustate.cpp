@@ -92,7 +92,7 @@ void MainMenuState::initialiseMenu()
 {
 	Menu *menu = new MainMenu(&m_engine, m_engine.controller(GameEngine::HomeController),
 					m_engine.controller(GameEngine::AwayController),
-					m_engine.screen(), "TitleScreen");
+					m_engine.renderer(), "TitleScreen");
 	menu->show();
 	setMenu(menu);
 }

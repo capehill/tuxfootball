@@ -48,8 +48,8 @@ public:
 	void leftPressed();
 	void rightPressed();
 	void selectPressed();
-	void update(Uint8 *keys);
-	void draw(SFont* font, int x, int y, int wid, SDL_Surface *screen);
+	virtual void update(const Uint8 *keys);
+	void draw(SFont* font, int x, int y, int wid, SDL_Renderer *renderer);
 private:
 	std::string m_name;
 	std::string m_identifier;
