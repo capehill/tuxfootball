@@ -74,7 +74,7 @@ int SFont_TextWidth(const SFont_Font* Font, const char *text);
 int SFont_TextHeight(const SFont_Font* Font);
 
 /* Blits a string to Surface with centered x position */
-void SFont_WriteCenter(SDL_Surface *Surface, const SFont_Font* Font, int y,
+void SFont_WriteCenter(SDL_Renderer *Renderer, const SFont_Font* Font, int y,
 					   const char *text);
 
 #ifdef __cplusplus

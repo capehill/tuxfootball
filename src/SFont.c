@@ -172,10 +172,13 @@ int SFont_TextHeight(const SFont_Font* Font)
     return Font->Surface->h - 1;
 }
 
-void SFont_WriteCenter(SDL_Surface *Surface, const SFont_Font *Font,
+void SFont_WriteCenter(SDL_Renderer *Renderer, const SFont_Font *Font,
                        int y, const char *text)
 {
-    SFont_Write(Surface, Font, Surface->w/2 - SFont_TextWidth(Font, text)/2,
+    int renderer_width, renderer_height;
+    SDL_GetRendererOutputSize(Renderer, &renderer_width, &renderer_height);
+
+    SFont_Write(Renderer, Font, renderer_width/2 - SFont_TextWidth(Font, text)/2,
                     y, text);
 }
 
