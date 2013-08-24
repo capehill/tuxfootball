@@ -96,6 +96,7 @@ for LAYER in "1" "2"; do
 			render ${TEAMDIR}${POSTFIX} ${DEGREE} ${TARGETDIR} 'walking' 10 49
 			render ${TEAMDIR}${POSTFIX} ${DEGREE} ${TARGETDIR} 'running' 60 99
 			render ${TEAMDIR}${POSTFIX} ${DEGREE} ${TARGETDIR} 'tackling' 110 134
+			render ${TEAMDIR}${POSTFIX} ${DEGREE} ${TARGETDIR} 'throwing' 140 149
 			render ${TEAMDIR}${POSTFIX} ${DEGREE} ${TARGETDIR} 'header' 160 180
 			rm -f player${DEGREE}.blend rotate${DEGREE}.py
 		done
