@@ -1,26 +1,30 @@
 # Rotate the player and change its jersey color
 # (used during batch rendering)
 
-import Blender
-Blender.Load("player.blend")
-
-import Blender
+import bpy
 import math
-import time
-
-time.sleep(1)
+#import os
+#basename = os.path.splitext(os.path.basename(bpy.data.filepath))[0]
 
 rotadd = XX_DEGREE_XX * math.pi / 180
 
-armature = Blender.Object.Get("Armature")
-armature.rot.z = rotadd
+armature = bpy.data.objects["Armature"]
+armature.rotation_euler[2] = rotadd
 
-gloves = Blender.Object.Get("Gloves")
-gloves.layers = [XX_LAYER_XX]
+gloves = bpy.data.objects["Gloves"]
+gloves.layers[0] = False
+gloves.layers[XX_LAYER_XX] = True
 
-material = Blender.Material.Get("Jersey")
-material.rgbCol = [ XX_COLOR_XX ]
+material = bpy.data.materials["Jersey"]
+material.diffuse_color = [ XX_COLOR_XX ]
 
-Blender.Save("playerXX_DEGREE_XX.blend", 1)
+sceneKey = bpy.data.scenes.keys()[0]
+bpy.data.scenes[sceneKey].render.alpha_mode = 'TRANSPARENT'
+bpy.data.scenes[sceneKey].render.image_settings.file_format = 'PNG'
+bpy.data.scenes[sceneKey].render.image_settings.quality = 100
+#bpy.data.scenes[sceneKey].render.filepath = basename
+#bpy.ops.render.render(write_still = True)
 
-Blender.Quit()
+bpy.ops.wm.save_as_mainfile(filepath = "playerXX_DEGREE_XX.blend")
+
+bpy.ops.wm.quit_blender()

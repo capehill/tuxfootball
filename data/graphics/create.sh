@@ -69,7 +69,7 @@ for LAYER in "1" "2"; do
 			echo "Creating ${TEAMDIR} ${DEGREE}° perspective"
 			echo "Creating ${TEAMDIR} ${DEGREE}° perspective" >> create.log
 			sed -e "s:XX_DEGREE_XX:${DEGREE}:g" -e "s:XX_COLOR_XX:${COLOR}:g" -e "s:XX_LAYER_XX:${LAYER}:g" rotate.py > rotate${DEGREE}.py
-			blender -P rotate${DEGREE}.py >> create.log
+			blender -b player.blend -P rotate${DEGREE}.py >> create.log
 			TARGETDIR='failed'
 			if [ "${DEGREE}" = "0" ]; then
 				TARGETDIR="se"
