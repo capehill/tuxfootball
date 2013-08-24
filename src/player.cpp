@@ -355,26 +355,33 @@ void Player::resetMove()
 void Player::updateMove()
 {
 	switch(m_move) {
-		case Stand: 		m_stand->updateSequence();
-					break;
+		case Stand:
+			m_stand->updateSequence();
+			break;
 		case Limp:
-		case Walk: 		m_walk->updateSequence();
-					break;
-		case Run: 		m_run->updateSequence();
-					break;
+		case Walk:
+			m_walk->updateSequence();
+			break;
+		case Run:
+			m_run->updateSequence();
+			break;
 		case Tackle:
-		case HeavyTackle:	m_tackle->updateSequence();
-					break;
-		case Header:		m_header->updateSequence();
-					break;
-		case Pass:		m_run->updateSequence();
-					break;
-		case Shoot:		m_run->updateSequence();
-					break;
+		case HeavyTackle:
+			m_tackle->updateSequence();
+			break;
+		case Header:
+			m_header->updateSequence();
+			break;
+		case Pass:
+			m_run->updateSequence();
+			break;
+		case Shoot:
+			m_run->updateSequence();
+			break;
 		case FallOver:
 		default:
-					WARN("FIXME : case " << m_move << " not handles in updateMove");
-					break;
+			WARN("FIXME : case " << m_move << " not handles in updateMove");
+			break;
 	}
 }
 
