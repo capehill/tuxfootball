@@ -8,6 +8,9 @@ desktopdir = $(datadir)/applications
 desktop_in_files = tuxfootball.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
+appdatadir = $(datadir)/appdata
+appdata_DATA = tuxfootball.appdata.xml
+
 icondir = $(datadir)/icons/hicolor/128x128/apps
 icon_DATA = tuxfootball.png
 
@@ -22,6 +25,7 @@ tuxfootballdoc_DATA = \
 	src/SFont-README
 
 EXTRA_DIST = $(tuxfootballdoc_DATA) \
+	$(appdata_DATA) \
 	$(icon_DATA) \
 	$(desktop_DATA) \
 	$(data_DATA) src/gettext.h
