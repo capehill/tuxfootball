@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+ <id type="desktop">tuxfootball.desktop</id>
+ <licence>CC0</licence>
+ <name>Tux Football</name>
+ <summary>a fun arcade-style 2D soccer (sometimes called football) game, very reminsicent of Sensible Soccer and Kick Off</summary>
+ <description>
+  <p>
+   Tux Football is a great 2D soccer (sometimes called football) game. It's bringing old style gameplay
+   from DOS times back to the desktop with up to date graphics! It's gameplay is similar to old classics
+   such as Amco's Kick Off and Sensible Software's Sensible Soccer.
+  </p>
+  <p>
+   The gameplay is designed to be quick, responsive and fun. You are always in control of the player closest
+   to the ball. The ball is controled via two differentn kick buttons - one for pass, and one for shoot.
+   Aftertouch can be applied to shots by quickly pressing and holding the direction you want the ball to bend
+   towards. Pushing in the opposite direction to what you kicked the ball makes it raise into the air, pushing
+   in the same direction as the ball makes it dip towards the ground.
+  </p>
+ </description>
+ <screenshots>
+  <screenshot type="default" width="800" height="600">http://tuxfootball.sourceforge.net/content/gallery/Screenshots/tuxfootball-menu.png</screenshot>
+  <screenshot width="800" height="600">http://tuxfootball.sourceforge.net/content/gallery/Screenshots/new-skin.png</screenshot>
+ </screenshots>
+ <url type="homepage">http://tuxfootball.sourceforge.net</url>
+ <updatecontact>updatecontact</updatecontact>
+</application>
