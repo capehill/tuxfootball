@@ -65,21 +65,21 @@ Pitch::Pitch(Graphics *graphics)
 		m_pitchLines = new TileMap(m_graphics->screen(), m_graphics->renderer(), "graphics/pitchlines");
 
 		m_surface = SurfaceManager::instance(m_graphics->renderer())->load("graphics/pitchtile.png", false, false);
-		m_goalPostTop = SurfaceManager::instance(m_graphics->renderer())->load("graphics/goalposttop.tga", true, false);
-		m_goalPostBottom = SurfaceManager::instance(m_graphics->renderer())->load("graphics/goalpostbottom.tga", true, false);
+		m_goalPostTop = SurfaceManager::instance(m_graphics->renderer())->load("graphics/goalposttop.png", true, false);
+		m_goalPostBottom = SurfaceManager::instance(m_graphics->renderer())->load("graphics/goalpostbottom.png", true, false);
 		m_scratch = SurfaceManager::instance(m_graphics->renderer())->load("graphics/scratch.png", true, false);
 
-		SDL_Rect sr = {-256, -150, 0, 0};
+		SDL_Rect sr = {-256, -250, 0, 0};
 		SDL_Rect sh = {0,0,0,0};
 		SDL_Rect so = {0,0,0,0};
 
 		m_goalPostSpriteTop = new SpriteObject(m_goalPostTop, 0, 0,
-							Point3D(centerX(), topBound()),
+							Point3D(centerX(), topBound() + 85),
 							sr, sh, so);
 
 		sr.y = -110;
 		m_goalPostSpriteBottom = new SpriteObject(m_goalPostBottom, 0, 0,
-							Point3D(centerX(), bottomBound()),
+							Point3D(centerX(), bottomBound() + 60),
 							sr, sh, so);
 
 		m_graphics->addSprite(m_goalPostSpriteTop);
