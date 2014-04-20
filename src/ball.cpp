@@ -61,7 +61,7 @@ Ball::Ball(Graphics *graphics, Pitch *pitch) :
 	// Create the sprite for the ball including it's shadow (and no overlay for the ball)
 	SDL_Rect sr = {-4, -9, 0, 0};
 	SDL_Rect sh = {-1, -7, 0, 0};
-	SDL_Rect sa;
+	SDL_Rect sa = {0, 0, 0, 0};
 	m_object = new SpriteObject(m_football, m_shadow, 0,  position(), sr, sh, sa);
 	m_graphics->addSprite(m_object);
 
