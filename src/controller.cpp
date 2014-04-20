@@ -175,11 +175,7 @@ void Controller::updateComputer()
 	
 	Point3D goalCenter(m_pitch->centerX(),
 				m_team->topHalf() ? m_pitch->bottomBound() : m_pitch->topBound());
-	
-	/** Closest Direction to the opponents goal mouth. */
-	int dirGoIn = player->closestDirection(Point3D(m_pitch->centerX(), 
-				m_team->topHalf() ? m_pitch->bottomBound() : m_pitch->topBound()));
-	
+
 	/** Closest direction to reach the balls position */
 	int dirBall = player->closestDirection(m_ball->position());
 
@@ -244,7 +240,7 @@ void Controller::updateComputer()
 					}
 				} else {
 					// If the ball isn't moving towards us, we run to intercept it.
-					dirGoIn = player->closestDirection(m_ball->position() + (m_ball->velocity().setZ(0).normalise() * 200));
+					int dirGoIn = player->closestDirection(m_ball->position() + (m_ball->velocity().setZ(0).normalise() * 200));
 					player->turnTo(dirGoIn);
 					player->setMove(Player::Run);
 				}
