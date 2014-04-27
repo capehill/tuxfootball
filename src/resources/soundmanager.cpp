@@ -75,7 +75,11 @@ Mix_Chunk *SoundManager::add(std::string filename)
 		soundfile.append("/");
 		soundfile.append(filename.c_str());
 		sound = Mix_LoadWAV(soundfile.c_str());
-		if (sound) break;
+		if (sound) {
+			DEBUG("Trying to load " << soundfile << ": SUCCESS");
+			break;
+		}
+		DEBUG("Trying to load " << soundfile << ": FAILED");
 	}
 
 	if(!sound) {

@@ -77,13 +77,14 @@ int main(int argc, char *argv[])
 					break;
 				case 'd':
 					Logger::setLevel(Logger::Debug);
+					DEBUG("Enabled debug logging");
 					break;
 			}
 		}
 	}
 
 #ifdef HAVE_GETTEXT
-	INFO("Reading locales from " << LOCALEDIR);
+	DEBUG("Reading locales from " << LOCALEDIR);
 	// Intialize gettext
 	setlocale (LC_ALL, "");
 	bindtextdomain(PACKAGE_NAME, LOCALEDIR);
@@ -96,8 +97,10 @@ int main(int argc, char *argv[])
 		die("Couldn't initialize SDL: %s\n", SDL_GetError());
 	atexit(SDL_Quit);
 
+	DEBUG("Setting up game engine");
 	GameEngine engine(fullscreen);
 
+	DEBUG("Starting game ...");
 	engine.gameLoop();
 
 	return 0;
