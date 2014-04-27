@@ -58,12 +58,12 @@ Menu::Menu(SDL_Renderer *renderer, std::string name)
 	// FIXME: GCC 4 issue m_active = 0;
 
 	std::string str = "graphics/font_white.png";
-	m_activeFont = FontManager::instance(renderer)->load(str, false, true);
+	m_activeFont = FontManager::instance(renderer)->load(str);
 	str = "graphics/font_yellow.png";
-	m_inactiveFont = FontManager::instance(renderer)->load(str, false, true);
+	m_inactiveFont = FontManager::instance(renderer)->load(str);
 
-	m_logo = SurfaceManager::instance(renderer)->load("graphics/tuxfootball.png", false, true);
-	m_background = SurfaceManager::instance(renderer)->load("graphics/menu_background.png", false, true);
+	m_logo = SurfaceManager::instance(renderer)->load("graphics/tuxfootball.png");
+	m_background = SurfaceManager::instance(renderer)->load("graphics/menu_background.png");
 
 	m_beep = SoundManager::instance(renderer)->load("sound/beep.wav");
 	m_incrementBeep = SoundManager::instance(renderer)->load("sound/increment_beep.wav");

@@ -49,7 +49,7 @@ void FullTimeState::enterState()
 	} else {
 		m_engine.team(GameEngine::HomeTeam)->setupHalfTime();
 		m_engine.team(GameEngine::AwayTeam)->setupHalfTime();
-		m_logo = SurfaceManager::instance(m_engine.renderer())->load("graphics/fulltime.png", false, true);
+		m_logo = SurfaceManager::instance(m_engine.renderer())->load("graphics/fulltime.png");
 	}
 }
 

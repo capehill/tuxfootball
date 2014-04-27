@@ -50,8 +50,8 @@ Ball::Ball(Graphics *graphics, Pitch *pitch) :
 {
 
 	if(m_graphics && m_graphics->renderer()) {
-		m_football = SurfaceManager::instance(m_graphics->renderer())->load("graphics/football.png", true, false);
-		m_shadow = SurfaceManager::instance(m_graphics->renderer())->load("graphics/footballshadow.png", true, false);
+		m_football = SurfaceManager::instance(m_graphics->renderer())->load("graphics/football.png");
+		m_shadow = SurfaceManager::instance(m_graphics->renderer())->load("graphics/footballshadow.png");
 	} else {
 		ERROR("Screen not defined - cannot initialise ball graphics");
 		m_football = 0;

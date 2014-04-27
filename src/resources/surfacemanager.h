@@ -41,15 +41,11 @@ public:
 	SurfaceManager(SDL_Renderer* renderer);
 	virtual SDL_Texture *load(std::string filename);
 
-	/** If colorKey is true, then the image will use the top-leftmost pixel as the color key. */
-	virtual SDL_Texture *load(std::string filename, bool colorKey, bool alpha);
 	virtual void release(SDL_Texture *surface);
 protected:
-	virtual SDL_Texture *add(std::string filename, bool colorKey, bool alpha);
 	virtual SDL_Texture *add(std::string filename);
 private:
 	static std::map<std::string, ManagedSurface> m_surfaces;
-	static Uint32 getPixel(SDL_Texture *surface, int x, int y);
 };
 
 #endif /* TUXFOOTBALL_SURFACEMANAGER */

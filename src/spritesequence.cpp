@@ -60,7 +60,7 @@ SpriteSequence::SpriteSequence(SDL_Renderer *renderer, std::string dirname, std:
 			}
 			filename = dirname + "/" + *ci + "/" + animname + filename + ".png";
 
-			sprite.surface[direction] = SurfaceManager::instance(m_renderer)->load(filename, true, false);
+			sprite.surface[direction] = SurfaceManager::instance(m_renderer)->load(filename);
 			direction++;
 		}
 		sprite.duration = 1;

@@ -79,7 +79,7 @@ void MenuStateBase::renderFrame()
 void MenuStateBase::enterState()
 {
 	initialiseMenu();
-	m_logo = SurfaceManager::instance(m_engine.renderer())->load("graphics/tuxfootball.png", false, true);
+	m_logo = SurfaceManager::instance(m_engine.renderer())->load("graphics/tuxfootball.png");
 }
 
 void MenuStateBase::clearLogo()

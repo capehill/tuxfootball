@@ -64,10 +64,10 @@ Pitch::Pitch(Graphics *graphics)
 	if(m_graphics && (m_graphics->renderer())) {
 		m_pitchLines = new TileMap(m_graphics->screen(), m_graphics->renderer(), "graphics/pitchlines");
 
-		m_surface = SurfaceManager::instance(m_graphics->renderer())->load("graphics/pitchtile.png", false, false);
-		m_goalPostTop = SurfaceManager::instance(m_graphics->renderer())->load("graphics/goalposttop.png", true, false);
-		m_goalPostBottom = SurfaceManager::instance(m_graphics->renderer())->load("graphics/goalpostbottom.png", true, false);
-		m_scratch = SurfaceManager::instance(m_graphics->renderer())->load("graphics/scratch.png", true, false);
+		m_surface = SurfaceManager::instance(m_graphics->renderer())->load("graphics/pitchtile.png");
+		m_goalPostTop = SurfaceManager::instance(m_graphics->renderer())->load("graphics/goalposttop.png");
+		m_goalPostBottom = SurfaceManager::instance(m_graphics->renderer())->load("graphics/goalpostbottom.png");
+		m_scratch = SurfaceManager::instance(m_graphics->renderer())->load("graphics/scratch.png");
 
 		SDL_Rect sr = {-256, -250, 0, 0};
 		SDL_Rect sh = {0,0,0,0};

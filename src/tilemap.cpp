@@ -90,7 +90,7 @@ TileMap::TileMap(SDL_Window *screen, SDL_Renderer *renderer, std::string path)
 			} else {
 				std::ostringstream file;
 				file << path << "/tile" << word.str() << ".png";
-				setTileSurface(x, y,  surfaceManager->load(file.str(), false, true));
+				setTileSurface(x, y,  surfaceManager->load(file.str()));
 			}
 		}
 	}

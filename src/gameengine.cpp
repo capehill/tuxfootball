@@ -161,8 +161,8 @@ GameEngine::GameEngine(bool fullscreen) :
 	INFO("Rendering using " << renderer_info.name);
 
 	// Load Fonts
-	m_nameFont = FontManager::instance(m_renderer)->load("graphics/font_yellow.png", false, true);
-	m_scoreFont = FontManager::instance(m_renderer)->load("graphics/font_white.png", false, true);
+	m_nameFont = FontManager::instance(m_renderer)->load("graphics/font_yellow.png");
+	m_scoreFont = FontManager::instance(m_renderer)->load("graphics/font_white.png");
 
 	SDL_RenderClear(m_renderer);
 

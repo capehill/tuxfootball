@@ -45,7 +45,7 @@ void HalfTimeState::enterState()
 {
 	m_engine.team(GameEngine::HomeTeam)->setupHalfTime();
 	m_engine.team(GameEngine::AwayTeam)->setupHalfTime();
-	m_logo = SurfaceManager::instance(m_engine.renderer())->load("graphics/halftime.png", false, true);
+	m_logo = SurfaceManager::instance(m_engine.renderer())->load("graphics/halftime.png");
 }
 
 void HalfTimeState::leaveState()

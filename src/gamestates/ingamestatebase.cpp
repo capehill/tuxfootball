@@ -35,9 +35,9 @@
 IngameStateBase::IngameStateBase(GameEngine &engine) :
 				m_engine(engine)
 {
-	m_score = SurfaceManager::instance(m_engine.renderer())->load("graphics/score.png", false, true);
-	m_nameFont = FontManager::instance(m_engine.renderer())->load("graphics/font_yellow.png", false, true);
-	m_scoreFont = FontManager::instance(m_engine.renderer())->load("graphics/font_white.png", false, true);
+	m_score = SurfaceManager::instance(m_engine.renderer())->load("graphics/score.png");
+	m_nameFont = FontManager::instance(m_engine.renderer())->load("graphics/font_yellow.png");
+	m_scoreFont = FontManager::instance(m_engine.renderer())->load("graphics/font_white.png");
 }
 
 IngameStateBase::~IngameStateBase()
