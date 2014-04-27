@@ -10,4 +10,4 @@ if(GETTEXT_XGETTEXT_EXECUTABLE)
   execute_process(COMMAND ${GETTEXT_XGETTEXT_EXECUTABLE} --files-from=${CMAKE_SOURCE_DIR}/po/POTFILES.in --output=${CMAKE_SOURCE_DIR}/po/tuxfootball.pot -k_)
 endif(GETTEXT_XGETTEXT_EXECUTABLE)
 
-GETTEXT_CREATE_TRANSLATIONS(tuxfootball.pot ALL de.po)
+GETTEXT_CREATE_TRANSLATIONS(tuxfootball.pot ALL de.po gd.po)

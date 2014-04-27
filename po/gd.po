@@ -1,0 +1,134 @@
+# Scotttish Gaelic tuxfootball translation.
+# Copyright (C) 2007
+# This file is distributed under the same license as the tuxfootball package.
+# Christoph Brill <egore@users.sourceforge.net>, 2007.
+# GunChleoc <fios@foramnagaidhlig.net>, 2014.
+msgid ""
+msgstr ""
+"Project-Id-Version: tuxfootball\n"
+"Report-Msgid-Bugs-To: http://tuxfootball.sourceforge.net/\n"
+"POT-Creation-Date: 2012-04-09 16:00+0200\n"
+"PO-Revision-Date: 2014-04-21 23:39-0000\n"
+"Last-Translator: GunChleoc <fiosAIGforamnagaidhligDOTnet>\n"
+"Language-Team: Fòram na Gàidhlig http://www.foramnagaidhlig.net\n"
+"Language: gd\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
+"(n > 2 && n < 20) ? 2 : 3;\n"
+"X-Generator: Poedit 1.6.4\n"
+
+#: src/gameengine.cpp:142
+msgid "Starting Renderer"
+msgstr "A' tòiseachadh an reandaraiche"
+
+#: src/gameengine.cpp:146
+msgid "Loading Pitch"
+msgstr "A' luchdadh raon-cluiche"
+
+#: src/gameengine.cpp:150
+msgid "Loading Ball"
+msgstr "A' luchdadh bàla"
+
+#: src/gameengine.cpp:154
+msgid "Loading Team 1"
+msgstr "A' luchdadh sgioba 1"
+
+#: src/gameengine.cpp:158
+msgid "Loading Team 2"
+msgstr "A' luchdadh sgioba 2"
+
+#: src/gamestates/mainmenustate.cpp:67 src/menu/mainmenu.cpp:65
+#: src/menu/redefinekeysmenu.cpp:58
+msgid "Exit"
+msgstr "Fàg"
+
+#: src/gamestates/mainmenustate.cpp:70 src/menu/mainmenu.cpp:49
+msgid "Play Game!"
+msgstr "Tòisich air geama"
+
+#: src/gamestates/mainmenustate.cpp:72 src/gamestates/redefinekeysstate.cpp:76
+#: src/menu/mainmenu.cpp:64
+msgid "Redefine Keys"
+msgstr "Roghainnean a' mheur-chlàir"
+
+#: src/gamestates/mainmenustate.cpp:74 src/menu/mainmenu.cpp:63
+msgid "Video Settings"
+msgstr "Roghainnean na grafaigeachd"
+
+#: src/menu/mainmenu.cpp:50
+msgid "Half Length :"
+msgstr "Leth-ùine :"
+
+#: src/menu/mainmenu.cpp:51
+msgid "1 minute"
+msgstr "1 mhionaid"
+
+#: src/menu/mainmenu.cpp:52
+msgid "2 minutes"
+msgstr "2 mhionaid"
+
+#: src/menu/mainmenu.cpp:53
+msgid "5 minutes"
+msgstr "5 mionaidean"
+
+#: src/menu/mainmenu.cpp:54
+msgid "10 minutes"
+msgstr "10 mionaidean"
+
+#: src/menu/mainmenu.cpp:55
+msgid "20 minutes"
+msgstr "20 mionaid"
+
+#: src/menu/mainmenu.cpp:56
+msgid "45 minutes"
+msgstr "45 mionaid"
+
+#: src/menu/mainmenu.cpp:58
+msgid "Players :"
+msgstr "Cluicheadairean :"
+
+#: src/menu/mainmenu.cpp:59
+msgid "Player V Computer"
+msgstr "Duine an aghaidh a' choimpiutair"
+
+#: src/menu/mainmenu.cpp:60
+msgid "Player V Player"
+msgstr "Duine an aghaidh daoine"
+
+#: src/menu/mainmenu.cpp:61
+msgid "Computer V Computer"
+msgstr "Coimpiutair an aghaidh coimpiutair"
+
+#: src/menu/redefinekeysmenu.cpp:44
+msgid "Player 1:"
+msgstr "Cluicheadair 1:"
+
+#: src/menu/redefinekeysmenu.cpp:45 src/menu/redefinekeysmenu.cpp:52
+msgid "Up:"
+msgstr "Suas:"
+
+#: src/menu/redefinekeysmenu.cpp:46 src/menu/redefinekeysmenu.cpp:53
+msgid "Down:"
+msgstr "Sìos:"
+
+#: src/menu/redefinekeysmenu.cpp:47 src/menu/redefinekeysmenu.cpp:54
+msgid "Left:"
+msgstr "Gu clì:"
+
+#: src/menu/redefinekeysmenu.cpp:48 src/menu/redefinekeysmenu.cpp:55
+msgid "Right:"
+msgstr "Gu deas:"
+
+#: src/menu/redefinekeysmenu.cpp:49 src/menu/redefinekeysmenu.cpp:56
+msgid "Pass:"
+msgstr "Pas:"
+
+#: src/menu/redefinekeysmenu.cpp:50 src/menu/redefinekeysmenu.cpp:57
+msgid "Shoot:"
+msgstr "Breab:"
+
+#: src/menu/redefinekeysmenu.cpp:51
+msgid "Player 2:"
+msgstr "Cluicheadair 2:"
