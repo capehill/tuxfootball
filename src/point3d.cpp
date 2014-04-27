@@ -139,11 +139,6 @@ double Point3D::dotProduct(Point3D point) const
 	return m_x * point.x() + m_y*point.y() + m_z*point.z();	
 }
 
-void Point3D::applyArbitraryRotation(Point3D &axis, double theta)
-{
-
-}
-
 Point3D Point3D::normalise() const
 {
 	double k;

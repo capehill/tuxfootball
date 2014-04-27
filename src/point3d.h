@@ -37,7 +37,6 @@ public:
 	Point3D operator-(Point3D vec) const;
 	Point3D &operator-=(Point3D vec);	
 	Point3D &setZ(double z);
-	void applyArbitraryRotation(Point3D &axis, double theta);
 	double x() const;
 	double y() const;
 	double z() const;
