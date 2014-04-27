@@ -455,8 +455,12 @@ bool Pitch::insideTheArea(const Point3D &pos, bool top)
 
 void Pitch::scratchSurface(const Point3D &pos)
 {
-/*	m_scratchList[m_curScratch*2] = (int)pos.x();
+#if 0
+	m_scratchList[m_curScratch*2] = (int)pos.x();
 	m_scratchList[m_curScratch*2+1] = (int)pos.y();
 
-	m_curScratch = (m_curScratch + 1) % m_numScratches;*/
+	m_curScratch = (m_curScratch + 1) % m_numScratches;
+#else
+	(void) pos;
+#endif
 }

@@ -36,4 +36,5 @@ StateBase::~StateBase()
 
 void StateBase::update(const Uint8 *keys)
 {
+	(void)keys;
 }
