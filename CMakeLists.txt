@@ -2,6 +2,10 @@
 # currently untested
 cmake_minimum_required(VERSION 2.8.6)
 
+# Set global error and warning options (will likely fail on windows builds)
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -g")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall")
+
 # By default look for modules (e.g. Findsdl2.cmake) in the cmake-folder
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 
