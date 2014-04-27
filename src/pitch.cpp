@@ -101,6 +101,7 @@ Pitch::Pitch(Graphics *graphics)
 
 Pitch::~Pitch()
 {
+	delete m_pitchLines;
 	SurfaceManager::instance(m_graphics->renderer())->release(m_surface);
 
 	m_graphics->removeSprite(m_goalPostSpriteTop);

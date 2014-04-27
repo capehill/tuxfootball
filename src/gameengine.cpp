@@ -224,6 +224,7 @@ GameEngine::GameEngine(bool fullscreen) :
 
 GameEngine::~GameEngine()
 {
+	if(m_ball) delete m_ball;
 	if(m_pitch) delete m_pitch;
 	if(m_homeTeam) delete m_homeTeam;
 	if(m_awayTeam) delete m_awayTeam;
