@@ -32,6 +32,18 @@ if (GETTEXT_FOUND)
 endif (GETTEXT_FOUND)
 
 install(FILES tuxfootball.desktop DESTINATION share/applications/)
-install(FILES tuxfootball.png DESTINATION share/icons/hicolor/128x128/apps)
+install(
+	FILES
+	icons/128x128/apps/tuxfootball.png
+	icons/256x256/apps/tuxfootball.png
+	icons/64x64/apps/tuxfootball.png
+	icons/16x16/apps/tuxfootball.png
+	icons/24x24/apps/tuxfootball.png
+	icons/32x32/apps/tuxfootball.png
+	icons/48x48/apps/tuxfootball.png
+	icons/512x512/apps/tuxfootball.png
+	DESTINATION
+	share/icons/hicolor
+)
 install(FILES AUTHORS COPYING NEWS README DESTINATION doc/tuxfootball)
 install(FILES tuxfootball.appdata.xml DESTINATION share/appdata)
