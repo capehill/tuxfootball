@@ -1,0 +1,13 @@
+find_program(GETTEXT_FIND_EXECUTABLE find)
+if(GETTEXT_FIND_EXECUTABLE)
+  message(STATUS "Rebuilding POTFILES.in")
+  execute_process(COMMAND ${GETTEXT_FIND_EXECUTABLE} ./src -name "*.cpp" WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} OUTPUT_FILE ${CMAKE_SOURCE_DIR}/po/POTFILES.in)
+endif(GETTEXT_FIND_EXECUTABLE)
+
+find_program(GETTEXT_XGETTEXT_EXECUTABLE xgettext)
+if(GETTEXT_XGETTEXT_EXECUTABLE)
+  message(STATUS "Rebuilding tuxfootball.pot")
+  execute_process(COMMAND ${GETTEXT_XGETTEXT_EXECUTABLE} --files-from=${CMAKE_SOURCE_DIR}/po/POTFILES.in --output=${CMAKE_SOURCE_DIR}/po/tuxfootball.pot -k_)
+endif(GETTEXT_XGETTEXT_EXECUTABLE)
+
+GETTEXT_CREATE_TRANSLATIONS(tuxfootball.pot ALL de.po)
