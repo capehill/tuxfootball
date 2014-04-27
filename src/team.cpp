@@ -501,7 +501,7 @@ Player *Team::calculateClosestPlayers(Point3D point)
 	return m_firstPlayer;
 }
 
-void Team::setupGoalKick(bool attack, bool left, bool onFloor)
+void Team::setupGoalKick(bool left, bool onFloor)
 {
 	int count;
 	double spacing;

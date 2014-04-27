@@ -43,7 +43,7 @@ public:
 	void setFormation(int defense, int midfield, int attack);	
 	void setupCorner(bool left, bool attack);
 	void setupKickoff(bool attack);	
-	void setupGoalKick(bool attack, bool left, bool onFloor);
+	void setupGoalKick(bool left, bool onFloor);
 	void setupThrowIn(const Point3D &pos, bool attack);
 	void setupHalfTime();
 	void setupExtraTime();

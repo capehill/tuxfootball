@@ -536,8 +536,8 @@ void GameEngine::setSubMode(SubMode mode, bool home, bool left, const Point3D &p
 		case GoalKick :
 			DEBUG("Prepare GoalKick");
 			WARN("FIXME : Goal Kicks are always on the floor at present.");
-			m_homeTeam->setupGoalKick(home, left, true);
-			m_awayTeam->setupGoalKick(!home, left, true);
+			m_homeTeam->setupGoalKick(left, true);
+			m_awayTeam->setupGoalKick(left, true);
 			setTimer(Stop);
 			setBallPreparedPosition(m_pitch->goalKickSpot(left, home ? m_homeTeam->topHalf() : m_awayTeam->topHalf()));
 			playSound(RefWhistleTwice);
