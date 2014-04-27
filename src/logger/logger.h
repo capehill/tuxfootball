@@ -43,9 +43,11 @@ private:
 	static LogLevel m_level;
 };
 
-#define DEBUG(text) {std::ostringstream oss; if (Logger::Debug >= Logger::level()) Logger::log((std::ostringstream&)(oss << "[DEBUG] " << text));}
-#define INFO(text) {std::ostringstream oss; if (Logger::Info >= Logger::level()) Logger::log((std::ostringstream&)(oss << "[INFO] " << text));}
-#define WARN(text) {std::ostringstream oss; if (Logger::Warn >= Logger::level()) Logger::err((std::ostringstream&)(oss << "[WARN] " << text));}
-#define ERROR(text) {std::ostringstream oss; if (Logger::Error >= Logger::level()) Logger::err((std::ostringstream&)(oss << "[ERROR] " << text));}
+#define RELATIVE_FILE (strstr(__FILE__, "/src/") ? strstr(__FILE__, "/src/") + 5 : __FILE__)
+
+#define DEBUG(text) {std::ostringstream oss; if (Logger::Debug >= Logger::level()) Logger::log((std::ostringstream&)(oss << "[DEBUG] " << RELATIVE_FILE << ":" << __LINE__ << ' ' << text));}
+#define INFO(text)  {std::ostringstream oss; if (Logger::Info >= Logger::level())  Logger::log((std::ostringstream&)(oss << "[INFO]  " << RELATIVE_FILE << ":" << __LINE__ << ' ' << text)); }
+#define WARN(text)  {std::ostringstream oss; if (Logger::Warn >= Logger::level())  Logger::err((std::ostringstream&)(oss << "[WARN]  " << RELATIVE_FILE << ":" << __LINE__ << ' ' << text)); }
+#define ERROR(text) {std::ostringstream oss; if (Logger::Error >= Logger::level()) Logger::err((std::ostringstream&)(oss << "[ERROR] " << RELATIVE_FILE << ":" << __LINE__ << ' ' << text));}
 
 #endif /* TUXFOOTBALL_LOGGER */
