@@ -26,7 +26,7 @@
 #include <string>
 
 #ifdef PACKAGE_DATA_DIR
-const std::string data_dir[] = { (std::string(PACKAGE_DATA_DIR)+"/tuxfootball").c_str(), "./data", "/usr/local/share/tuxfootball" };
+const std::string data_dir[] = { PACKAGE_DATA_DIR, "./data", "/usr/local/share/tuxfootball" };
 #else
 const std::string data_dir[] = { "./data", "/usr/local/share/tuxfootball" };
 #endif
