@@ -34,6 +34,14 @@ find_package(Gettext)
 if (GETTEXT_FOUND)
 	add_definitions( -DENABLE_NLS=1 -DHAVE_GETTEXT=1 -DLOCALEDIR="${CMAKE_INSTALL_PREFIX}/share/locale" )
 endif (GETTEXT_FOUND)
+FIND_PACKAGE(GTest)
+
+IF (GTEST_FOUND)
+	ENABLE_TESTING()
+	ADD_EXECUTABLE(point3dtest tests/point3dtest.cpp src/point3d.cpp src/matrix.cpp)
+	TARGET_LINK_LIBRARIES(point3dtest gtest_main gtest boost_regex)
+	ADD_TEST(NAME point3dtest WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} COMMAND point3dtest)
+ENDIF (GTEST_FOUND)
 
 # Let's continue in the src-directory
 add_subdirectory(src)
