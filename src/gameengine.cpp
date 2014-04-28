@@ -231,7 +231,6 @@ GameEngine::~GameEngine()
 
 	if(m_homeController) delete m_homeController;
 	if(m_awayController) delete m_awayController;
-	if(m_graphics) delete m_graphics;
 
 	if(m_nameFont) FontManager::instance(m_renderer)->release(m_nameFont);
 	if(m_scoreFont) FontManager::instance(m_renderer)->release(m_scoreFont);
@@ -252,6 +251,9 @@ GameEngine::~GameEngine()
 		++itt;
 	}
 
+	m_playerList.clear();
+
+	if(m_graphics) delete m_graphics;
 	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyWindow(m_screen);
 }
