@@ -2,10 +2,6 @@
 # currently untested
 cmake_minimum_required(VERSION 2.8.6)
 
-# Set global error and warning options (will likely fail on windows builds)
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -g")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra")
-
 # By default look for modules (e.g. Findsdl2.cmake) in the cmake-folder
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 
@@ -13,6 +9,22 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 project(tuxfootball CXX C)
 set(PROJECT_VERSION 0.3.90)
 add_definitions( -DPACKAGE_NAME="${PROJECT_NAME}" -DPACKAGE_VERSION="${PROJECT_VERSION}" -DPACKAGE_DATA_DIR="${CMAKE_INSTALL_PREFIX}/share/tuxfootball" )
+
+# Set global error and warning options (will likely fail on windows builds)
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -g -fno-omit-frame-pointer")
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+	message(STATUS "using Clang")
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+	message(STATUS "using GCC")
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
+	message(STATUS "using Intel C++")
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+	message(STATUS "using Visual Studio C++")
+else()
+	message(STATUS "using unkown ${CMAKE_CXX_COMPILER_ID}")
+endif()
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra")
+
 
 find_package(SDL2)
 find_package(SDL2_image)
