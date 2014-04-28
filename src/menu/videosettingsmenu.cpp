@@ -29,8 +29,7 @@
 #include "elements/menuoptionlist.h"
 
 VideoSettingsMenu::VideoSettingsMenu(bool currentMode, SDL_Renderer *renderer, std::string name) :
-							Menu(renderer, name),
-							m_fullscreen(currentMode)
+							Menu(renderer, name)
 {
 	addItem(m_modes = new MenuOptionList(this, "Video mode", "videomode"));
 	m_modes->addOption("Fullscreen", true);

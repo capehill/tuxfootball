@@ -45,7 +45,7 @@
 double Ball::bounceFactor = 0.6;
 
 Ball::Ball(Graphics *graphics, Pitch *pitch) :
-	Body(Point3D(0, 0, 300), Point3D(0, 0, 0), Rect()),
+	Body(Point3D(0, 0, 300), Point3D(0, 0, 0)),
 	m_pitch(pitch), m_graphics(graphics), m_lastPosition(position())
 {
 

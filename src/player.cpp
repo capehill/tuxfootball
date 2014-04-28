@@ -61,7 +61,7 @@ double Player::runDistance = 20000;
 
 
 Player::Player(Graphics *graphics, std::string skin, std::string playerMarker, Pitch *pitch, Team *team, Ball *ball, bool goalie) :
-	Body(Point3D(512.0, 1024.0, 0.0), Point3D(0.0, 0.0, 0.0), Rect()),
+	Body(Point3D(512.0, 1024.0, 0.0), Point3D(0.0, 0.0, 0.0)),
 	m_desiredPosition(Point3D(512.0, 1024.0, 0.0))
 {
 	m_limpSpeed = 1.5;

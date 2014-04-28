@@ -30,7 +30,7 @@
 class Body {
 public:
 	Body();
-	Body(const Point3D position, const Point3D velocity, const SDL_Rect boundingBox);
+	Body(const Point3D position, const Point3D velocity);
 	virtual ~Body();
 	virtual Point3D position();
 	virtual Point3D velocity();
@@ -42,7 +42,6 @@ public:
 private:
 	Point3D m_position;
 	Point3D m_velocity;
-	SDL_Rect m_boundingBox;
 };
 
 #endif /* TUXFOOTBALL_BODY */

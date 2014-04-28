@@ -32,7 +32,7 @@
 
 Camera::Camera() :
 	m_accel(0.25),
-	m_body(Point3D(0, 0, 0), Point3D(0, 0, 0), Rect()),
+	m_body(Point3D(0, 0, 0), Point3D(0, 0, 0)),
 	m_dest(Point3D(0, 0, 0)),
 	m_target(0)
 {

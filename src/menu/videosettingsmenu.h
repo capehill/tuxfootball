@@ -38,7 +38,6 @@ public:
 
 	bool	currentMode() const;
 private:
-	bool m_fullscreen;
 
 	MenuOptionList *m_modes;
 };

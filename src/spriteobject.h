@@ -56,7 +56,6 @@ public:
 	void drawOverlay(int left, int top, SDL_Renderer *renderer);
 
 private:
-	bool m_toDraw;
 	SDL_Texture *m_surface;
 	SDL_Texture *m_shadow;
 	SDL_Texture *m_overlay;

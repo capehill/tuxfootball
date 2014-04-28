@@ -42,7 +42,6 @@ public:
 	void updateSequence();
 	void restartSequence();
 private:
-	SDL_PixelFormat *m_format;
 	std::list<Sprite> m_seq;
 	std::list<Sprite>::iterator m_current;
 	int m_spriteTime;

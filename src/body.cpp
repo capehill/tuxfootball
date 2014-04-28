@@ -33,10 +33,9 @@ Body::Body()
 {
 }
 
-Body::Body(const Point3D position, const Point3D velocity, const SDL_Rect boundingBox) :
+Body::Body(const Point3D position, const Point3D velocity) :
 		m_position(position),
-		m_velocity(velocity),
-		m_boundingBox(boundingBox)
+		m_velocity(velocity)
 {
 }
 
