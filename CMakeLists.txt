@@ -14,6 +14,7 @@ add_definitions( -DPACKAGE_NAME="${PROJECT_NAME}" -DPACKAGE_VERSION="${PROJECT_V
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -g -fno-omit-frame-pointer")
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 	message(STATUS "using Clang")
+	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address")
 elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 	message(STATUS "using GCC")
 elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
