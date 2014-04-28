@@ -556,10 +556,12 @@ bool Player::applyAftertouch(int direction)
 
 
 	// Rotate direction vector by so many radians around the direction vector.
-	Point3D udv = dirVal[direction];
-	udv = Matrix::arbitraryTransform(ubv, 1.2) * udv;
+	if (direction >= 0 || direction < 8) {
+		Point3D udv = dirVal[direction];
+		udv = Matrix::arbitraryTransform(ubv, 1.2) * udv;
 
-	m_ball->accelerate(udv * 0.07);
+		m_ball->accelerate(udv * 0.07);
+	}
 
 	return true;
 }
