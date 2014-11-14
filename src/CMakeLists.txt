@@ -41,8 +41,8 @@ include_directories(${SDL2IMAGE_INCLUDE_DIR})
 add_executable(tuxfootball ${SOURCE_FILES} ${HEADER_FILES})
 
 target_link_libraries (tuxfootball ${SDL2_LIBRARY})
-target_link_libraries (tuxfootball ${SDLMIXER_LIBRARY})
-target_link_libraries (tuxfootball ${SDL2IMAGE_LIBRARY})
+target_link_libraries (tuxfootball ${SDL2_MIXER_LIBRARIES})
+target_link_libraries (tuxfootball ${SDL2_IMAGE_LIBRARIES})
 
 install(TARGETS tuxfootball DESTINATION bin)
 install(FILES SFont-README DESTINATION doc/tuxfootball)
