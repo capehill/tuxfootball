@@ -27,9 +27,9 @@ endif()
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra")
 
 
-find_package(SDL2)
-find_package(SDL2_image)
-find_package(SDL2_mixer)
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
+find_package(SDL2_mixer REQUIRED)
 find_package(Gettext)
 if (GETTEXT_FOUND)
 	add_definitions( -DENABLE_NLS=1 -DHAVE_GETTEXT=1 -DLOCALEDIR="${CMAKE_INSTALL_PREFIX}/share/locale" )
