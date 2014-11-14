@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxfootball\n"
 "Report-Msgid-Bugs-To: http://tuxfootball.sourceforge.net/\n"
-"POT-Creation-Date: 2014-04-27 19:10+0200\n"
+"POT-Creation-Date: 2014-11-14 14:32+0100\n"
 "PO-Revision-Date: 2010-11-21 20:11+0100\n"
 "Last-Translator: Christoph Brill <egore911@egore911.de>\n"
 "Language-Team: German <egore@users.sourceforge.net>\n"
@@ -44,11 +44,13 @@ msgstr "5 Minuten"
 msgid "Computer V Computer"
 msgstr "Computer gegen Computer"
 
-#: src/menu/redefinekeysmenu.cpp:46 src/menu/redefinekeysmenu.cpp:53
+#: src/menu/redefinekeysmenu.cpp:46
+#: src/menu/redefinekeysmenu.cpp:53
 msgid "Down:"
 msgstr "Runter:"
 
-#: src/gamestates/mainmenustate.cpp:67 src/menu/mainmenu.cpp:65
+#: src/gamestates/mainmenustate.cpp:67
+#: src/menu/mainmenu.cpp:65
 #: src/menu/redefinekeysmenu.cpp:58
 msgid "Exit"
 msgstr "Beenden"
@@ -57,7 +59,8 @@ msgstr "Beenden"
 msgid "Half Length :"
 msgstr "Halbzeit :"
 
-#: src/menu/redefinekeysmenu.cpp:47 src/menu/redefinekeysmenu.cpp:54
+#: src/menu/redefinekeysmenu.cpp:47
+#: src/menu/redefinekeysmenu.cpp:54
 msgid "Left:"
 msgstr "Links:"
 
@@ -77,11 +80,13 @@ msgstr "Lade Mannschaft 1"
 msgid "Loading Team 2"
 msgstr "Lade Mannschaft 2"
 
-#: src/menu/redefinekeysmenu.cpp:49 src/menu/redefinekeysmenu.cpp:56
+#: src/menu/redefinekeysmenu.cpp:49
+#: src/menu/redefinekeysmenu.cpp:56
 msgid "Pass:"
 msgstr "Passen:"
 
-#: src/gamestates/mainmenustate.cpp:70 src/menu/mainmenu.cpp:49
+#: src/gamestates/mainmenustate.cpp:70
+#: src/menu/mainmenu.cpp:49
 msgid "Play Game!"
 msgstr "Spiel starten"
 
@@ -105,16 +110,19 @@ msgstr "Mensch gegen Mensch"
 msgid "Players :"
 msgstr "Spieler :"
 
-#: src/gamestates/mainmenustate.cpp:72 src/gamestates/redefinekeysstate.cpp:76
+#: src/gamestates/mainmenustate.cpp:72
+#: src/gamestates/redefinekeysstate.cpp:76
 #: src/menu/mainmenu.cpp:64
 msgid "Redefine Keys"
 msgstr "Tastenbelegung"
 
-#: src/menu/redefinekeysmenu.cpp:48 src/menu/redefinekeysmenu.cpp:55
+#: src/menu/redefinekeysmenu.cpp:48
+#: src/menu/redefinekeysmenu.cpp:55
 msgid "Right:"
 msgstr "Rechts:"
 
-#: src/menu/redefinekeysmenu.cpp:50 src/menu/redefinekeysmenu.cpp:57
+#: src/menu/redefinekeysmenu.cpp:50
+#: src/menu/redefinekeysmenu.cpp:57
 msgid "Shoot:"
 msgstr "Schuss:"
 
@@ -122,10 +130,12 @@ msgstr "Schuss:"
 msgid "Starting Renderer"
 msgstr "Starte Renderer"
 
-#: src/menu/redefinekeysmenu.cpp:45 src/menu/redefinekeysmenu.cpp:52
+#: src/menu/redefinekeysmenu.cpp:45
+#: src/menu/redefinekeysmenu.cpp:52
 msgid "Up:"
 msgstr "Hoch:"
 
-#: src/gamestates/mainmenustate.cpp:74 src/menu/mainmenu.cpp:63
+#: src/gamestates/mainmenustate.cpp:74
+#: src/menu/mainmenu.cpp:63
 msgid "Video Settings"
 msgstr "Graphikoptionen"

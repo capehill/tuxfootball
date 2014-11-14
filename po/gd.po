@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxfootball\n"
 "Report-Msgid-Bugs-To: http://tuxfootball.sourceforge.net/\n"
-"POT-Creation-Date: 2014-04-27 19:17+0200\n"
+"POT-Creation-Date: 2014-11-14 14:32+0100\n"
 "PO-Revision-Date: 2014-04-21 23:39-0000\n"
 "Last-Translator: GunChleoc <fiosAIGforamnagaidhligDOTnet>\n"
 "Language-Team: Fòram na Gàidhlig http://www.foramnagaidhlig.net\n"
@@ -47,11 +47,13 @@ msgstr "5 mionaidean"
 msgid "Computer V Computer"
 msgstr "Coimpiutair an aghaidh coimpiutair"
 
-#: src/menu/redefinekeysmenu.cpp:46 src/menu/redefinekeysmenu.cpp:53
+#: src/menu/redefinekeysmenu.cpp:46
+#: src/menu/redefinekeysmenu.cpp:53
 msgid "Down:"
 msgstr "Sìos:"
 
-#: src/gamestates/mainmenustate.cpp:67 src/menu/mainmenu.cpp:65
+#: src/gamestates/mainmenustate.cpp:67
+#: src/menu/mainmenu.cpp:65
 #: src/menu/redefinekeysmenu.cpp:58
 msgid "Exit"
 msgstr "Fàg"
@@ -60,7 +62,8 @@ msgstr "Fàg"
 msgid "Half Length :"
 msgstr "Leth-ùine :"
 
-#: src/menu/redefinekeysmenu.cpp:47 src/menu/redefinekeysmenu.cpp:54
+#: src/menu/redefinekeysmenu.cpp:47
+#: src/menu/redefinekeysmenu.cpp:54
 msgid "Left:"
 msgstr "Gu clì:"
 
@@ -80,11 +83,13 @@ msgstr "A' luchdadh sgioba 1"
 msgid "Loading Team 2"
 msgstr "A' luchdadh sgioba 2"
 
-#: src/menu/redefinekeysmenu.cpp:49 src/menu/redefinekeysmenu.cpp:56
+#: src/menu/redefinekeysmenu.cpp:49
+#: src/menu/redefinekeysmenu.cpp:56
 msgid "Pass:"
 msgstr "Pas:"
 
-#: src/gamestates/mainmenustate.cpp:70 src/menu/mainmenu.cpp:49
+#: src/gamestates/mainmenustate.cpp:70
+#: src/menu/mainmenu.cpp:49
 msgid "Play Game!"
 msgstr "Tòisich air geama"
 
@@ -108,16 +113,19 @@ msgstr "Duine an aghaidh daoine"
 msgid "Players :"
 msgstr "Cluicheadairean :"
 
-#: src/gamestates/mainmenustate.cpp:72 src/gamestates/redefinekeysstate.cpp:76
+#: src/gamestates/mainmenustate.cpp:72
+#: src/gamestates/redefinekeysstate.cpp:76
 #: src/menu/mainmenu.cpp:64
 msgid "Redefine Keys"
 msgstr "Roghainnean a' mheur-chlàir"
 
-#: src/menu/redefinekeysmenu.cpp:48 src/menu/redefinekeysmenu.cpp:55
+#: src/menu/redefinekeysmenu.cpp:48
+#: src/menu/redefinekeysmenu.cpp:55
 msgid "Right:"
 msgstr "Gu deas:"
 
-#: src/menu/redefinekeysmenu.cpp:50 src/menu/redefinekeysmenu.cpp:57
+#: src/menu/redefinekeysmenu.cpp:50
+#: src/menu/redefinekeysmenu.cpp:57
 msgid "Shoot:"
 msgstr "Breab:"
 
@@ -125,10 +133,12 @@ msgstr "Breab:"
 msgid "Starting Renderer"
 msgstr "A' tòiseachadh an reandaraiche"
 
-#: src/menu/redefinekeysmenu.cpp:45 src/menu/redefinekeysmenu.cpp:52
+#: src/menu/redefinekeysmenu.cpp:45
+#: src/menu/redefinekeysmenu.cpp:52
 msgid "Up:"
 msgstr "Suas:"
 
-#: src/gamestates/mainmenustate.cpp:74 src/menu/mainmenu.cpp:63
+#: src/gamestates/mainmenustate.cpp:74
+#: src/menu/mainmenu.cpp:63
 msgid "Video Settings"
 msgstr "Roghainnean na grafaigeachd"
